@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "MANTAINANER")
+@Table(name = "MANTAINER")
 public class Mantainer extends BaseEntity {
 
 	@Id
