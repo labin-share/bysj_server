@@ -9,12 +9,15 @@
 		<class>entity.User</class>
 		<class>entity.Test</class>
 		<class>entity.BaseEntity</class>
-		<class>entity.Sheet</class>
+		<class>entity.Chargeback</class>
 		<class>entity.Contaction</class>
-		<class>entity.Mantainaner</class>
-		<class>entity.MantainType</class>
 		<class>entity.Customer</class>
-		
+		<class>entity.CustomerCollection</class>
+		<class>entity.Mantainer</class>
+		<class>entity.MantainType</class>
+		<class>entity.Sheet</class>
+		<class>entity.SheetProgress</class>
+
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

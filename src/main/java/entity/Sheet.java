@@ -21,10 +21,15 @@ public class Sheet extends BaseEntity {
 	private int customerId;
 	@Column(name = "MTNER_ID", length = 3, nullable = true)
 	private int mtnerId;
-	@OneToOne(optional = false)
-	@JoinColumn(name = "CONTACT_ID", unique = true, nullable = false, updatable = false)
-	private Contaction contaction;
-	@Column(name = "EXPECTIVE_TIME",nullable = false)
+	// @OneToOne(optional = false)
+	// @JoinColumn(name = "CONTACT_ID", unique = true, nullable = false,
+	// updatable = false)
+	// private Contaction contaction;
+	@Column(name = "ADDRESS", nullable = false)
+	private String address;
+	@Column(name = "PHONE", nullable = false)
+	private String phone;
+	@Column(name = "EXPECTIVE_TIME", nullable = false)
 	private String expectiveTime;
 	@Column(name = "STATE")
 	private String state;
@@ -67,12 +72,20 @@ public class Sheet extends BaseEntity {
 		this.mtnerId = mtnerId;
 	}
 
-	public Contaction getContaction() {
-		return contaction;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setContaction(Contaction contaction) {
-		this.contaction = contaction;
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public String getExpectiveTime() {

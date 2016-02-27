@@ -10,18 +10,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "MATAIN_TYPE")
-public class MantainType extends BaseEntity{
-	
+@Table(name = "SHEET_PROGRESS")
+public class SheetProgress extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ID", length = 4)
 	private int id;
 	@ManyToOne
-	@JoinColumn(name = "MTN_ID", referencedColumnName = "ID",nullable = false)
-	private Mantainer mtnId;
-	@Column(name = "TAG", nullable = false)
-	private String tag;
+	@JoinColumn(name = "SHEET_ID", nullable = false)
+	private Sheet sheetId;
+	@Column(name = "CONTENT", nullable = false)
+	private String content;
 
 	public int getId() {
 		return id;
@@ -31,20 +30,20 @@ public class MantainType extends BaseEntity{
 		this.id = id;
 	}
 
-	public Mantainer getMtnId() {
-		return mtnId;
+	public Sheet getSheetId() {
+		return sheetId;
 	}
 
-	public void setMtnId(Mantainer mtnId) {
-		this.mtnId = mtnId;
+	public void setSheetId(Sheet sheetId) {
+		this.sheetId = sheetId;
 	}
 
-	public String getTag() {
-		return tag;
+	public String getContent() {
+		return content;
 	}
 
-	public void setTag(String tag) {
-		this.tag = tag;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 }
