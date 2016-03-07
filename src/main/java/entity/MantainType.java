@@ -1,5 +1,6 @@
 package entity;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,16 +10,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name = "MATAIN_TYPE")
-public class MantainType extends BaseEntity{
+@Table(name = "MANTAIN_TYPE")
+public class MantainType extends BaseEntity {
+	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ID", length = 4)
 	private int id;
 	@ManyToOne
-	@JoinColumn(name = "MTN_ID", referencedColumnName = "ID",nullable = false)
+	@JoinColumn(name = "MTN_ID", referencedColumnName = "MTN_ID")
+	@JsonIgnore
+//	@Column(name = "MTN_ID", nullable = false)
 	private Mantainer mtnId;
 	@Column(name = "TAG", nullable = false)
 	private String tag;

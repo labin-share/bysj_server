@@ -27,7 +27,7 @@ public class LoginService {
 			resp.setMsg(LoginConstant.VERRIFY_ERRO);
 			return resp;
 		}else{
-			resp.setData(userList.get(0).getType());
+			resp.setData(userList.get(0).getName());
 		}
 		return resp;
 	}

@@ -8,7 +8,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.boot.autoconfigure.web.ServerProperties.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -120,6 +124,12 @@ public class TestJPA {
 	public @ResponseBody String testSheet(){
 		SheetDao dao = new SheetDao();
 		List<Sheet> sheet = dao.findAll();
+		return "";
+	}
+	
+	@RequestMapping("getSession")
+	public @ResponseBody String getSession(HttpServletRequest request, HttpServletResponse response){
+		HttpSession session = request.getSession(false);
 		return "";
 	}
 

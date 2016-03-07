@@ -13,7 +13,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import common.CriteriaBuilderPersonal;
-import entity.User;
 
 public class BaseDao<T> {
 	private EntityManagerFactory emfactory;
@@ -58,10 +57,10 @@ public class BaseDao<T> {
 		return root;
 	}
 
-	public List<User> execute(CriteriaBuilderPersonal criteriaBuilderPersonal) {
+	public List<T> execute(CriteriaBuilderPersonal criteriaBuilderPersonal) {
 		criteriaQuery.where(criteriaBuilderPersonal.getPredicates());
 		TypedQuery typedQuery = entitymanager.createQuery(criteriaQuery);
-		return typedQuery.getResultList();
+		return (List<T>)typedQuery.getResultList();
 	}
 
 	public void persist(T t) {

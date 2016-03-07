@@ -6,4 +6,5 @@ public class LoginConstant {
 	public static String PHONE = "phone";
 	public static String TYPE = "type";
 	public static String VERRIFY_ERRO = "Verrify Erro";
+	public static String USENAME = "userName";
 }
