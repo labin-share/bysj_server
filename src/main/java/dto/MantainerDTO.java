@@ -13,7 +13,6 @@ public class MantainerDTO implements Serializable{
 	private int id;
 	private String phone;
 	private String name;
-	private String psw;
 	private String headPortrait;
 	private String address;
 	private String signature;
@@ -43,14 +42,6 @@ public class MantainerDTO implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getPsw() {
-		return psw;
-	}
-
-	public void setPsw(String psw) {
-		this.psw = psw;
 	}
 
 	public String getHeadPortrait() {

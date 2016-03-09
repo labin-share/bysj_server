@@ -14,7 +14,6 @@ public class MantainerDTOMapper {
 		dto.setMantainTypeList(entity.getMantainTypeList());
 		dto.setName(entity.getName());
 		dto.setPhone(entity.getPhone());
-		dto.setPsw(entity.getPsw());
 		dto.setSignature(entity.getSignature());
 		dto.setCredit(entity.getCredit());
 		return dto;
@@ -29,7 +28,6 @@ public class MantainerDTOMapper {
 		entity.setMantainTypeList(dto.getMantainTypeList());
 		entity.setName(dto.getName());
 		entity.setPhone(dto.getPhone());
-		entity.setPsw(dto.getPsw());
 		entity.setSignature(dto.getSignature());
 		return entity;
 	}
