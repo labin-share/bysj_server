@@ -1,6 +1,7 @@
 package dtoMapper;
 
 import dto.MantainerDTO;
+import dto.RegisterDTO;
 import entity.Mantainer;
 
 public class MantainerDTOMapper {
@@ -31,6 +32,14 @@ public class MantainerDTOMapper {
 		entity.setPsw(dto.getPsw());
 		entity.setSignature(dto.getSignature());
 		return entity;
+	}
+
+	public static Mantainer toEntityFromRegisterDTO(RegisterDTO dto) {
+		Mantainer mantainer = new Mantainer();
+		mantainer.setName(dto.getPhone());
+		mantainer.setPhone(dto.getPhone());
+		mantainer.setPsw(dto.getPsw());
+		return mantainer;
 	}
 
 }
