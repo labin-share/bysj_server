@@ -36,5 +36,9 @@ public class MantainerService {
 		}
 		return resp;
 	}
+
+	public List<Mantainer> findAll() {
+		return this.mantainerDao.findAll();
+	}
 	
 }
