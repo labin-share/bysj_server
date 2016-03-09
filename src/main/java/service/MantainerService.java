@@ -1,10 +1,13 @@
 package service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import common.ResponseInfo;
@@ -61,6 +64,21 @@ public class MantainerService {
 			resp.setStatus(false);
 			resp.setMsg(ComConstant.SYS_ERRO);
 			e.printStackTrace();
+		}
+		return this.mapper.writeValueAsString(resp);
+	}
+
+	public String modifyPersonalInfo(String mantainerDtoStr) throws Exception {
+		ResponseInfo resp = new ResponseInfo();
+		MantainerDTO mantaierDTO = this.mapper.readValue(mantainerDtoStr,
+				MantainerDTO.class);
+		Mantainer mantainer = MantainerDTOMapper.toEntity(new Mantainer(),
+				mantaierDTO);
+		try {
+			this.mantainerDao.persist(mantainer);
+		} catch (Exception e) {
+			resp.setStatus(false);
+			resp.setMsg(ComConstant.SYS_ERRO);
 		}
 		return this.mapper.writeValueAsString(resp);
 	}
