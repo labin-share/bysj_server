@@ -12,12 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import common.BeanAssistant;
-import common.ResponseAssistant;
 import common.ResponseInfo;
-import service.LoginService;
+import service.CustomerService;
 import service.MantainerService;
 import constant.LoginConstant;
-import dao.LoginDao;
 import dto.LoginDTO;
 
 @Controller
@@ -26,6 +24,8 @@ public class LoginController {
 	private ObjectMapper mapper = new ObjectMapper();
 	private MantainerService mantainerService = BeanAssistant
 			.getBean(MantainerService.class);
+	private CustomerService customerService = BeanAssistant
+			.getBean(CustomerService.class);
 
 	@RequestMapping("/MTNLogin")
 	public @ResponseBody String mtnLogin(@RequestParam("dtoStr") String dtoStr,
@@ -37,28 +37,30 @@ public class LoginController {
 		if (resp.getStatus()) {
 			session.setAttribute(LoginConstant.USER_NAME, resp.getData());
 		}
-		return ResponseAssistant.buildJackson(resp);
+		return this.mapper.writeValueAsString(resp);
 	}
-	
-//	@RequestMapping("/MTNLogin")
-//	public @ResponseBody String customerLogin(@RequestParam("dtoStr") String dtoStr,
-//			HttpServletRequest request, HttpServletResponse response)
-//			throws Exception {
-//		LoginDTO dto = this.mapper.readValue(dtoStr, LoginDTO.class);
-//		ResponseInfo resp = this.mantainerService.login(dto);
-//		HttpSession session = request.getSession();
-//		if (resp.getStatus()) {
-//			session.setAttribute(LoginConstant.USER_NAME, resp.getData());
-//		}
-//		return ResponseAssistant.buildJackson(resp);
-//	}
+
+	// not test
+	@RequestMapping("/customerLogin")
+	public @ResponseBody String customerLogin(
+			@RequestParam("dtoStr") String dtoStr, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		LoginDTO dto = this.mapper.readValue(dtoStr, LoginDTO.class);
+		ResponseInfo resp = this.customerService.login(dto);
+		HttpSession session = request.getSession();
+		if (resp.getStatus()) {
+			session.setAttribute(LoginConstant.USER_NAME, resp.getData());
+		}
+		return this.mapper.writeValueAsString(resp);
+	}
 
 	@RequestMapping("/forgotPsw")
-	public @ResponseBody String forgotPsw(HttpServletRequest reuqest, HttpServletResponse response) {
+	public @ResponseBody String forgotPsw(HttpServletRequest reuqest,
+			HttpServletResponse response) {
 		return "";
 	}
-	
-	//test
+
+	// test
 	@RequestMapping("/showErr")
 	public @ResponseBody String showErr(HttpServletRequest reuqest) {
 		return "pls login first";

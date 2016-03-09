@@ -4,28 +4,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import service.RegisterService;
+import service.CustomerService;
+import service.MantainerService;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import common.BeanAssistant;
-import common.ResponseAssistant;
-import common.ResponseInfo;
-import dto.RegisterDTO;
 
 @Controller
 @RequestMapping("register")
 public class RegisterController {
 	ObjectMapper mapper = new ObjectMapper();
-//	RegisterService registerService = new RegisterService();
-	RegisterService registerService=BeanAssistant.getBean(RegisterService.class);
+	private MantainerService mantainerService = BeanAssistant
+			.getBean(MantainerService.class);
+	private CustomerService customerService = BeanAssistant
+			.getBean(CustomerService.class);
 
-	@RequestMapping("registerNew")
-	public @ResponseBody String register(String dtoStr) throws Exception {
-		RegisterDTO registerDto = this.mapper.readValue(dtoStr,
-				RegisterDTO.class);
-		ResponseInfo resp = this.registerService.register(registerDto);
-		return ResponseAssistant.buildJackson(resp);
+	// not test
+	@RequestMapping("registerMTN")
+	public @ResponseBody String registerMTN(String dtoStr) throws Exception {
+		return this.mantainerService.register(dtoStr);
+	}
+
+	// not test
+	@RequestMapping("/registerCustomer")
+	public @ResponseBody String registerCustomer(String dtoStr) throws Exception {
+		return this.customerService.register(dtoStr);
 	}
 }
