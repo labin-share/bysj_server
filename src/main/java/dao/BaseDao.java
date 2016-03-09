@@ -65,7 +65,8 @@ public class BaseDao<T> {
 
 	public void persist(T t) {
 		entitymanager.getTransaction().begin();
-		entitymanager.persist(t);
+//		entitymanager.persist(t);
+		entitymanager.merge(t);
 		entitymanager.getTransaction().commit();
 		// entitymanager.close();
 	}

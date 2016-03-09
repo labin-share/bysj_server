@@ -24,4 +24,22 @@ public class SheetController {
 		return this.sheetService.getSheetsEval(id);
 	}
 	
+	//not test
+	@RequestMapping("/changeState")
+	public @ResponseBody String changeState(int id,int state) throws Exception{
+		return this.sheetService.changeState(id,state);
+	}
+	
+	//not test
+	@RequestMapping("/getSheetProgress")
+	public @ResponseBody String getSheetProgress(String id) throws Exception{
+		return this.sheetService.getSheetProgress(id);
+	}
+	
+	//not test
+	@RequestMapping("/chargeback")
+	public @ResponseBody String chargeback(String chargebackDtoStr) throws Exception{
+		return this.sheetService.chargeback(chargebackDtoStr);
+	}
+	
 }

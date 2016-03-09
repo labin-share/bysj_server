@@ -17,11 +17,11 @@ public class Chargeback extends BaseEntity {
 	@Column(name = "SHEET_ID")
 	private int sheetId;
 	@Column(name = "REASON", nullable = false)
-	private String reason;
+	private int reason;
 	@Column(name = "CONTENT")
 	private String content;
 	@Column(name = "STATE")
-	private String state;
+	private int state;
 
 	public int getId() {
 		return id;
@@ -39,11 +39,11 @@ public class Chargeback extends BaseEntity {
 		this.sheetId = sheetId;
 	}
 
-	public String getReason() {
+	public int getReason() {
 		return reason;
 	}
 
-	public void setReason(String reason) {
+	public void setReason(int reason) {
 		this.reason = reason;
 	}
 
@@ -55,11 +55,11 @@ public class Chargeback extends BaseEntity {
 		this.content = content;
 	}
 
-	public String getState() {
+	public int getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 

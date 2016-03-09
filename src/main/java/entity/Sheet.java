@@ -30,7 +30,7 @@ public class Sheet extends BaseEntity {
 	@Column(name = "EXPECTIVE_TIME", nullable = false)
 	private String expectiveTime;
 	@Column(name = "STATE")
-	private String state;
+	private int state;
 	@Column(name = "TYPE")
 	private String type;
 	@Column(name = "CONTENT")
@@ -100,11 +100,11 @@ public class Sheet extends BaseEntity {
 		this.expectiveTime = expectiveTime;
 	}
 
-	public String getState() {
+	public int getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 
