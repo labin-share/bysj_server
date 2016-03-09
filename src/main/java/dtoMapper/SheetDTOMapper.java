@@ -1,6 +1,7 @@
 package dtoMapper;
 
 import dto.SheetCreateDTO;
+import dto.SheetEvalDTO;
 import entity.Sheet;
 
 public class SheetDTOMapper {
@@ -14,6 +15,18 @@ public class SheetDTOMapper {
 		sheet.setCustomerId(dto.getCustomerId());
 		sheet.setType(dto.getType());
 		return sheet;
+	}
+
+	static public SheetEvalDTO toSheetsEvalDTO(Sheet entity) {
+		SheetEvalDTO dto = new SheetEvalDTO();
+		dto.setEvaluation(entity.getEvaluation());
+		dto.setType(entity.getType());
+		dto.setAchive(entity.getAchive());
+		dto.setAttitude(entity.getAttitude());
+		dto.setEva(entity.isEva());
+		dto.setEvaTime(entity.getEvaTime());
+		dto.setSpeed(entity.getSpeed());
+		return dto;
 	}
 
 }

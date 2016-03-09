@@ -41,10 +41,16 @@ public class Sheet extends BaseEntity {
 	private int Attitude;
 	@Column(name = "MTN_SPEED")
 	private int speed;
-	@Column(name = "RESONABLE_PRICE")
-	private int resonablePrice;
+	// @Column(name = "RESONABLE_PRICE")
+	// private int resonablePrice;
 	@Column(name = "END_TIME")
 	private String endTime;
+	@Column(name = "EVA_TIME")
+	private String evaTime;
+	@Column(name = "IS_EVA")
+	private boolean isEva;
+	@Column(name = "ACHIEVE")
+	private int achive;
 
 	public int getId() {
 		return id;
@@ -142,13 +148,13 @@ public class Sheet extends BaseEntity {
 		this.speed = speed;
 	}
 
-	public int getResonablePrice() {
-		return resonablePrice;
-	}
-
-	public void setResonablePrice(int resonablePrice) {
-		this.resonablePrice = resonablePrice;
-	}
+	// public int getResonablePrice() {
+	// return resonablePrice;
+	// }
+	//
+	// public void setResonablePrice(int resonablePrice) {
+	// this.resonablePrice = resonablePrice;
+	// }
 
 	public String getEndTime() {
 		return endTime;
@@ -157,5 +163,31 @@ public class Sheet extends BaseEntity {
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
+
+	public String getEvaTime() {
+		return evaTime;
+	}
+
+	public void setEvaTime(String evaTime) {
+		this.evaTime = evaTime;
+	}
+
+	public boolean isEva() {
+		return isEva;
+	}
+
+	public void setEva(boolean isEva) {
+		this.isEva = isEva;
+	}
+
+	public int getAchive() {
+		return achive;
+	}
+
+	public void setAchive(int achive) {
+		this.achive = achive;
+	}
+	
+	
 
 }
