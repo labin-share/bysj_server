@@ -69,6 +69,12 @@ public class BaseDao<T> {
 		entitymanager.getTransaction().commit();
 		// entitymanager.close();
 	}
+	
+	public void persistAll(List<T> tList){
+		for(T t : tList){
+			this.persist(t);
+		}
+	}
 
 	public void update(T t) throws Exception {
 		entitymanager.getTransaction().begin();
