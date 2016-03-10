@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
@@ -12,12 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.boot.autoconfigure.web.ServerProperties.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import service.TestJpaService;
 
@@ -25,6 +28,8 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import common.ImgAssistant;
+import constant.ImgConstant;
 import dao.SheetDao;
 import dto.RegisterDTO;
 import entity.Sheet;
@@ -131,6 +136,15 @@ public class TestJPA {
 	public @ResponseBody String getSession(HttpServletRequest request, HttpServletResponse response){
 		HttpSession session = request.getSession(false);
 		return "";
+	}
+	
+	//not test
+	@RequestMapping("getImgList")
+	public @ResponseBody String getImgList(
+			@RequestParam("imgfile") List<MultipartFile> fileList,
+			HttpServletRequest request) throws IOException {
+		ImgAssistant.saveImgs(fileList, ImgConstant.ROOT+ImgConstant.TYPE_CHARGEBACK+12);
+		return request.getParameter("text");
 	}
 
 }

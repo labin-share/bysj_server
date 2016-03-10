@@ -13,7 +13,7 @@ public class MantainerDTO implements Serializable{
 	private int id;
 	private String phone;
 	private String name;
-	private String headPortrait;
+//	private String headPortrait;
 	private String address;
 	private String signature;
 	private int evaNum;
@@ -44,13 +44,13 @@ public class MantainerDTO implements Serializable{
 		this.name = name;
 	}
 
-	public String getHeadPortrait() {
-		return headPortrait;
-	}
-
-	public void setHeadPortrait(String headPortrait) {
-		this.headPortrait = headPortrait;
-	}
+//	public String getHeadPortrait() {
+//		return headPortrait;
+//	}
+//
+//	public void setHeadPortrait(String headPortrait) {
+//		this.headPortrait = headPortrait;
+//	}
 
 	public String getAddress() {
 		return address;

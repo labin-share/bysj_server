@@ -1,17 +1,21 @@
 package service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import common.ImgAssistant;
 import common.ResponseInfo;
 import constant.ComConstant;
+import constant.ImgConstant;
 import constant.LoginConstant;
 import constant.RegisterConstant;
 import dao.MantainerDAO;
@@ -45,11 +49,11 @@ public class MantainerService {
 		}
 		return resp;
 	}
-	
-        public List<Mantainer> findAll() {
+
+	public List<Mantainer> findAll() {
 		return this.mantainerDao.findAll();
 	}
-	
+
 	public String register(String registerDTOStr) throws Exception {
 		ResponseInfo resp = new ResponseInfo();
 		RegisterDTO registerDTO = this.mapper.readValue(registerDTOStr,
@@ -72,12 +76,17 @@ public class MantainerService {
 		return this.mapper.writeValueAsString(resp);
 	}
 
-	public String modifyPersonalInfo(String mantainerDtoStr) throws Exception {
+	public String modifyPersonalInfo(String mantainerDtoStr, MultipartFile img) throws Exception {
 		ResponseInfo resp = new ResponseInfo();
 		MantainerDTO mantaierDTO = this.mapper.readValue(mantainerDtoStr,
 				MantainerDTO.class);
 		Mantainer mantainer = MantainerDTOMapper.toEntity(new Mantainer(),
 				mantaierDTO);
+		String path = ImgConstant.ROOT+ImgConstant.TYPE_HEAD+mantaierDTO.getId();
+		List<MultipartFile> imgList = new ArrayList<MultipartFile>();
+		imgList.add(img);
+		ImgAssistant.saveImgs(imgList, path);
+		ImgAssistant.deleteImg(this.mantainerDao.findById(mantaierDTO.getId()).getHeadPortrait());
 		try {
 			this.mantainerDao.persist(mantainer);
 		} catch (Exception e) {
