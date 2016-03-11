@@ -7,7 +7,7 @@
 	
 	类型：头像，订单，评价，退单
 	
-*/
+ */
 package common;
 
 import java.io.File;
@@ -39,11 +39,29 @@ public class ImgAssistant {
 		return fullPath;
 	}
 
-	public static void deleteImg(String path) {
+	public static void deleteOldImg(String path) {
 		File file = new File(path);
 		if (file.isFile() && file.exists()) {
 			file.delete();
 		}
+	}
+
+	public static String updateImg(MultipartFile imgFile, String catalog,
+			String oldPath) throws IOException {
+		List<MultipartFile> imgFileList = new ArrayList<MultipartFile>();
+		imgFileList.add(imgFile);
+		List<String> newPath = saveImgs(imgFileList, catalog);
+		deleteOldImg(oldPath);
+		return newPath.get(0);
+	}
+
+	public static List<String> updateImgs(List<MultipartFile> imgFiles,
+			String catalog, String oldPath) throws IOException {
+		List<String> pathList = new ArrayList<String>();
+		for (MultipartFile imgFile : imgFiles) {
+			pathList.add(updateImg(imgFile, catalog, oldPath));
+		}
+		return pathList;
 	}
 
 }

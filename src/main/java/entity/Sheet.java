@@ -1,10 +1,16 @@
 package entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -51,6 +57,9 @@ public class Sheet extends BaseEntity {
 	private boolean isEva;
 	@Column(name = "ACHIEVE")
 	private int achive;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "sheetId")
+	@JoinColumn(name = "ID", referencedColumnName = "SHEET_ID")
+	private List<SheetStateFollow> sheetStateList;
 
 	public int getId() {
 		return id;
@@ -187,7 +196,13 @@ public class Sheet extends BaseEntity {
 	public void setAchive(int achive) {
 		this.achive = achive;
 	}
-	
-	
+
+	public List<SheetStateFollow> getSheetStateList() {
+		return sheetStateList;
+	}
+
+	public void setSheetStateList(List<SheetStateFollow> sheetStateList) {
+		this.sheetStateList = sheetStateList;
+	}
 
 }
