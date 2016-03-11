@@ -21,5 +21,12 @@ public class SheetDao extends BaseDao<Sheet>{
 		builder.and(SheetConstant.MTN_ID, id);
 		return super.execute(builder);
 	}
+	
+	public List<Sheet> findByStateEva(String state, String isEnableEva){
+		CriteriaBuilderPersonal builder = super.getCriteriaBuilderPersonal();
+		builder.and(SheetConstant.STATE, state);
+		builder.and(SheetConstant.IS_ENABLE_EVA, isEnableEva);
+		return super.execute(builder);
+	}
 
 }

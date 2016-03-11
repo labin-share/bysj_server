@@ -23,7 +23,7 @@ public class SheetDTOMapper {
 		dto.setType(entity.getType());
 		dto.setAchive(entity.getAchive());
 		dto.setAttitude(entity.getAttitude());
-		dto.setEva(entity.isEva());
+		dto.setEva(entity.isEnableEva());
 		dto.setEvaTime(entity.getEvaTime());
 		dto.setSpeed(entity.getSpeed());
 		return dto;

@@ -53,8 +53,8 @@ public class Sheet extends BaseEntity {
 	private String endTime;
 	@Column(name = "EVA_TIME")
 	private String evaTime;
-	@Column(name = "IS_EVA")
-	private boolean isEva;
+	@Column(name = "IS_ENABLE_EVA")
+	private boolean isEnableEva;
 	@Column(name = "ACHIEVE")
 	private int achive;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "sheetId")
@@ -181,12 +181,12 @@ public class Sheet extends BaseEntity {
 		this.evaTime = evaTime;
 	}
 
-	public boolean isEva() {
-		return isEva;
+	public boolean isEnableEva() {
+		return isEnableEva;
 	}
 
-	public void setEva(boolean isEva) {
-		this.isEva = isEva;
+	public void setEnableEva(boolean isEnableEva) {
+		this.isEnableEva = isEnableEva;
 	}
 
 	public int getAchive() {
