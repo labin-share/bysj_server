@@ -35,7 +35,7 @@ public class Mantainer extends BaseEntity {
 	@Column(name = "SIGNATURE", nullable = true)
 	private String signature;
 	@Column(name = "CREDIT", nullable = true)
-	private String credit;
+	private int credit = 5;
 	@Column(name = "EVA_NUM", nullable = true)
 	private int evaNum;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "mtnId")
@@ -99,11 +99,11 @@ public class Mantainer extends BaseEntity {
 		this.signature = signature;
 	}
 
-	public String getCredit() {
+	public int getCredit() {
 		return credit;
 	}
 
-	public void setCredit(String credit) {
+	public void setCredit(int credit) {
 		this.credit = credit;
 	}
 

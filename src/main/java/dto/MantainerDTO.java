@@ -17,7 +17,7 @@ public class MantainerDTO implements Serializable{
 	private String address;
 	private String signature;
 	private int evaNum;
-	private String credit;
+	private int credit;
 	private List<MantainType> mantainTypeList;
 
 	public int getId() {
@@ -84,11 +84,11 @@ public class MantainerDTO implements Serializable{
 		this.mantainTypeList = mantainTypeList;
 	}
 
-	public String getCredit() {
+	public int getCredit() {
 		return credit;
 	}
 
-	public void setCredit(String credit) {
+	public void setCredit(int credit) {
 		this.credit = credit;
 	}
 
