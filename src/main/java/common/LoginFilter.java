@@ -17,10 +17,16 @@ import constant.LoginConstant;
 public class LoginFilter implements Filter{
 	
 	private static String REDIRECT_URL = "redirectUrl";
+	private static String IGNORE_Login_URL = "ignoreLoginUrl";
+	private static String IGNORE_REGISTER_URL = "ignoreRegisterUrl";
 	private String redirectUrl;
+	private String ignoreLoginUrl;
+	private String ignoreRegisterUrl;
 
 	public void init(FilterConfig filterConfig) throws ServletException {
-		redirectUrl = filterConfig.getInitParameter(REDIRECT_URL);
+		ignoreLoginUrl = filterConfig.getInitParameter(IGNORE_Login_URL);
+		ignoreRegisterUrl = filterConfig.getInitParameter(IGNORE_REGISTER_URL);
+		redirectUrl = filterConfig.getInitParameter(redirectUrl);
 	}
 
 	public void doFilter(ServletRequest request, ServletResponse response,
@@ -28,11 +34,14 @@ public class LoginFilter implements Filter{
 		HttpServletRequest  httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse)response; 
 		HttpSession session = httpServletRequest.getSession();
-		if(httpServletRequest.getRequestURI().indexOf(redirectUrl)>-1){
+		String host = request.getRemoteAddr();
+		if(httpServletRequest.getRequestURI().indexOf(ignoreRegisterUrl)>-1 || httpServletRequest.getRequestURI().indexOf(ignoreLoginUrl)>-1){
 			chain.doFilter(request, response);
+			return ;
 		}
 		if(session.getAttribute(LoginConstant.USER_NAME)==null){
-			httpServletResponse.sendRedirect(redirectUrl);
+			httpServletResponse.sendRedirect("/login/showErr");
+			return ;
 		}else{
 			chain.doFilter(request, response);
 		}

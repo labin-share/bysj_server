@@ -38,7 +38,15 @@
 	<filter-class>common.LoginFilter</filter-class>
 	<init-param>
 	<param-name>redirectUrl</param-name>
-	<param-value>/login/MTNLogin</param-value>
+	<param-value></param-value>
+	</init-param>
+	<init-param>
+	<param-name>ignoreLoginUrl</param-name>
+	<param-value>/login</param-value>
+	</init-param>
+	<init-param>
+	<param-name>ignoreRegisterUrl</param-name>
+	<param-value>/register</param-value>
 	</init-param>
 	</filter>
 	<filter-mapping>
