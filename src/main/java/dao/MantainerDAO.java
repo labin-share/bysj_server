@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import common.CriteriaBuilderPersonal;
 import constant.LoginConstant;
+import constant.MantainerConstant;
 import constant.RegisterConstant;
 import dto.LoginDTO;
 import dto.MantainerDTO;
@@ -30,6 +31,13 @@ public class MantainerDAO extends BaseDao<Mantainer>{
 	public List<Mantainer> findByPhone(String phone) throws Exception {
 		CriteriaBuilderPersonal builder = super.getCriteriaBuilderPersonal();
 		builder.and(RegisterConstant.PHONE, phone);
+		List<Mantainer> mantainerList = super.execute(builder);
+		return mantainerList;
+	}
+
+	public List<Mantainer> findByName(String name) {
+		CriteriaBuilderPersonal builder = super.getCriteriaBuilderPersonal();
+		builder.and(MantainerConstant.NAME, name);
 		List<Mantainer> mantainerList = super.execute(builder);
 		return mantainerList;
 	}

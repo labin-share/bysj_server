@@ -8,4 +8,5 @@ public class RegisterConstant {
 	public static String PHONE = "phone";
 	public static String REGISTER_SUCCESS = "true";
 	public static String DUPLICATE_REGISTER = "Duplicate Register";
+	public static String NAME = "name";
 }

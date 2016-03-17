@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.IOException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,11 +30,22 @@ public class MantainerController {
 		return this.mapper.writeValueAsString(mantainerDto);
 	}
 
-	//not test
-	@RequestMapping("modifyPersonalInfo")
-	public @ResponseBody String modifyPersonalInfo(String mantainerDtoStr, @RequestParam("headPortrait") MultipartFile img)
+//	//not test
+//	@RequestMapping("modifyPersonalInfo")
+//	public @ResponseBody String modifyPersonalInfo(String mantainerDtoStr, @RequestParam("headPortrait") MultipartFile img)
+//			throws Exception {
+//		return this.mantainerService.modifyPersonalInfo(mantainerDtoStr, img);
+//	}
+	
+	@RequestMapping("modifypersonalInfo")
+	public @ResponseBody String modifyPersonalInfo(String mantainerDtoStr)
 			throws Exception {
-		return this.mantainerService.modifyPersonalInfo(mantainerDtoStr, img);
+		return this.mantainerService.modifyPersonalInfo(mantainerDtoStr);
+	}
+	
+	@RequestMapping("modifyHeadPortrait")
+	public @ResponseBody String modifyHeadPortrait(@RequestParam("id")int id, @RequestParam("headPortrait") MultipartFile img) throws IOException{
+		return this.mantainerService.modifyHeadPortrait(id,img);
 	}
 
 }

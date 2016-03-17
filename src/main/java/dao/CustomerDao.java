@@ -32,4 +32,11 @@ public class CustomerDao extends BaseDao<Customer> {
 		return customerList;
 	}
 
+	public List<Customer> findByName(String name) {
+		CriteriaBuilderPersonal builder = super.getCriteriaBuilderPersonal();
+		builder.and(RegisterConstant.NAME, name);
+		List<Customer> customerList = super.execute(builder);
+		return customerList;
+	}
+
 }
