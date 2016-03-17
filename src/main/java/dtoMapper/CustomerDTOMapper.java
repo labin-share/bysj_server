@@ -20,7 +20,7 @@ public class CustomerDTOMapper {
 		customer.setName(customerDTO.getName());
 		customer.setPhone(customerDTO.getPhone());
 		customer.setSignature(customerDTO.getSignature());
-		customer.setHeadPortrait(customerDTO.getHeadPortrait());
+//		customer.setHeadPortrait(customerDTO.getHeadPortrait());
 		return customer;
 	}
 
