@@ -8,12 +8,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import service.CustomerService;
-import service.MantainerService;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import common.BeanAssistant;
-import dto.MantainerDTO;
 
 
 @Controller
@@ -29,7 +27,7 @@ public class CustomerController {
 	}
 	
 	@RequestMapping("modifyPersonalInfo")
-	public @ResponseBody String modifyPersonalInfo(String customerDtoStr, @RequestParam("headPortrait") MultipartFile img){
-		
+	public @ResponseBody String modifyPersonalInfo(String customerDtoStr, @RequestParam("headPortrait") MultipartFile img) throws Exception{
+		return this.customerService.modifyPersonalInfo(customerDtoStr, img);
 	}
 }
