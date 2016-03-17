@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import common.BeanAssistant;
@@ -40,7 +41,6 @@ public class LoginController {
 		return this.mapper.writeValueAsString(resp);
 	}
 
-	// not test
 	@RequestMapping("/customerLogin")
 	public @ResponseBody String customerLogin(
 			@RequestParam("dtoStr") String dtoStr, HttpServletRequest request,
@@ -54,10 +54,16 @@ public class LoginController {
 		return this.mapper.writeValueAsString(resp);
 	}
 
-	@RequestMapping("/forgotPsw")
-	public @ResponseBody String forgotPsw(HttpServletRequest reuqest,
-			HttpServletResponse response) {
-		return "";
+	@RequestMapping("/changeMtnPsw")
+	public @ResponseBody String changeMtnPsw(@RequestParam("id") int id,
+			@RequestParam("psw") String psw) throws JsonProcessingException {
+		return this.mantainerService.changePsw(id, psw);
+	}
+
+	@RequestMapping("/changeCustomerPsw")
+	public @ResponseBody String changeCustomerPsw(@RequestParam("id") int id,
+			@RequestParam("psw") String psw) throws JsonProcessingException {
+		return this.customerService.changePsw(id, psw);
 	}
 
 	// test

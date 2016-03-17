@@ -74,33 +74,35 @@ public class MantainerService {
 		return this.mapper.writeValueAsString(resp);
 	}
 
-//	public String modifyPersonalInfo(String mantainerDtoStr, MultipartFile img)
-//			throws Exception {
-//		ResponseInfo resp = new ResponseInfo();
-//		MantainerDTO mantaierDTO = this.mapper.readValue(mantainerDtoStr,
-//				MantainerDTO.class);
-//		Mantainer mantainer = MantainerDTOMapper.toEntity(new Mantainer(),
-//				mantaierDTO);
-//		String catalogPath = ImgConstant.ROOT + ImgConstant.TYPE_HEAD
-//				+ mantaierDTO.getId();
-//		String oldPath = this.mantainerDao.findById(mantaierDTO.getId())
-//				.getHeadPortrait();
-//		String newPath = ImgAssistant.updateImg(img, catalogPath, oldPath);
-//		mantainer.setHeadPortrait(newPath);
-//		try {
-//			this.mantainerDao.persist(mantainer);
-//		} catch (Exception e) {
-//			resp.setStatus(false);
-//			resp.setMsg(ComConstant.SYS_ERRO);
-//		}
-//		return this.mapper.writeValueAsString(resp);
-//	}
+	// public String modifyPersonalInfo(String mantainerDtoStr, MultipartFile
+	// img)
+	// throws Exception {
+	// ResponseInfo resp = new ResponseInfo();
+	// MantainerDTO mantaierDTO = this.mapper.readValue(mantainerDtoStr,
+	// MantainerDTO.class);
+	// Mantainer mantainer = MantainerDTOMapper.toEntity(new Mantainer(),
+	// mantaierDTO);
+	// String catalogPath = ImgConstant.ROOT + ImgConstant.TYPE_HEAD
+	// + mantaierDTO.getId();
+	// String oldPath = this.mantainerDao.findById(mantaierDTO.getId())
+	// .getHeadPortrait();
+	// String newPath = ImgAssistant.updateImg(img, catalogPath, oldPath);
+	// mantainer.setHeadPortrait(newPath);
+	// try {
+	// this.mantainerDao.persist(mantainer);
+	// } catch (Exception e) {
+	// resp.setStatus(false);
+	// resp.setMsg(ComConstant.SYS_ERRO);
+	// }
+	// return this.mapper.writeValueAsString(resp);
+	// }
 
 	public String modifyPersonalInfo(String mantainerDtoStr) throws Exception {
 		ResponseInfo resp = new ResponseInfo();
 		MantainerDTO mantainerDTO = this.mapper.readValue(mantainerDtoStr,
 				MantainerDTO.class);
-		Mantainer mantainer = MantainerDTOMapper.toEntity(new Mantainer(),mantainerDTO);
+		Mantainer mantainer = MantainerDTOMapper.toEntity(new Mantainer(),
+				mantainerDTO);
 		List<Mantainer> mantainerList = this.mantainerDao.findByName(mantainer
 				.getName());
 		if (mantainerList == null && mantainerList.isEmpty()) {
@@ -117,15 +119,29 @@ public class MantainerService {
 		return this.mapper.writeValueAsString(resp);
 	}
 
-	public String modifyHeadPortrait(int id, MultipartFile img) throws JsonProcessingException {
+	public String modifyHeadPortrait(int id, MultipartFile img)
+			throws JsonProcessingException {
 		ResponseInfo resp = new ResponseInfo();
 		Mantainer mantainer = this.mantainerDao.findById(id);
 		String catalogPath = ImgConstant.ROOT + ImgConstant.TYPE_HEAD + id;
 		String oldPath = mantainer.getHeadPortrait();
-		try{
+		try {
 			String newPath = ImgAssistant.updateImg(img, catalogPath, oldPath);
 			mantainer.setHeadPortrait(newPath);
-		}catch(Exception e){
+		} catch (Exception e) {
+			resp.setStatus(false);
+			resp.setMsg(ComConstant.SYS_ERRO);
+		}
+		return this.mapper.writeValueAsString(resp);
+	}
+
+	public String changePsw(int id, String psw) throws JsonProcessingException {
+		ResponseInfo resp = new ResponseInfo();
+		Mantainer mantainer = this.mantainerDao.findById(id);
+		mantainer.setPsw(psw);
+		try {
+			this.mantainerDao.persist(mantainer);
+		} catch (Exception e) {
 			resp.setStatus(false);
 			resp.setMsg(ComConstant.SYS_ERRO);
 		}
