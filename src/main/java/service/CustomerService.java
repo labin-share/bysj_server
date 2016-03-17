@@ -17,18 +17,22 @@ import constant.CustomerConstant;
 import constant.ImgConstant;
 import constant.LoginConstant;
 import constant.RegisterConstant;
+import dao.CustomerCollectionDao;
 import dao.CustomerDao;
 import dto.CustomerDTO;
 import dto.LoginDTO;
 import dto.RegisterDTO;
 import dtoMapper.CustomerDTOMapper;
 import entity.Customer;
+import entity.CustomerCollection;
 
 @Service
 public class CustomerService {
 
 	@Autowired
 	CustomerDao customerDao;
+	@Autowired
+	CustomerCollectionDao customerCollectionDao;
 	ObjectMapper mapper = new ObjectMapper();
 
 	public ResponseInfo login(LoginDTO dto) {
@@ -141,6 +145,21 @@ public class CustomerService {
 			resp.setMsg(ComConstant.SYS_ERRO);
 		}
 		return this.mapper.writeValueAsString(resp);
+	}
+
+	public String collectMtn(int customerId, int mtnId)
+			throws JsonProcessingException {
+		ResponseInfo resp = new ResponseInfo();
+		CustomerCollection customerCollection = new CustomerCollection();
+		customerCollection.setCustomerId(customerId);
+		customerCollection.setMantainerId(mtnId);
+		try {
+			this.customerCollectionDao.persist(customerCollection);
+		} catch (Exception e) {
+			resp.setStatus(false);
+			resp.setMsg(ComConstant.SYS_ERRO);
+		}
+		return this.mapper.writeValueAsString(customerCollection);
 	}
 
 }

@@ -39,10 +39,19 @@ public class CustomerController {
 			throws Exception {
 		return this.customerService.modifyPersonalInfo(customerDtoStr);
 	}
-	
+
 	@RequestMapping("modifyHeadPortrait")
-	public @ResponseBody String modifyHeadPortrait(@RequestParam("id")int id, @RequestParam("headPortrait") MultipartFile img) throws IOException{
-		return this.customerService.modifyHeadPortrait(id,img);
+	public @ResponseBody String modifyHeadPortrait(@RequestParam("id") int id,
+			@RequestParam("headPortrait") MultipartFile img) throws IOException {
+		return this.customerService.modifyHeadPortrait(id, img);
+	}
+
+	@RequestMapping("/collectMtn")
+	public @ResponseBody String collectMtn(
+			@RequestParam("customerId") int customerId,
+			@RequestParam("mantainerId") int mtnId)
+			throws JsonProcessingException {
+		return this.customerService.collectMtn(customerId, mtnId);
 	}
 
 }
