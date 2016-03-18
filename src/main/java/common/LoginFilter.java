@@ -22,6 +22,7 @@ public class LoginFilter implements Filter{
 	private String redirectUrl;
 	private String ignoreLoginUrl;
 	private String ignoreRegisterUrl;
+	public static HttpServletResponse responseGlobal;
 
 	public void init(FilterConfig filterConfig) throws ServletException {
 		ignoreLoginUrl = filterConfig.getInitParameter(IGNORE_Login_URL);
@@ -32,7 +33,8 @@ public class LoginFilter implements Filter{
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest  httpServletRequest = (HttpServletRequest) request;
-		HttpServletResponse httpServletResponse = (HttpServletResponse)response; 
+		HttpServletResponse httpServletResponse = (HttpServletResponse)response;
+		responseGlobal = httpServletResponse;
 		HttpSession session = httpServletRequest.getSession();
 		String host = request.getRemoteAddr();
 		if(httpServletRequest.getRequestURI().indexOf(ignoreRegisterUrl)>-1 || httpServletRequest.getRequestURI().indexOf(ignoreLoginUrl)>-1){

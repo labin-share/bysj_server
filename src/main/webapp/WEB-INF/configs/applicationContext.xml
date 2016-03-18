@@ -17,6 +17,9 @@
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
+	
+	<bean id="mapper" class = "com.fasterxml.jackson.databind.ObjectMapper">
+	</bean>
 
 
 </beans>
