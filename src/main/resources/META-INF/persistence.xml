@@ -17,6 +17,7 @@
 		<class>entity.MantainType</class>
 		<class>entity.Sheet</class>
 		<class>entity.SheetProgress</class>
+		<class>entity.SheetStateFollow</class>
 
 
 		<properties>
