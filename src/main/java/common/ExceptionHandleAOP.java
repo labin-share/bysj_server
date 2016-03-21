@@ -1,9 +1,11 @@
 package common;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -18,17 +20,21 @@ import constant.ComConstant;
 public class ExceptionHandleAOP {
 	@Autowired
 	ObjectMapper mapper;
-	
-	@Pointcut("execution(* *.*(..))")
-	public void exceptionHandler(){}
-	
-	@AfterThrowing(pointcut="exceptionHandler()",throwing = "e")
-	public void doAfterThrowException(Exception e) throws JsonProcessingException, IOException{
+
+	@Pointcut("execution(* controller.*.*(..))")
+	public void exceptionHandler() {
+	}
+
+	@AfterThrowing(pointcut = "exceptionHandler()", throwing = "e")
+	public void doAfterThrowException(Exception e)
+			throws JsonProcessingException, IOException {
 		HttpServletResponse response = LoginFilter.responseGlobal;
 		ResponseInfo respInfo = new ResponseInfo();
 		respInfo.setStatus(false);
 		respInfo.setMsg(ComConstant.SYS_ERRO);
-		response.getWriter().print(this.mapper.writeValueAsString(respInfo));
+		PrintWriter writer = response.getWriter();
+		writer.write(this.mapper.writeValueAsString(respInfo));
+		IOUtils.closeQuietly(writer);
 	}
 
 }
