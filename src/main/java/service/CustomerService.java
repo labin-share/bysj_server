@@ -25,6 +25,7 @@ import dto.CustomerDTO;
 import dto.LoginDTO;
 import dto.MantainerDTO;
 import dto.RegisterDTO;
+import dto.SimpleDTO;
 import dtoMapper.CustomerDTOMapper;
 import dtoMapper.MantainerDTOMapper;
 import entity.Customer;
@@ -42,7 +43,7 @@ public class CustomerService {
 	MantainerDAO mtnDao;
 	ObjectMapper mapper = new ObjectMapper();
 
-	public ResponseInfo login(LoginDTO dto) {
+	public ResponseInfo login(LoginDTO dto) throws JsonProcessingException {
 		ResponseInfo resp = new ResponseInfo();
 		List<Customer> customerList = this.customerDao.login(dto);
 		if (customerList.isEmpty()) {
@@ -50,7 +51,9 @@ public class CustomerService {
 			resp.setMsg(LoginConstant.VERRIFY_ERRO);
 			return resp;
 		} else {
-			resp.setData(customerList.get(0).getName());
+			SimpleDTO simpleDTO = new SimpleDTO(customerList.get(0).getId(),
+					customerList.get(0).getName());
+			resp.setData(this.mapper.writeValueAsString(simpleDTO));
 		}
 		return resp;
 	}

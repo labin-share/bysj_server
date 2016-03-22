@@ -20,6 +20,7 @@ import dao.MantainerDAO;
 import dto.LoginDTO;
 import dto.MantainerDTO;
 import dto.RegisterDTO;
+import dto.SimpleDTO;
 import dtoMapper.MantainerDTOMapper;
 import entity.Mantainer;
 
@@ -35,7 +36,7 @@ public class MantainerService {
 		return MantainerDTOMapper.toDTO(new MantainerDTO(), mantainer);
 	}
 
-	public ResponseInfo login(LoginDTO dto) {
+	public ResponseInfo login(LoginDTO dto) throws JsonProcessingException {
 		ResponseInfo resp = new ResponseInfo();
 		List<Mantainer> MTNList = this.mantainerDao.login(dto);
 		if (MTNList.isEmpty()) {
@@ -43,7 +44,9 @@ public class MantainerService {
 			resp.setMsg(LoginConstant.VERRIFY_ERRO);
 			return resp;
 		} else {
-			resp.setData(MTNList.get(0).getName());
+			SimpleDTO simpleDTO = new SimpleDTO(MTNList.get(0).getId(), MTNList
+					.get(0).getName());
+			resp.setData(this.mapper.writeValueAsString(simpleDTO));
 		}
 		return resp;
 	}
