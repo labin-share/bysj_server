@@ -1,6 +1,7 @@
 package service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,16 @@ import constant.LoginConstant;
 import constant.RegisterConstant;
 import dao.CustomerCollectionDao;
 import dao.CustomerDao;
+import dao.MantainerDAO;
 import dto.CustomerDTO;
 import dto.LoginDTO;
+import dto.MantainerDTO;
 import dto.RegisterDTO;
 import dtoMapper.CustomerDTOMapper;
+import dtoMapper.MantainerDTOMapper;
 import entity.Customer;
 import entity.CustomerCollection;
+import entity.Mantainer;
 
 @Service
 public class CustomerService {
@@ -33,6 +38,8 @@ public class CustomerService {
 	CustomerDao customerDao;
 	@Autowired
 	CustomerCollectionDao customerCollectionDao;
+	@Autowired
+	MantainerDAO mtnDao;
 	ObjectMapper mapper = new ObjectMapper();
 
 	public ResponseInfo login(LoginDTO dto) {
@@ -160,6 +167,51 @@ public class CustomerService {
 			resp.setMsg(ComConstant.SYS_ERRO);
 		}
 		return this.mapper.writeValueAsString(customerCollection);
+	}
+
+	public String findMtnByLngLat(double longitude, double latitude,
+			double distance) throws JsonProcessingException {
+		List<Mantainer> mantainerList = this.mtnDao.findAll();
+		List<MantainerDTO> usefulMantainerDTO = new ArrayList<MantainerDTO>();
+		MantainerDTO mantainerDTO = null;
+		double realDistance;
+		for (Mantainer mantainer : mantainerList) {
+			if (Double.compare((double) 0, mantainer.getLongitude()) != 0
+					&& Double.compare((double) 0, mantainer.getLongitude()) != 0) {
+				realDistance = calculateDistance(longitude, latitude,
+						mantainer.getLongitude(), mantainer.getLatitude());
+				if (Double.compare(realDistance, distance) <= 0) {
+					mantainerDTO = MantainerDTOMapper.toDTO(new MantainerDTO(),
+							mantainer);
+					mantainerDTO.setDistance(realDistance);
+					usefulMantainerDTO.add(mantainerDTO);
+				}
+			}
+		}
+		return this.mapper.writeValueAsString(mantainerDTO);
+	}
+
+	public double calculateDistance(double lat1, double lng1, double lat2,
+			double lng2) {
+		double EARTH_RADIUS = 6378.137;
+		double radLat1 = rad(lat1);
+		double radLat2 = rad(lat2);
+		double radLng1 = rad(lng1);
+		double radLng2 = rad(lng2);
+		double radLat1RadLat2 = radLat1 - radLat2;
+		double radLng1RadLng2 = radLng1 - radLng2;
+		double s = 2 * Math.asin(Math.sqrt(Math.pow(
+				Math.sin(radLat1RadLat2 / 2), 2)
+				+ Math.cos(radLat1)
+				* Math.cos(radLat2)
+				* Math.pow(Math.sin(radLng1RadLng2 / 2), 2)));
+		s = s * EARTH_RADIUS;
+		s = Math.round(s * 10000) / 10000;
+		return s;
+	}
+
+	private static double rad(double d) {
+		return d * Math.PI / 180.0;
 	}
 
 }

@@ -1,19 +1,15 @@
 package service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import common.ResponseInfo;
-import constant.ComConstant;
 import dao.ContactionDao;
 import dto.ContactionDTO;
 import dtoMapper.ContactionDTOMapper;
@@ -37,22 +33,40 @@ public class ContactionService {
 		return this.mapper.writeValueAsString(contactionDTOList);
 	}
 
-	public String saveContactions(String contactionsStr)
-			throws JsonParseException, JsonMappingException, IOException {
+	// public String saveContactions(String contactionsStr)
+	// throws JsonParseException, JsonMappingException, IOException {
+	//
+	// List<Contaction> contactionList = this.mapper.readValue(
+	// contactionsStr,
+	// this.mapper.getTypeFactory().constructCollectionType(
+	// List.class, Contaction.class));
+	// ResponseInfo response = new ResponseInfo();
+	// try {
+	// this.contactionDao.persistAll(contactionList);
+	// } catch (Exception e) {
+	// response.setStatus(false);
+	// response.setMsg(ComConstant.SYS_ERRO);
+	// }
+	//
+	// return this.mapper.writeValueAsString(response);
+	//
+	// }
 
-		List<Contaction> contactionList = this.mapper.readValue(
-				contactionsStr,
-				this.mapper.getTypeFactory().constructCollectionType(
-						List.class, Contaction.class));
-		ResponseInfo response = new ResponseInfo();
-		try {
-			this.contactionDao.persistAll(contactionList);
-		} catch (Exception e) {
-			response.setStatus(false);
-			response.setMsg(ComConstant.SYS_ERRO);
+	public String saveContaction(String dtoStr) throws Exception {
+		Contaction contaction = this.mapper.readValue(dtoStr, Contaction.class);
+		this.contactionDao.persist(contaction);
+		return this.mapper.writeValueAsString(new ResponseInfo());
+	}
+
+	public String setDefault(String dtoStr) throws Exception {
+		Contaction contaction = this.mapper.readValue(dtoStr, Contaction.class);
+		List<Contaction> oldDefContactionList = this.contactionDao
+				.findByDef(true);
+		if (oldDefContactionList != null && !oldDefContactionList.isEmpty()) {
+			oldDefContactionList.get(0).setDef(false);
+			this.contactionDao.persist(oldDefContactionList.get(0));
 		}
-
-		return this.mapper.writeValueAsString(response);
-
+		this.contactionDao.persist(contaction);
+		return this.mapper.writeValueAsString(new ResponseInfo());
 	}
 }

@@ -17,7 +17,6 @@ import javax.persistence.Table;
 @Table(name = "MANTAINER")
 public class Mantainer extends BaseEntity {
 
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "MTN_ID", length = 4)
@@ -40,8 +39,12 @@ public class Mantainer extends BaseEntity {
 	private int evaNum;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "mtnId")
 	@JoinColumn(name = "MTN_ID", referencedColumnName = "MTN_ID")
-//	@JoinColumn(name = "MTN_ID")
+	// @JoinColumn(name = "MTN_ID")
 	private List<MantainType> mantainTypeList;
+	@Column(name = "LONGITUDE", nullable = true)
+	private double longitude;
+	@Column(name = "LATITUDE", nullable = true)
+	private double latitude;
 
 	public int getId() {
 		return id;
@@ -121,6 +124,22 @@ public class Mantainer extends BaseEntity {
 
 	public void setMantainTypeList(List<MantainType> mantainTypeList) {
 		this.mantainTypeList = mantainTypeList;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
 	}
 
 }

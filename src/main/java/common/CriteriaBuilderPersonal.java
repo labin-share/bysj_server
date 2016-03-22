@@ -26,4 +26,13 @@ public class CriteriaBuilderPersonal {
 	public Predicate getPredicates() {
 		return predicates;
 	}
+
+	public void and(String property, Object value) {
+		if (predicates == null) {
+			predicates = criteriaBuilder.equal(root.get(property), value);
+		} else {
+			Predicate newP =  criteriaBuilder.equal(root.get(property), value);
+			predicates = criteriaBuilder.and(newP,predicates);
+		}
+	}
 }

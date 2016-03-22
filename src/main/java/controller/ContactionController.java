@@ -24,9 +24,19 @@ public class ContactionController {
 	}
 
 	// not test
-	@RequestMapping("/modifyContaction")
-	public @ResponseBody String modifyContaction(String contactionDtoStr)
-			throws Exception {
-		return this.contactionService.saveContactions(contactionDtoStr);
+	// @RequestMapping("/modifyContaction")
+	// public @ResponseBody String modifyContaction(String contactionDtoStr)
+	// throws Exception {
+	// return this.contactionService.saveContactions(contactionDtoStr);
+	// }
+
+	@RequestMapping("/saveContaction")
+	public @ResponseBody String saveContaction(String dtoStr) throws Exception {
+		return this.contactionService.saveContaction(dtoStr);
+	}
+
+	@RequestMapping("/setDefault")
+	public @ResponseBody String setDefault(String dtoStr) throws Exception {
+		return this.contactionService.setDefault(dtoStr);
 	}
 }

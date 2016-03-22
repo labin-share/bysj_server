@@ -54,4 +54,11 @@ public class CustomerController {
 		return this.customerService.collectMtn(customerId, mtnId);
 	}
 
+	@RequestMapping("findMtnByLngLat")
+	public @ResponseBody String findMtnByLngLat(double longitude,
+			double latitude, double distance) throws JsonProcessingException {
+		return this.customerService.findMtnByLngLat(longitude, latitude,
+				distance);
+	}
+
 }
