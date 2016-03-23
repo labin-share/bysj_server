@@ -29,4 +29,11 @@ public class SheetDao extends BaseDao<Sheet>{
 		return super.execute(builder);
 	}
 
+	public List<Sheet> findByCustomerIdState(int customerId, int state) {
+		CriteriaBuilderPersonal builder = super.getCriteriaBuilderPersonal();
+		builder.and(SheetConstant.STATE, state);
+		builder.and(SheetConstant.CUSTOMER_ID, customerId);
+		return super.execute(builder);
+	}
+
 }

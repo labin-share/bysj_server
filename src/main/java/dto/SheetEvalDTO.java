@@ -3,7 +3,7 @@ package dto;
 public class SheetEvalDTO {
 
 	private String evaluation;
-	private String type;
+	private int type;
 	private int Attitude;
 	private int speed;
 	private String evaTime;
@@ -18,11 +18,11 @@ public class SheetEvalDTO {
 		this.evaluation = evaluation;
 	}
 
-	public String getType() {
+	public int getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 

@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "CONTACTION")
@@ -15,8 +19,10 @@ public class Contaction extends BaseEntity{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ID",length = 4)
 	private int id;
-	@Column(name = "CUSTOMER_ID",length = 4,nullable = false)
-	private int customerId;
+	@ManyToOne
+	@JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID")
+	@JsonIgnore
+	private Customer customerId;
 	@Column(name = "DEF",nullable = true)
 	private boolean def;
 	@Column(name = "ADDRESS",nullable = false)
@@ -32,11 +38,11 @@ public class Contaction extends BaseEntity{
 		this.id = id;
 	}
 
-	public int getCustomerId() {
+	public Customer getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(int customerId) {
+	public void setCustomerId(Customer customerId) {
 		this.customerId = customerId;
 	}
 

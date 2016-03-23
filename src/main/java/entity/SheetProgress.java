@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "SHEET_PROGRESS")
 public class SheetProgress extends BaseEntity {
@@ -18,6 +20,7 @@ public class SheetProgress extends BaseEntity {
 	private int id;
 	@ManyToOne
 	@JoinColumn(name = "SHEET_ID", nullable = false)
+	@JsonIgnore
 	private Sheet sheetId;
 	@Column(name = "CONTENT", nullable = false)
 	private String content;

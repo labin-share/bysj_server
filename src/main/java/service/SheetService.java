@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -18,6 +19,7 @@ import dao.ChargebackDao;
 import dao.SheetDao;
 import dao.SheetProgressDao;
 import dto.SheetCreateDTO;
+import dto.SheetDTO;
 import dto.SheetEvalDTO;
 import dtoMapper.SheetDTOMapper;
 import entity.Chargeback;
@@ -91,6 +93,22 @@ public class SheetService {
 			info.setStatus(false);
 		}
 		return this.mapper.writeValueAsString(info);
+	}
+
+	public String getSheetSimpleInfo(int customerId, int state)
+			throws JsonProcessingException {
+		List<Sheet> sheetList = this.sheetDao.findByCustomerIdState(customerId,
+				state);
+		List<SheetDTO> sheetDTOList = new ArrayList<SheetDTO>();
+		for(Sheet sheet:sheetList){
+			sheetDTOList.add(SheetDTOMapper.toSimpleInfo(sheet));
+		}
+		return this.mapper.writeValueAsString(sheetDTOList);
+	}
+
+	public String getSheetDetailInfo(int customerId, int state) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

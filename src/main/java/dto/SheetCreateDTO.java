@@ -7,7 +7,7 @@ public class SheetCreateDTO {
 	private String address;
 	private String phone;
 	private String expectiveTime;
-	private String type;
+	private int type;
 
 	public int getCustomerId() {
 		return customerId;
@@ -49,11 +49,11 @@ public class SheetCreateDTO {
 		this.expectiveTime = expectiveTime;
 	}
 
-	public String getType() {
+	public int getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 

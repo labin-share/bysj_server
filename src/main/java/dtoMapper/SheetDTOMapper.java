@@ -1,6 +1,7 @@
 package dtoMapper;
 
 import dto.SheetCreateDTO;
+import dto.SheetDTO;
 import dto.SheetEvalDTO;
 import entity.Sheet;
 
@@ -27,6 +28,18 @@ public class SheetDTOMapper {
 		dto.setEvaTime(entity.getEvaTime());
 		dto.setSpeed(entity.getSpeed());
 		return dto;
+	}
+
+	static public SheetDTO toSimpleInfo(Sheet entity) {
+		SheetDTO sheetDTO = new SheetDTO();
+		sheetDTO.setId(entity.getId());
+		sheetDTO.setAddress(entity.getAddress());
+		sheetDTO.setState(entity.getState());
+		sheetDTO.setType(entity.getType());
+		sheetDTO.setCreateDate(entity.getCreateDate());
+		sheetDTO.setEvaTime(entity.getEvaTime());
+		sheetDTO.setEndTime(entity.getEndTime());
+		return sheetDTO;
 	}
 
 }

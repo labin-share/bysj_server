@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import service.SheetService;
 import common.BeanAssistant;
 
@@ -23,23 +25,36 @@ public class SheetController {
 	public @ResponseBody String getSheets(String id) throws Exception {
 		return this.sheetService.getSheetsEval(id);
 	}
-	
-	//not test
+
+	// not test
 	@RequestMapping("/changeState")
-	public @ResponseBody String changeState(int id,int state) throws Exception{
-		return this.sheetService.changeState(id,state);
+	public @ResponseBody String changeState(int id, int state) throws Exception {
+		return this.sheetService.changeState(id, state);
 	}
-	
-	//not test
+
+	// not test
 	@RequestMapping("/getSheetProgress")
-	public @ResponseBody String getSheetProgress(String id) throws Exception{
+	public @ResponseBody String getSheetProgress(String id) throws Exception {
 		return this.sheetService.getSheetProgress(id);
 	}
-	
-	//not test
+
+	// not test
 	@RequestMapping("/chargeback")
-	public @ResponseBody String chargeback(String chargebackDtoStr) throws Exception{
+	public @ResponseBody String chargeback(String chargebackDtoStr)
+			throws Exception {
 		return this.sheetService.chargeback(chargebackDtoStr);
 	}
-	
+
+	@RequestMapping("/getSheetSimpleInfo")
+	public @ResponseBody String getSheetSimpleInfo(int customerId, int state)
+			throws JsonProcessingException {
+		return this.sheetService.getSheetSimpleInfo(customerId, state);
+	}
+
+	@RequestMapping("getSheet")
+	public @ResponseBody String getSheetDetailInfo(int customerId, int state)
+			throws JsonProcessingException {
+		return this.sheetService.getSheetDetailInfo(customerId, state);
+	}
+
 }

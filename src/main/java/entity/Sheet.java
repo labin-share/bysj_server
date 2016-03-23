@@ -37,8 +37,8 @@ public class Sheet extends BaseEntity {
 	private String expectiveTime;
 	@Column(name = "STATE")
 	private int state;
-	@Column(name = "TYPE")
-	private String type;
+	@Column(name = "TYPE", length = 3)
+	private int type;
 	@Column(name = "CONTENT")
 	private String content;
 	@Column(name = "EVALUATION")
@@ -60,6 +60,9 @@ public class Sheet extends BaseEntity {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "sheetId")
 	@JoinColumn(name = "ID", referencedColumnName = "SHEET_ID")
 	private List<SheetStateFollow> sheetStateList;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "sheetId")
+	@JoinColumn(name = "ID", referencedColumnName = "SHEET_ID")
+	private List<SheetProgress> sheetProgressList;
 
 	public int getId() {
 		return id;
@@ -117,11 +120,11 @@ public class Sheet extends BaseEntity {
 		this.state = state;
 	}
 
-	public String getType() {
+	public int getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 

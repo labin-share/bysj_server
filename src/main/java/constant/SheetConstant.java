@@ -10,5 +10,6 @@ public class SheetConstant {
 	public static int SHEET_FINISHED = 4;
 	public static boolean DISABLE_EVA = false;
 	public static boolean ENABLE_EVA = true;
+	public static String CUSTOMER_ID = "customerId";
 
 }

@@ -1,10 +1,16 @@
 package entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,7 +18,7 @@ import javax.persistence.Table;
 public class Customer extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "ID", length = 4)
+	@Column(name = "CUSTOMER_ID", length = 4)
 	private int id;
 	@Column(name = "PHONE", unique = true, length = 11, nullable = false)
 	private String phone;
@@ -24,6 +30,9 @@ public class Customer extends BaseEntity {
 	private String headPortrait;
 	@Column(name = "SIGNATURE", nullable = true)
 	private String signature;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "customerId")
+	@JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID")
+	private List<Contaction> contactinList;
 
 	public int getId() {
 		return id;
