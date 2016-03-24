@@ -35,8 +35,8 @@ public class ContactionController {
 		return this.contactionService.saveContaction(dtoStr);
 	}
 
-	@RequestMapping("/setDefault")
-	public @ResponseBody String setDefault(String dtoStr) throws Exception {
-		return this.contactionService.setDefault(dtoStr);
+	@RequestMapping("/setDefault/{id}")
+	public @ResponseBody String setDefault(@PathVariable("id")int id) throws Exception {
+		return this.contactionService.setDefault(id);
 	}
 }

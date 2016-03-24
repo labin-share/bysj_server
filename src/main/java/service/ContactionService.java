@@ -58,14 +58,15 @@ public class ContactionService {
 		return this.mapper.writeValueAsString(new ResponseInfo());
 	}
 
-	public String setDefault(String dtoStr) throws Exception {
-		Contaction contaction = this.mapper.readValue(dtoStr, Contaction.class);
+	public String setDefault(int id) throws Exception {
 		List<Contaction> oldDefContactionList = this.contactionDao
 				.findByDef(true);
 		if (oldDefContactionList != null && !oldDefContactionList.isEmpty()) {
 			oldDefContactionList.get(0).setDef(false);
 			this.contactionDao.persist(oldDefContactionList.get(0));
 		}
+		Contaction contaction = this.contactionDao.findById(id);
+		contaction.setDef(true);
 		this.contactionDao.persist(contaction);
 		return this.mapper.writeValueAsString(new ResponseInfo());
 	}
