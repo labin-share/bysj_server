@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -27,7 +28,7 @@ import entity.Sheet;
 import entity.SheetProgress;
 
 @Service
-public class SheetService {
+public class SheetService extends BaseService{
 
 	@Autowired
 	SheetDao sheetDao;
@@ -35,11 +36,10 @@ public class SheetService {
 	SheetProgressDao sheetProgressDao;
 	@Autowired
 	ChargebackDao chargebackDao;
-	ObjectMapper mapper = new ObjectMapper();
 
 	public String createNewSheet(String dtoStr) throws JsonParseException,
 			JsonMappingException, IOException {
-		SheetCreateDTO sheetCreateDTO = this.mapper.readValue(dtoStr,
+		SheetCreateDTO sheetCreateDTO = super.getMapper().readValue(dtoStr,
 				SheetCreateDTO.class);
 		Sheet sheet = SheetDTOMapper.toNewSheet(sheetCreateDTO);
 		ResponseInfo response = new ResponseInfo();
@@ -48,7 +48,7 @@ public class SheetService {
 		} catch (Exception e) {
 			response.setMsg(ComConstant.SYS_ERRO);
 		}
-		return this.mapper.writeValueAsString(response);
+		return super.getMapper().writeValueAsString(response);
 	}
 
 	public String getSheetsEval(String id) throws Exception {
@@ -59,7 +59,7 @@ public class SheetService {
 			dto = SheetDTOMapper.toSheetsEvalDTO(sheet);
 			sheetEvalDTOList.add(dto);
 		}
-		return this.mapper.writeValueAsString(sheetEvalDTOList);
+		return super.getMapper().writeValueAsString(sheetEvalDTOList);
 	}
 
 	public String changeState(int id, int state) throws Exception {
@@ -67,17 +67,17 @@ public class SheetService {
 		Sheet sheet = this.sheetDao.findById(id);
 		sheet.setState(state);
 		this.sheetDao.persist(sheet);
-		return this.mapper.writeValueAsString(response);
+		return super.getMapper().writeValueAsString(response);
 	}
 
 	public String getSheetProgress(String id) throws Exception {
 		List<SheetProgress> sheetProgressList = this.sheetProgressDao
 				.findBySheetId(id);
-		return this.mapper.writeValueAsString(sheetProgressList);
+		return super.getMapper().writeValueAsString(sheetProgressList);
 	}
 
 	public String chargeback(String chargebackDtoStr) throws Exception {
-		Chargeback chargeback = this.mapper.readValue(chargebackDtoStr,
+		Chargeback chargeback = super.getMapper().readValue(chargebackDtoStr,
 				Chargeback.class);
 		ResponseInfo info = new ResponseInfo();
 		try {
@@ -92,22 +92,22 @@ public class SheetService {
 			info.setMsg(ComConstant.SYS_ERRO);
 			info.setStatus(false);
 		}
-		return this.mapper.writeValueAsString(info);
+		return super.getMapper().writeValueAsString(info);
 	}
 
-	public String getSheetSimpleInfo(int customerId, int state)
-			throws JsonProcessingException {
-		List<Sheet> sheetList = this.sheetDao.findByCustomerIdState(customerId,
-				state);
+	public String getSheetSimpleInfo(String customerId, String state)
+			throws IOException {
+		List<String> stateList = super.getMapper().readValue(state, new TypeReference<List<String>>(){});
+		List<Sheet> sheetList = this.sheetDao.findByCustomerIdState(Integer.parseInt(customerId),
+				stateList);
 		List<SheetDTO> sheetDTOList = new ArrayList<SheetDTO>();
 		for(Sheet sheet:sheetList){
 			sheetDTOList.add(SheetDTOMapper.toSimpleInfo(sheet));
 		}
-		return this.mapper.writeValueAsString(sheetDTOList);
+		return super.buildRespJson(true, super.EMPTY, super.getMapper().writeValueAsString(sheetDTOList));
 	}
 
-	public String getSheetDetailInfo(int customerId, int state) {
-		// TODO Auto-generated method stub
+	public String getSheetDetailInfo(String customerId, String state) {
 		return null;
 	}
 

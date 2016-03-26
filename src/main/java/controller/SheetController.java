@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,7 +21,8 @@ public class SheetController {
 
 	// not test
 	@RequestMapping("/createNewSheet")
-	public @ResponseBody String createNewSheet(String dtoStr) throws JsonParseException, JsonMappingException, IOException {
+	public @ResponseBody String createNewSheet(String dtoStr)
+			throws JsonParseException, JsonMappingException, IOException {
 		return this.sheetService.createNewSheet(dtoStr);
 	}
 
@@ -50,13 +52,14 @@ public class SheetController {
 	}
 
 	@RequestMapping("/getSheetSimpleInfo")
-	public @ResponseBody String getSheetSimpleInfo(int customerId, int state)
-			throws JsonProcessingException {
+	public @ResponseBody String getSheetSimpleInfo(String customerId,
+			String state) throws IOException {
 		return this.sheetService.getSheetSimpleInfo(customerId, state);
 	}
 
 	@RequestMapping("getSheet")
-	public @ResponseBody String getSheetDetailInfo(int customerId, int state)
+	public @ResponseBody String getSheetDetailInfo(String customerId,
+			String state)
 			throws JsonProcessingException {
 		return this.sheetService.getSheetDetailInfo(customerId, state);
 	}

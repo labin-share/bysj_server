@@ -1,9 +1,5 @@
 package dto;
 
-import java.util.List;
-
-import entity.SheetProgress;
-import entity.SheetStateFollow;
 
 public class SheetDTO {
 	private int id;
@@ -19,9 +15,9 @@ public class SheetDTO {
 	private String endTime;
 	private String evaTime;
 	private boolean isEnableEva;
-	private int achive;
-	private List<SheetStateFollow> sheetStateList;
-	private List<SheetProgress> sheetProgressList;
+//	private int achive;
+//	private List<SheetStateFollow> sheetStateList;
+//	private List<SheetProgress> sheetProgressList;
 
 	public int getId() {
 		return id;
@@ -119,29 +115,29 @@ public class SheetDTO {
 		this.isEnableEva = isEnableEva;
 	}
 
-	public int getAchive() {
-		return achive;
-	}
-
-	public void setAchive(int achive) {
-		this.achive = achive;
-	}
-
-	public List<SheetStateFollow> getSheetStateList() {
-		return sheetStateList;
-	}
-
-	public void setSheetStateList(List<SheetStateFollow> sheetStateList) {
-		this.sheetStateList = sheetStateList;
-	}
-
-	public List<SheetProgress> getSheetProgressList() {
-		return sheetProgressList;
-	}
-
-	public void setSheetProgressList(List<SheetProgress> sheetProgressList) {
-		this.sheetProgressList = sheetProgressList;
-	}
+//	public int getAchive() {
+//		return achive;
+//	}
+//
+//	public void setAchive(int achive) {
+//		this.achive = achive;
+//	}
+//
+//	public List<SheetStateFollow> getSheetStateList() {
+//		return sheetStateList;
+//	}
+//
+//	public void setSheetStateList(List<SheetStateFollow> sheetStateList) {
+//		this.sheetStateList = sheetStateList;
+//	}
+//
+//	public List<SheetProgress> getSheetProgressList() {
+//		return sheetProgressList;
+//	}
+//
+//	public void setSheetProgressList(List<SheetProgress> sheetProgressList) {
+//		this.sheetProgressList = sheetProgressList;
+//	}
 
 	public String getCreateDate() {
 		return createDate;

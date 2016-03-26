@@ -35,4 +35,13 @@ public class CriteriaBuilderPersonal {
 			predicates = criteriaBuilder.and(newP,predicates);
 		}
 	}
+	
+	public void or(String property, Object value){
+		if (predicates == null) {
+			predicates = criteriaBuilder.equal(root.get(property), value);
+		} else {
+			Predicate newP =  criteriaBuilder.equal(root.get(property), value);
+			predicates = criteriaBuilder.or(newP,predicates);
+		}
+	}
 }
