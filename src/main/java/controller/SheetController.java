@@ -57,11 +57,10 @@ public class SheetController {
 		return this.sheetService.getSheetSimpleInfo(customerId, state);
 	}
 
-	@RequestMapping("getSheet")
-	public @ResponseBody String getSheetDetailInfo(String customerId,
-			String state)
+	@RequestMapping("getSheetDetailInfo")
+	public @ResponseBody String getSheetDetailInfo(int sheetId)
 			throws JsonProcessingException {
-		return this.sheetService.getSheetDetailInfo(customerId, state);
+		return this.sheetService.getSheetDetailInfo(sheetId);
 	}
-
+	
 }

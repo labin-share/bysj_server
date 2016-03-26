@@ -26,9 +26,10 @@ import dtoMapper.SheetDTOMapper;
 import entity.Chargeback;
 import entity.Sheet;
 import entity.SheetProgress;
+import entity.SheetStateFollow;
 
 @Service
-public class SheetService extends BaseService{
+public class SheetService extends BaseService {
 
 	@Autowired
 	SheetDao sheetDao;
@@ -81,13 +82,16 @@ public class SheetService extends BaseService{
 				Chargeback.class);
 		ResponseInfo info = new ResponseInfo();
 		try {
+			Sheet sheet = this.sheetDao.findById(chargeback.getSheetId());
 			if (chargeback.getState() == SheetConstant.CHARGEBACK_SUCCESS) {
-				Sheet sheet = this.sheetDao.findById(chargeback.getSheetId());
-				sheet.setState(SheetConstant.SHEET_CHARGEBACK);
-				this.sheetDao.persist(sheet);
+				sheet.setState(SheetConstant.CHARGEBACK_SUCCESS);
+				addToSheetStateFollow(sheet, SheetConstant.CHARGEBACK_SUCCESS);
+			} else if (chargeback.getState() == SheetConstant.CHARGEBACK_REQUEST) {
+				sheet.setState(SheetConstant.CHARGEBACK_REQUEST);
+				addToSheetStateFollow(sheet, SheetConstant.CHARGEBACK_REQUEST);
 			}
+			this.sheetDao.persist(sheet);
 			this.chargebackDao.persist(chargeback);
-
 		} catch (Exception e) {
 			info.setMsg(ComConstant.SYS_ERRO);
 			info.setStatus(false);
@@ -95,20 +99,35 @@ public class SheetService extends BaseService{
 		return super.getMapper().writeValueAsString(info);
 	}
 
-	public String getSheetSimpleInfo(String customerId, String state)
-			throws IOException {
-		List<String> stateList = super.getMapper().readValue(state, new TypeReference<List<String>>(){});
-		List<Sheet> sheetList = this.sheetDao.findByCustomerIdState(Integer.parseInt(customerId),
-				stateList);
-		List<SheetDTO> sheetDTOList = new ArrayList<SheetDTO>();
-		for(Sheet sheet:sheetList){
-			sheetDTOList.add(SheetDTOMapper.toSimpleInfo(sheet));
-		}
-		return super.buildRespJson(true, super.EMPTY, super.getMapper().writeValueAsString(sheetDTOList));
+	private void addToSheetStateFollow(Sheet sheet, int state) {
+		List<SheetStateFollow> sheetStateList = sheet.getSheetStateList();
+		SheetStateFollow newState = new SheetStateFollow();
+		newState.setSheetId(sheet);
+		newState.setState(state);
+		sheetStateList.add(newState);
 	}
 
-	public String getSheetDetailInfo(String customerId, String state) {
-		return null;
+	public String getSheetSimpleInfo(String customerId, String state)
+			throws IOException {
+		List<String> stateList = super.getMapper().readValue(state,
+				new TypeReference<List<String>>() {
+				});
+		List<Sheet> sheetList = this.sheetDao.findByCustomerIdState(
+				Integer.parseInt(customerId), stateList);
+		List<SheetDTO> sheetDTOList = new ArrayList<SheetDTO>();
+		for (Sheet sheet : sheetList) {
+			sheetDTOList.add(SheetDTOMapper.toSimpleInfo(sheet));
+		}
+		return super.buildRespJson(true, super.EMPTY, super.getMapper()
+				.writeValueAsString(sheetDTOList));
+	}
+
+	public String getSheetDetailInfo(int sheetId)
+			throws JsonProcessingException {
+		Sheet sheet = this.sheetDao.findById(sheetId);
+		SheetDTO dto = SheetDTOMapper.toDetailInfo(sheet);
+		return super.buildRespJson(true, EMPTY, super.getMapper()
+				.writeValueAsString(dto));
 	}
 
 }

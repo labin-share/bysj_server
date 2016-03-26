@@ -63,6 +63,9 @@ public class Sheet extends BaseEntity {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "sheetId")
 	@JoinColumn(name = "ID", referencedColumnName = "SHEET_ID")
 	private List<SheetProgress> sheetProgressList;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "sheetId")
+	@JoinColumn(name = "ID", referencedColumnName = "SHEET_ID")
+	private List<SheetImge> sheetImgList;
 
 	public int getId() {
 		return id;
@@ -206,6 +209,22 @@ public class Sheet extends BaseEntity {
 
 	public void setSheetStateList(List<SheetStateFollow> sheetStateList) {
 		this.sheetStateList = sheetStateList;
+	}
+
+	public List<SheetProgress> getSheetProgressList() {
+		return sheetProgressList;
+	}
+
+	public void setSheetProgressList(List<SheetProgress> sheetProgressList) {
+		this.sheetProgressList = sheetProgressList;
+	}
+
+	public List<SheetImge> getSheetImgList() {
+		return sheetImgList;
+	}
+
+	public void setSheetImgList(List<SheetImge> sheetImgList) {
+		this.sheetImgList = sheetImgList;
 	}
 
 }

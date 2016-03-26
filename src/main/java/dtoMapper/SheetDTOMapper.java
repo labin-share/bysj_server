@@ -42,4 +42,17 @@ public class SheetDTOMapper {
 		return sheetDTO;
 	}
 
+	static public SheetDTO toDetailInfo(Sheet entity) {
+		SheetDTO sheetDTO = new SheetDTO();
+		sheetDTO.setId(entity.getId());
+		sheetDTO.setAddress(entity.getAddress());
+		sheetDTO.setState(entity.getState());
+		sheetDTO.setType(entity.getType());
+		sheetDTO.setCreateDate(entity.getCreateDate());
+		sheetDTO.setEvaTime(entity.getEvaTime());
+		sheetDTO.setEndTime(entity.getEndTime());
+		sheetDTO.setSheetImgList(entity.getSheetImgList());
+		return sheetDTO;
+	}
+
 }
