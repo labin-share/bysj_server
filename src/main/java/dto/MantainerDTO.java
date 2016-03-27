@@ -13,11 +13,11 @@ public class MantainerDTO implements Serializable {
 	private int id;
 	private String phone;
 	private String name;
-	// private String headPortrait;
+	private String headPortrait;
 	private String address;
 	private String signature;
-	private int evaNum;
-	private int credit;
+//	private int evaNum;
+//	private int credit;
 	private List<MantainType> mantainTypeList;
 	private double distance;
 
@@ -45,13 +45,13 @@ public class MantainerDTO implements Serializable {
 		this.name = name;
 	}
 
-	// public String getHeadPortrait() {
-	// return headPortrait;
-	// }
-	//
-	// public void setHeadPortrait(String headPortrait) {
-	// this.headPortrait = headPortrait;
-	// }
+	public String getHeadPortrait() {
+		return headPortrait;
+	}
+
+	public void setHeadPortrait(String headPortrait) {
+		this.headPortrait = headPortrait;
+	}
 
 	public String getAddress() {
 		return address;
@@ -69,13 +69,13 @@ public class MantainerDTO implements Serializable {
 		this.signature = signature;
 	}
 
-	public int getEvaNum() {
-		return evaNum;
-	}
-
-	public void setEvaNum(int evaNum) {
-		this.evaNum = evaNum;
-	}
+//	public int getEvaNum() {
+//		return evaNum;
+//	}
+//
+//	public void setEvaNum(int evaNum) {
+//		this.evaNum = evaNum;
+//	}
 
 	public List<MantainType> getMantainTypeList() {
 		return mantainTypeList;
@@ -85,13 +85,13 @@ public class MantainerDTO implements Serializable {
 		this.mantainTypeList = mantainTypeList;
 	}
 
-	public int getCredit() {
-		return credit;
-	}
-
-	public void setCredit(int credit) {
-		this.credit = credit;
-	}
+//	public int getCredit() {
+//		return credit;
+//	}
+//
+//	public void setCredit(int credit) {
+//		this.credit = credit;
+//	}
 
 	public double getDistance() {
 		return distance;

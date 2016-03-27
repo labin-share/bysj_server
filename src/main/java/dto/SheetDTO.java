@@ -9,7 +9,7 @@ public class SheetDTO {
 	private String address;
 	private String phone;
 	private int state;
-	private int type;
+	private String type;
 	private String content;
 	private String evaluation;
 	private int Attitude;
@@ -55,11 +55,11 @@ public class SheetDTO {
 		this.state = state;
 	}
 
-	public int getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 

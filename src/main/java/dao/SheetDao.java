@@ -15,7 +15,7 @@ public class SheetDao extends BaseDao<Sheet> {
 		super(Sheet.class);
 	}
 
-	public List<Sheet> findByMtnId(String id) {
+	public List<Sheet> findByMtnId(int id) {
 		CriteriaBuilderPersonal builder = super.getCriteriaBuilderPersonal();
 		builder.and(SheetConstant.MTN_ID, id);
 		return super.execute(builder);

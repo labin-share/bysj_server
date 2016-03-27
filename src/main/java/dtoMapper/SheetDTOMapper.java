@@ -11,7 +11,7 @@ public class SheetDTOMapper {
 		Sheet sheet = new Sheet();
 		sheet.setAddress(dto.getAddress());
 		sheet.setExpectiveTime(dto.getExpectiveTime());
-		sheet.setMtnerId(dto.getMtnerId());
+		sheet.setMtnId(dto.getMtnerId());
 		sheet.setPhone(dto.getPhone());
 		sheet.setCustomerId(dto.getCustomerId());
 		sheet.setType(dto.getType());
@@ -24,9 +24,10 @@ public class SheetDTOMapper {
 		dto.setType(entity.getType());
 		dto.setAchive(entity.getAchive());
 		dto.setAttitude(entity.getAttitude());
-		dto.setEva(entity.isEnableEva());
+//		dto.setEva(entity.isEnableEva());
 		dto.setEvaTime(entity.getEvaTime());
 		dto.setSpeed(entity.getSpeed());
+		dto.setSheetImgList(entity.getSheetImgList());
 		return dto;
 	}
 

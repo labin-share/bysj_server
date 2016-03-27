@@ -3,11 +3,11 @@ package dto;
 public class SheetCreateDTO {
 
 	private int customerId;
-	private int mtnerId;
+	private int mtnId;
 	private String address;
 	private String phone;
 	private String expectiveTime;
-	private int type;
+	private String type;
 
 	public int getCustomerId() {
 		return customerId;
@@ -18,11 +18,11 @@ public class SheetCreateDTO {
 	}
 
 	public int getMtnerId() {
-		return mtnerId;
+		return mtnId;
 	}
 
 	public void setMtnerId(int mtnerId) {
-		this.mtnerId = mtnerId;
+		this.mtnId = mtnerId;
 	}
 
 	public String getAddress() {
@@ -49,11 +49,11 @@ public class SheetCreateDTO {
 		this.expectiveTime = expectiveTime;
 	}
 
-	public int getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 

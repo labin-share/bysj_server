@@ -3,7 +3,9 @@ package controller;
 import java.io.IOException;
 
 
+
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,9 +29,9 @@ public class SheetController {
 	}
 
 	// not test
-	@RequestMapping("/getSheetsEval/{id}")
-	public @ResponseBody String getSheets(String id) throws Exception {
-		return this.sheetService.getSheetsEval(id);
+	@RequestMapping("/getSheetsEvalsByMtnId/{mtnId}")
+	public @ResponseBody String getSheets(@PathVariable("mtnId")int mtnId) throws Exception {
+		return this.sheetService.getSheetsEvalsByMtnId(mtnId);
 	}
 
 	// not test

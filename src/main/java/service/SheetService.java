@@ -52,15 +52,15 @@ public class SheetService extends BaseService {
 		return super.getMapper().writeValueAsString(response);
 	}
 
-	public String getSheetsEval(String id) throws Exception {
-		List<Sheet> sheetList = this.sheetDao.findByMtnId(id);
+	public String getSheetsEvalsByMtnId(int mtnId) throws Exception {
+		List<Sheet> sheetList = this.sheetDao.findByMtnId(mtnId);
 		SheetEvalDTO dto = null;
 		List<SheetEvalDTO> sheetEvalDTOList = new ArrayList<SheetEvalDTO>();
 		for (Sheet sheet : sheetList) {
 			dto = SheetDTOMapper.toSheetsEvalDTO(sheet);
 			sheetEvalDTOList.add(dto);
 		}
-		return super.getMapper().writeValueAsString(sheetEvalDTOList);
+		return super.buildRespJson(true, EMPTY, super.getMapper().writeValueAsString(sheetEvalDTOList));
 	}
 
 	public String changeState(int id, int state) throws Exception {

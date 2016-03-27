@@ -5,17 +5,18 @@ import dto.RegisterDTO;
 import entity.Mantainer;
 
 public class MantainerDTOMapper {
+	
 
 	public static MantainerDTO toDTO(MantainerDTO dto, Mantainer entity) {
 		dto.setId(entity.getId());
 		dto.setAddress(entity.getAddress());
-		dto.setEvaNum(entity.getEvaNum());
-//		dto.setHeadPortrait(entity.getHeadPortrait());
+//		dto.setEvaNum(entity.getEvaNum());
+		dto.setHeadPortrait(entity.getHeadPortrait());
 		dto.setMantainTypeList(entity.getMantainTypeList());
 		dto.setName(entity.getName());
 		dto.setPhone(entity.getPhone());
 		dto.setSignature(entity.getSignature());
-		dto.setCredit(entity.getCredit());
+//		dto.setCredit(entity.getCredit());
 		return dto;
 	}
 

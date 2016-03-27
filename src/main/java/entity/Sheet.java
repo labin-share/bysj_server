@@ -24,7 +24,7 @@ public class Sheet extends BaseEntity {
 	@Column(name = "CUSTOMER_ID", length = 3, nullable = false)
 	private int customerId;
 	@Column(name = "MTNER_ID", length = 3, nullable = true)
-	private int mtnerId;
+	private int mtnId;
 	// @OneToOne(optional = false)
 	// @JoinColumn(name = "CONTACT_ID", unique = true, nullable = false,
 	// updatable = false)
@@ -37,8 +37,8 @@ public class Sheet extends BaseEntity {
 	private String expectiveTime;
 	@Column(name = "STATE")
 	private int state;
-	@Column(name = "TYPE", length = 3)
-	private int type;
+	@Column(name = "TYPE")
+	private String type;
 	@Column(name = "CONTENT")
 	private String content;
 	@Column(name = "EVALUATION")
@@ -83,12 +83,12 @@ public class Sheet extends BaseEntity {
 		this.customerId = customerId;
 	}
 
-	public int getMtnerId() {
-		return mtnerId;
+	public int getMtnId() {
+		return mtnId;
 	}
 
-	public void setMtnerId(int mtnerId) {
-		this.mtnerId = mtnerId;
+	public void setMtnId(int mtnId) {
+		this.mtnId = mtnId;
 	}
 
 	public String getAddress() {
@@ -123,11 +123,11 @@ public class Sheet extends BaseEntity {
 		this.state = state;
 	}
 
-	public int getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 

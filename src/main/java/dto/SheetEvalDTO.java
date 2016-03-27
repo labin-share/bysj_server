@@ -1,14 +1,19 @@
 package dto;
 
+import java.util.List;
+
+import entity.SheetImge;
+
 public class SheetEvalDTO {
 
 	private String evaluation;
-	private int type;
+	private String type;
 	private int Attitude;
 	private int speed;
 	private String evaTime;
 	private boolean isEva;
 	private int achive;
+	private List<SheetImge> sheetImgList;
 
 	public String getEvaluation() {
 		return evaluation;
@@ -18,11 +23,11 @@ public class SheetEvalDTO {
 		this.evaluation = evaluation;
 	}
 
-	public int getType() {
+	public String getType() {
 		return type;
 	}
 
-	public void setType(int type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
@@ -64,6 +69,14 @@ public class SheetEvalDTO {
 
 	public void setAchive(int achive) {
 		this.achive = achive;
+	}
+
+	public List<SheetImge> getSheetImgList() {
+		return sheetImgList;
+	}
+
+	public void setSheetImgList(List<SheetImge> sheetImgList) {
+		this.sheetImgList = sheetImgList;
 	}
 
 }
