@@ -33,7 +33,7 @@ import entity.CustomerCollection;
 import entity.Mantainer;
 
 @Service
-public class CustomerService {
+public class CustomerService extends BaseService{
 
 	@Autowired
 	CustomerDao customerDao;
@@ -184,14 +184,13 @@ public class CustomerService {
 				realDistance = calculateDistance(longitude, latitude,
 						mantainer.getLongitude(), mantainer.getLatitude());
 				if (Double.compare(realDistance, distance) <= 0) {
-					mantainerDTO = MantainerDTOMapper.toDTO(new MantainerDTO(),
-							mantainer);
+					mantainerDTO = MantainerDTOMapper.toMtnShowList(mantainer);
 					mantainerDTO.setDistance(realDistance);
 					usefulMantainerDTO.add(mantainerDTO);
 				}
 			}
 		}
-		return this.mapper.writeValueAsString(mantainerDTO);
+		return super.buildRespJson(true, EMPTY, super.getMapper().writeValueAsString(usefulMantainerDTO));
 	}
 
 	public double calculateDistance(double lat1, double lng1, double lat2,

@@ -37,6 +37,8 @@ public class Mantainer extends BaseEntity {
 	private int credit = 5;
 	@Column(name = "EVA_NUM", nullable = true)
 	private int evaNum;
+	@Column(name = "TRADE_NUM", nullable = true)
+	private int tradeNum;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "mtnId")
 	@JoinColumn(name = "MTN_ID", referencedColumnName = "MTN_ID")
 	// @JoinColumn(name = "MTN_ID")
@@ -140,6 +142,14 @@ public class Mantainer extends BaseEntity {
 
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
+	}
+
+	public int getTradeNum() {
+		return tradeNum;
+	}
+
+	public void setTradeNum(int tradeNum) {
+		this.tradeNum = tradeNum;
 	}
 
 }
