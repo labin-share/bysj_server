@@ -6,15 +6,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
+import common.ImgAssistant;
 import common.ResponseInfo;
 import constant.ComConstant;
+import constant.ImgConstant;
 import constant.SheetConstant;
 import dao.ChargebackDao;
 import dao.SheetDao;
@@ -25,6 +27,7 @@ import dto.SheetEvalDTO;
 import dtoMapper.SheetDTOMapper;
 import entity.Chargeback;
 import entity.Sheet;
+import entity.SheetImge;
 import entity.SheetProgress;
 import entity.SheetStateFollow;
 
@@ -38,18 +41,26 @@ public class SheetService extends BaseService {
 	@Autowired
 	ChargebackDao chargebackDao;
 
-	public String createNewSheet(String dtoStr) throws JsonParseException,
-			JsonMappingException, IOException {
+	public String createNewSheet(String dtoStr, List<MultipartFile> imgfileList)
+			throws JsonParseException, JsonMappingException, IOException {
 		SheetCreateDTO sheetCreateDTO = super.getMapper().readValue(dtoStr,
 				SheetCreateDTO.class);
 		Sheet sheet = SheetDTOMapper.toNewSheet(sheetCreateDTO);
-		ResponseInfo response = new ResponseInfo();
-		try {
-			this.sheetDao.persist(sheet);
-		} catch (Exception e) {
-			response.setMsg(ComConstant.SYS_ERRO);
+		sheet = this.sheetDao.persist(sheet);
+		List<SheetImge> newPathList = new ArrayList<SheetImge>();
+		SheetImge sheetImge = null;
+		String catalog = ImgConstant.ROOT + ImgConstant.TYPE_SHEET
+				+ sheet.getId();
+		String newPath = null;
+		for (MultipartFile imgeFile : imgfileList) {
+			newPath = ImgAssistant.updateImg(imgeFile, catalog, null);
+			sheetImge = new SheetImge();
+			sheetImge.setImg(newPath);
+			newPathList.add(sheetImge);
 		}
-		return super.getMapper().writeValueAsString(response);
+		sheet.setSheetImgList(newPathList);
+		this.sheetDao.persist(sheet);
+		return super.buildRespJson(true, EMPTY, EMPTY);
 	}
 
 	public String getSheetsEvalsByMtnId(int mtnId) throws Exception {
@@ -60,7 +71,8 @@ public class SheetService extends BaseService {
 			dto = SheetDTOMapper.toSheetsEvalDTO(sheet);
 			sheetEvalDTOList.add(dto);
 		}
-		return super.buildRespJson(true, EMPTY, super.getMapper().writeValueAsString(sheetEvalDTOList));
+		return super.buildRespJson(true, EMPTY, super.getMapper()
+				.writeValueAsString(sheetEvalDTOList));
 	}
 
 	public String changeState(int id, int state) throws Exception {

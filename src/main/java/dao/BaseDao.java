@@ -60,19 +60,28 @@ public class BaseDao<T> {
 	public List<T> execute(CriteriaBuilderPersonal criteriaBuilderPersonal) {
 		criteriaQuery.where(criteriaBuilderPersonal.getPredicates());
 		TypedQuery typedQuery = entitymanager.createQuery(criteriaQuery);
-		return (List<T>)typedQuery.getResultList();
+		return (List<T>) typedQuery.getResultList();
 	}
 
-	public void persist(T t) {
+	public T persist(T t) {
 		entitymanager.getTransaction().begin();
-//		entitymanager.persist(t);
-		entitymanager.merge(t);
+		// entitymanager.persist(t);
+		T r = entitymanager.merge(t);
+		entitymanager.getTransaction().commit();
+		// entitymanager.close();
+		return r;
+	}
+
+	public void remove(T t) {
+		entitymanager.getTransaction().begin();
+		// entitymanager.persist(t);
+		entitymanager.remove(t);
 		entitymanager.getTransaction().commit();
 		// entitymanager.close();
 	}
-	
-	public void persistAll(List<T> tList){
-		for(T t : tList){
+
+	public void persistAll(List<T> tList) {
+		for (T t : tList) {
 			this.persist(t);
 		}
 	}

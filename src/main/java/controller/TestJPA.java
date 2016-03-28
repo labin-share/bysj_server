@@ -143,8 +143,7 @@ public class TestJPA {
 	public @ResponseBody String getImgList(
 			@RequestParam("imgfile") List<MultipartFile> fileList,
 			HttpServletRequest request) throws IOException {
-		ImgAssistant.saveImgs(fileList, ImgConstant.ROOT+ImgConstant.TYPE_CHARGEBACK+12);
-		return request.getParameter("text");
+		return "";
 	}
 
 }

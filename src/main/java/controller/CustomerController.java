@@ -34,7 +34,7 @@ public class CustomerController {
 	// return this.customerService.modifyPersonalInfo(customerDtoStr, img);
 	// }
 
-	@RequestMapping("modifypersonalInfo")
+	@RequestMapping("modifyPersonalInfo")
 	public @ResponseBody String modifyPersonalInfo(String customerDtoStr)
 			throws Exception {
 		return this.customerService.modifyPersonalInfo(customerDtoStr);

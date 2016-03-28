@@ -6,4 +6,6 @@ public class ImgConstant {
 	public static String TYPE_SHEET = "sheet\\";
 	public static String TYPE_EVAL = "eval\\";
 	public static String TYPE_CHARGEBACK = "chargeback\\";
+	
+	public static int THIRD_DIGIT_LENGTH = 1000;
 }
