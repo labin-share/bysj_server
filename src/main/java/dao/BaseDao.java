@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -59,6 +60,10 @@ public class BaseDao<T> {
 
 	public List<T> execute(CriteriaBuilderPersonal criteriaBuilderPersonal) {
 		criteriaQuery.where(criteriaBuilderPersonal.getPredicates());
+		List<Order> orders = criteriaBuilderPersonal.getOrders();
+		if(orders!=null && !orders.isEmpty()){
+			criteriaQuery.orderBy(orders);
+		}
 		TypedQuery typedQuery = entitymanager.createQuery(criteriaQuery);
 		return (List<T>) typedQuery.getResultList();
 	}
