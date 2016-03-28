@@ -83,7 +83,7 @@ public class SheetService extends BaseService {
 		return super.getMapper().writeValueAsString(response);
 	}
 
-	public String getSheetProgress(String id) throws Exception {
+	public String getSheetProgress(int id) throws Exception {
 		List<SheetProgress> sheetProgressList = this.sheetProgressDao
 				.findBySheetId(id);
 		return super.getMapper().writeValueAsString(sheetProgressList);

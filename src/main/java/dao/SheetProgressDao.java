@@ -16,7 +16,7 @@ public class SheetProgressDao extends BaseDao<SheetProgress> {
 		super(SheetProgress.class);
 	}
 
-	public List<SheetProgress> findBySheetId(String id) {
+	public List<SheetProgress> findBySheetId(int id) {
 		CriteriaBuilderPersonal builder = super.getCriteriaBuilderPersonal();
 		builder.and(SheetConstant.SHEET_ID, id);
 		builder.addOrder(ComConstant.CREATE_DATE, CriteriaBuilderPersonal.ASC);

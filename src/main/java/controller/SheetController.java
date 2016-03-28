@@ -45,8 +45,8 @@ public class SheetController {
 	}
 
 	// not test
-	@RequestMapping("/getSheetProgress")
-	public @ResponseBody String getSheetProgress(String id) throws Exception {
+	@RequestMapping("/getSheetProgress/{id}")
+	public @ResponseBody String getSheetProgress(@PathVariable int id) throws Exception {
 		return this.sheetService.getSheetProgress(id);
 	}
 

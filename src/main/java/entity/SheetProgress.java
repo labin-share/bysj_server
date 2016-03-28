@@ -18,10 +18,11 @@ public class SheetProgress extends BaseEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ID", length = 4)
 	private int id;
-	@ManyToOne
-	@JoinColumn(name = "SHEET_ID", nullable = false)
-	@JsonIgnore
-	private Sheet sheetId;
+//	@ManyToOne
+//	@JoinColumn(name = "SHEET_ID", referencedColumnName = "ID")
+//	@JsonIgnore
+	@Column(name = "SHEET_ID", nullable = false)
+	private int sheetId;
 	@Column(name = "CONTENT", nullable = false)
 	private String content;
 
@@ -33,11 +34,11 @@ public class SheetProgress extends BaseEntity {
 		this.id = id;
 	}
 
-	public Sheet getSheetId() {
+	public int getSheetId() {
 		return sheetId;
 	}
 
-	public void setSheetId(Sheet sheetId) {
+	public void setSheetId(int sheetId) {
 		this.sheetId = sheetId;
 	}
 
