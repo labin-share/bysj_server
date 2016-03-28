@@ -61,4 +61,10 @@ public class CustomerController {
 				distance);
 	}
 
+	@RequestMapping("findMtnByCustomerId")
+	public @ResponseBody String findMtnByCustomerId(int customerId)
+			throws JsonProcessingException {
+		return this.customerService.findMtnByCustomerId(customerId);
+	}
+
 }

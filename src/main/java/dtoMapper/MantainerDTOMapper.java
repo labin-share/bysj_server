@@ -19,6 +19,7 @@ public class MantainerDTOMapper {
 		return dto;
 	}
 
+	//deliver the mantaner info which collection by customer or filter by latitude and longitude
 	public static MantainerDTO toMtnShowList(Mantainer entity) {
 		MantainerDTO dto = new MantainerDTO();
 		dto.setHeadPortrait(entity.getHeadPortrait());

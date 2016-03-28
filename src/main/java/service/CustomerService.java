@@ -33,7 +33,7 @@ import entity.CustomerCollection;
 import entity.Mantainer;
 
 @Service
-public class CustomerService extends BaseService{
+public class CustomerService extends BaseService {
 
 	@Autowired
 	CustomerDao customerDao;
@@ -179,18 +179,33 @@ public class CustomerService extends BaseService{
 		MantainerDTO mantainerDTO = null;
 		double realDistance;
 		for (Mantainer mantainer : mantainerList) {
-			if (Double.compare((double) 0, mantainer.getLongitude()) != 0
-					&& Double.compare((double) 0, mantainer.getLongitude()) != 0) {
-				realDistance = calculateDistance(longitude, latitude,
-						mantainer.getLongitude(), mantainer.getLatitude());
-				if (Double.compare(realDistance, distance) <= 0) {
-					mantainerDTO = MantainerDTOMapper.toMtnShowList(mantainer);
-					mantainerDTO.setDistance(realDistance);
-					usefulMantainerDTO.add(mantainerDTO);
-				}
+			realDistance = calculateDistance(longitude, latitude,
+					mantainer.getLongitude(), mantainer.getLatitude());
+			if (Double.compare(realDistance, distance) <= 0) {
+				mantainerDTO = MantainerDTOMapper.toMtnShowList(mantainer);
+				mantainerDTO.setDistance(realDistance);
+				usefulMantainerDTO.add(mantainerDTO);
 			}
 		}
-		return super.buildRespJson(true, EMPTY, super.getMapper().writeValueAsString(usefulMantainerDTO));
+		return super.buildRespJson(true, EMPTY, super.getMapper()
+				.writeValueAsString(usefulMantainerDTO));
+	}
+
+	public String findMtnByCustomerId(int customerId)
+			throws JsonProcessingException {
+		List<CustomerCollection> customerCollectionList = this.customerCollectionDao
+				.findByCustomerId(customerId);
+		List<MantainerDTO> mantainerDTOList = new ArrayList<MantainerDTO>();
+		Mantainer mantainer = null;
+		MantainerDTO mantainerDTO = null;
+		for (CustomerCollection customerCollection : customerCollectionList) {
+			mantainer = this.mtnDao.findById(customerCollection
+					.getMantainerId());
+			mantainerDTO = MantainerDTOMapper.toMtnShowList(mantainer);
+			mantainerDTOList.add(mantainerDTO);
+		}
+		return super.buildRespJson(true, EMPTY, super.getMapper()
+				.writeValueAsString(mantainerDTOList));
 	}
 
 	public double calculateDistance(double lat1, double lng1, double lat2,
