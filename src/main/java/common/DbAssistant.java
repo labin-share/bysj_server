@@ -1,3 +1,6 @@
+/*
+ * if use jdbc to operate db base, this class will be needed 
+ */
 package common;
 
 import java.sql.Connection;
@@ -9,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 import constant.DBConstant;
 
-@Component
+//@Component
 public class DbAssistant {
 
 	private Connection connection;
