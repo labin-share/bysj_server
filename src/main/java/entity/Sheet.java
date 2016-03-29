@@ -60,12 +60,16 @@ public class Sheet extends BaseEntity {
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "sheetId")
 	@JoinColumn(name = "ID", referencedColumnName = "SHEET_ID")
 	private List<SheetStateFollow> sheetStateList;
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "sheetId")
-//	@JoinColumn(name = "ID", referencedColumnName = "SHEET_ID")
-//	private List<SheetProgress> sheetProgressList;
+	// @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy =
+	// "sheetId")
+	// @JoinColumn(name = "ID", referencedColumnName = "SHEET_ID")
+	// private List<SheetProgress> sheetProgressList;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "sheetId")
 	@JoinColumn(name = "ID", referencedColumnName = "SHEET_ID")
 	private List<SheetImge> sheetImgList;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "sheetId")
+	@JoinColumn(name = "ID", referencedColumnName = "SHEET_ID")
+	private List<SheetEvalImge> sheetEvalImgList;
 
 	public int getId() {
 		return id;
@@ -211,13 +215,13 @@ public class Sheet extends BaseEntity {
 		this.sheetStateList = sheetStateList;
 	}
 
-//	public List<SheetProgress> getSheetProgressList() {
-//		return sheetProgressList;
-//	}
-//
-//	public void setSheetProgressList(List<SheetProgress> sheetProgressList) {
-//		this.sheetProgressList = sheetProgressList;
-//	}
+	// public List<SheetProgress> getSheetProgressList() {
+	// return sheetProgressList;
+	// }
+	//
+	// public void setSheetProgressList(List<SheetProgress> sheetProgressList) {
+	// this.sheetProgressList = sheetProgressList;
+	// }
 
 	public List<SheetImge> getSheetImgList() {
 		return sheetImgList;
@@ -225,6 +229,14 @@ public class Sheet extends BaseEntity {
 
 	public void setSheetImgList(List<SheetImge> sheetImgList) {
 		this.sheetImgList = sheetImgList;
+	}
+
+	public List<SheetEvalImge> getSheetEvalImgList() {
+		return sheetEvalImgList;
+	}
+
+	public void setSheetEvalImgList(List<SheetEvalImge> sheetEvalImgList) {
+		this.sheetEvalImgList = sheetEvalImgList;
 	}
 
 }

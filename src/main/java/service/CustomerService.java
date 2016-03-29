@@ -52,7 +52,7 @@ public class CustomerService extends BaseService {
 			resp.setMsg(LoginConstant.VERRIFY_ERRO);
 			return resp;
 		} else {
-			Map<String,Object> map = new HashMap<String, Object>();
+			Map<String, Object> map = new HashMap<String, Object>();
 			map.put(CustomerConstant.ID, customerList.get(0).getId());
 			map.put(CustomerConstant.NAME, customerList.get(0).getName());
 			resp.setData(this.mapper.writeValueAsString(map));
@@ -85,7 +85,8 @@ public class CustomerService extends BaseService {
 	public String findById(int id) throws JsonProcessingException {
 		Customer customer = this.customerDao.findById(id);
 		CustomerDTO customerDTO = CustomerDTOMapper.toDTO(customer);
-		return super.buildRespJson(true, EMPTY, super.getMapper().writeValueAsString(customerDTO));
+		return super.buildRespJson(true, EMPTY, super.getMapper()
+				.writeValueAsString(customerDTO));
 	}
 
 	// public String modifyPersonalInfo(String customerDtoStr, MultipartFile
@@ -111,40 +112,36 @@ public class CustomerService extends BaseService {
 	// }
 
 	public String modifyPersonalInfo(String customerDtoStr) throws Exception {
-		ResponseInfo resp = new ResponseInfo();
 		CustomerDTO customerDTO = this.mapper.readValue(customerDtoStr,
 				CustomerDTO.class);
-		Customer customer = CustomerDTOMapper.toEntity(customerDTO);
-		List<Customer> customerList = this.customerDao.findByName(customer
-				.getName());
-		if (customerList == null && customerList.isEmpty()) {
-			resp.setStatus(false);
-			resp.setMsg(CustomerConstant.DUPLICATE_NAME);
-			return this.mapper.writeValueAsString(resp);
-		}
-		try {
+		if (!this.isDuplicateName(customerDTO.getName())) {
+			Customer customer = this.customerDao.findById(customerDTO.getId());
+			CustomerDTOMapper.toExistEntity(customer, customerDTO);
 			this.customerDao.persist(customer);
-		} catch (Exception e) {
-			resp.setMsg(ComConstant.SYS_ERRO);
-			resp.setStatus(false);
+			return super.buildRespJson(true, EMPTY, EMPTY);
+		} else {
+			return super.buildRespJson(false, CustomerConstant.DUPLICATE_NAME,
+					super.EMPTY);
 		}
-		return this.mapper.writeValueAsString(resp);
+	}
+
+	public boolean isDuplicateName(String name) {
+		List<Customer> customerList = this.customerDao.findByName(name);
+		if (customerList != null || !customerList.isEmpty()) {
+			return true;
+		}
+		return false;
 	}
 
 	public String modifyHeadPortrait(int id, MultipartFile img)
 			throws IOException {
-		ResponseInfo resp = new ResponseInfo();
 		Customer customer = this.customerDao.findById(id);
 		String catalogPath = ImgConstant.ROOT + ImgConstant.TYPE_HEAD + id;
 		String oldPath = customer.getHeadPortrait();
-		try {
-			String newPath = ImgAssistant.updateImg(img, catalogPath, oldPath);
-			customer.setHeadPortrait(newPath);
-		} catch (Exception e) {
-			resp.setStatus(false);
-			resp.setMsg(ComConstant.SYS_ERRO);
-		}
-		return this.mapper.writeValueAsString(resp);
+		String newPath = ImgAssistant.updateImg(img, catalogPath, oldPath);
+		customer.setHeadPortrait(newPath);
+		this.customerDao.persist(customer);
+		return super.buildRespJson(true, EMPTY, EMPTY);
 	}
 
 	public String changePsw(int id, String psw) throws JsonProcessingException {

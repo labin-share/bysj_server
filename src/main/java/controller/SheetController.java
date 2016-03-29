@@ -71,4 +71,11 @@ public class SheetController {
 		return this.sheetService.getSheetDetailInfo(sheetId);
 	}
 
+	@RequestMapping("evaluate")
+	public @ResponseBody String evaluate(String dtoStr,
+			@RequestParam("imgFile") List<MultipartFile> imgFiles)
+			throws Exception {
+		return this.sheetService.evaluate(dtoStr, imgFiles);
+	}
+
 }

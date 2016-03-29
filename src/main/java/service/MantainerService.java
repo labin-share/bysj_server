@@ -1,5 +1,6 @@
 package service;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,15 +27,18 @@ import dtoMapper.MantainerDTOMapper;
 import entity.Mantainer;
 
 @Service
-public class MantainerService {
+public class MantainerService extends BaseService {
 
 	@Autowired
 	MantainerDAO mantainerDao;
 	ObjectMapper mapper = new ObjectMapper();
 
-	public MantainerDTO findById(int id) {
+	public String findById(int id) throws JsonProcessingException {
 		Mantainer mantainer = this.mantainerDao.findById(id);
-		return MantainerDTOMapper.toDTO(new MantainerDTO(), mantainer);
+		MantainerDTO mantainerDTO = MantainerDTOMapper.toDTO(
+				new MantainerDTO(), mantainer);
+		return super.buildRespJson(true, EMPTY, super.getMapper()
+				.writeValueAsString(mantainerDTO));
 	}
 
 	public ResponseInfo login(LoginDTO dto) throws JsonProcessingException {
@@ -103,41 +107,35 @@ public class MantainerService {
 	// }
 
 	public String modifyPersonalInfo(String mantainerDtoStr) throws Exception {
-		ResponseInfo resp = new ResponseInfo();
 		MantainerDTO mantainerDTO = this.mapper.readValue(mantainerDtoStr,
 				MantainerDTO.class);
-		Mantainer mantainer = MantainerDTOMapper.toEntity(new Mantainer(),
-				mantainerDTO);
-		List<Mantainer> mantainerList = this.mantainerDao.findByName(mantainer
-				.getName());
-		if (mantainerList == null && mantainerList.isEmpty()) {
-			resp.setStatus(false);
-			resp.setMsg(MantainerConstant.DUPLICATE_NAME);
-			return this.mapper.writeValueAsString(resp);
-		}
-		try {
+		Mantainer mantainer = this.mantainerDao.findById(mantainerDTO.getId());
+		if (!this.isDuplicateName(mantainerDTO.getName())) {
+			MantainerDTOMapper.toExistEntity(mantainer, mantainerDTO);
 			this.mantainerDao.persist(mantainer);
-		} catch (Exception e) {
-			resp.setMsg(ComConstant.SYS_ERRO);
-			resp.setStatus(false);
+			return super.buildRespJson(false, MantainerConstant.DUPLICATE_NAME,
+					super.EMPTY);
 		}
-		return this.mapper.writeValueAsString(resp);
+		return super.buildRespJson(true, EMPTY, EMPTY);
+	}
+
+	private boolean isDuplicateName(String name) {
+		List<Mantainer> mantainerList = this.mantainerDao.findByName(name);
+		if (mantainerList != null || !mantainerList.isEmpty()) {
+			return true;
+		}
+		return false;
 	}
 
 	public String modifyHeadPortrait(int id, MultipartFile img)
-			throws JsonProcessingException {
-		ResponseInfo resp = new ResponseInfo();
+			throws IOException {
 		Mantainer mantainer = this.mantainerDao.findById(id);
 		String catalogPath = ImgConstant.ROOT + ImgConstant.TYPE_HEAD + id;
 		String oldPath = mantainer.getHeadPortrait();
-		try {
-			String newPath = ImgAssistant.updateImg(img, catalogPath, oldPath);
-			mantainer.setHeadPortrait(newPath);
-		} catch (Exception e) {
-			resp.setStatus(false);
-			resp.setMsg(ComConstant.SYS_ERRO);
-		}
-		return this.mapper.writeValueAsString(resp);
+		String newPath = ImgAssistant.updateImg(img, catalogPath, oldPath);
+		mantainer.setHeadPortrait(newPath);
+		this.mantainerDao.persist(mantainer);
+		return super.buildRespJson(true, super.EMPTY, super.EMPTY);
 	}
 
 	public String changePsw(int id, String psw) throws JsonProcessingException {

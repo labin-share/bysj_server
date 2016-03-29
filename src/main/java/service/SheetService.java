@@ -27,6 +27,7 @@ import dtoMapper.SheetDTOMapper;
 import entity.Chargeback;
 import entity.ChargebackImge;
 import entity.Sheet;
+import entity.SheetEvalImge;
 import entity.SheetImge;
 import entity.SheetProgress;
 import entity.SheetStateFollow;
@@ -102,7 +103,7 @@ public class SheetService extends BaseService {
 			this.addToSheetStateFollow(sheet, SheetConstant.CHARGEBACK_REQUEST);
 		}
 		this.sheetDao.persist(sheet);
-		this.saveImgs(chargeback, imgfileList);
+		this.saveChargebackImgs(chargeback, imgfileList);
 		this.chargebackDao.persist(chargeback);
 		return super.buildRespJson(true, EMPTY, EMPTY);
 	}
@@ -115,7 +116,7 @@ public class SheetService extends BaseService {
 		sheetStateList.add(newState);
 	}
 
-	private void saveImgs(Chargeback chargeback, List<MultipartFile> imgfileList)
+	private void saveChargebackImgs(Chargeback chargeback, List<MultipartFile> imgfileList)
 			throws IOException {
 		String catalog = ImgConstant.ROOT + ImgConstant.TYPE_CHARGEBACK
 				+ chargeback.getId();
@@ -151,4 +152,32 @@ public class SheetService extends BaseService {
 				.writeValueAsString(dto));
 	}
 
+	public String evaluate(String dtoStr, List<MultipartFile> imgFiles)
+			throws JsonParseException, JsonMappingException, IOException {
+		SheetDTO sheetDTO = super.getMapper().readValue(dtoStr, SheetDTO.class);
+		Sheet sheet = this.sheetDao.findById(sheetDTO.getId());
+		SheetDTOMapper.toEvalSheet(sheet, sheetDTO);
+		this.saveEvalImgs(sheet, imgFiles);
+		this.sheetDao.persist(sheet);
+		return super.buildRespJson(true, EMPTY, EMPTY);
+	}
+
+	private void saveEvalImgs(Sheet sheet, List<MultipartFile> imgFiles)
+			throws IOException {
+		String catalog = ImgConstant.ROOT + ImgConstant.TYPE_EVAL
+				+ sheet.getId();
+		List<SheetEvalImge> oldImgs = sheet.getSheetEvalImgList();
+		List<SheetEvalImge> newImgs = new ArrayList<SheetEvalImge>();
+		List<String> oldPaths = new ArrayList<String>();
+		List<String> newPaths = new ArrayList<String>();
+		for (SheetEvalImge img : oldImgs) {
+			oldPaths.add(oldImgs.get(0).getImg());
+		}
+		newPaths = ImgAssistant.updateImgs(imgFiles, catalog, oldPaths);
+		for (String newPath : newPaths) {
+			newImgs.add(new SheetEvalImge() {
+			});
+		}
+		sheet.setSheetEvalImgList(newImgs);
+	}
 }

@@ -24,7 +24,7 @@ public class SheetDTOMapper {
 		dto.setType(entity.getType());
 		dto.setAchive(entity.getAchive());
 		dto.setAttitude(entity.getAttitude());
-//		dto.setEva(entity.isEnableEva());
+		// dto.setEva(entity.isEnableEva());
 		dto.setEvaTime(entity.getEvaTime());
 		dto.setSpeed(entity.getSpeed());
 		dto.setSheetImgList(entity.getSheetImgList());
@@ -54,6 +54,13 @@ public class SheetDTOMapper {
 		sheetDTO.setEndTime(entity.getEndTime());
 		sheetDTO.setSheetImgList(entity.getSheetImgList());
 		return sheetDTO;
+	}
+
+	static public void toEvalSheet(Sheet sheet, SheetDTO dto) {
+		sheet.setAchive(dto.getAchive());
+		sheet.setAttitude(dto.getAttitude());
+		sheet.setEvaluation(dto.getEvaluation());
+		sheet.setSpeed(dto.getSpeed());
 	}
 
 }

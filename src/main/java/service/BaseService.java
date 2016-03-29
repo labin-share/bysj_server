@@ -1,16 +1,21 @@
 package service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import common.ResponseHelper;
 import common.ResponseInfo;
 
+@Service
 public class BaseService implements ResponseHelper {
 	public static String EMPTY = "";
-	private ObjectMapper mapper = new ObjectMapper();
-	
-	public ObjectMapper getMapper(){
+	@Autowired
+	private ObjectMapper mapper;
+
+	public ObjectMapper getMapper() {
 		return this.mapper;
 	}
 

@@ -39,6 +39,13 @@ public class MantainerDTOMapper {
 		entity.setSignature(dto.getSignature());
 		return entity;
 	}
+	
+	public static void toExistEntity(Mantainer entity,MantainerDTO dto){
+		entity.setMantainTypeList(dto.getMantainTypeList());
+		entity.setName(dto.getName());
+		entity.setSignature(dto.getSignature());
+		entity.setAddress(dto.getAddress());
+	}
 
 	public static Mantainer toEntityFromRegisterDTO(RegisterDTO dto) {
 		Mantainer mantainer = new Mantainer();

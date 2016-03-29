@@ -18,7 +18,7 @@ public class SheetDTO {
 	private String endTime;
 	private String evaTime;
 	private boolean isEnableEva;
-	// private int achive;
+	private int achive;
 	// private List<SheetStateFollow> sheetStateList;
 	// private List<SheetProgress> sheetProgressList;
 	private List<SheetImge> SheetImgList;
@@ -119,13 +119,14 @@ public class SheetDTO {
 		this.isEnableEva = isEnableEva;
 	}
 
-	// public int getAchive() {
-	// return achive;
-	// }
-	//
-	// public void setAchive(int achive) {
-	// this.achive = achive;
-	// }
+	public int getAchive() {
+		return achive;
+	}
+
+	public void setAchive(int achive) {
+		this.achive = achive;
+	}
+
 	//
 	// public List<SheetStateFollow> getSheetStateList() {
 	// return sheetStateList;

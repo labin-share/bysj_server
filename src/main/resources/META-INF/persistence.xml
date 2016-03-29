@@ -18,13 +18,16 @@
 		<class>entity.Sheet</class>
 		<class>entity.SheetProgress</class>
 		<class>entity.SheetStateFollow</class>
+		<class>entity.SheetImge</class>
+		<class>entity.SheetEvalImge</class>
+		<class>entity.ChargebackImge</class>
 
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1:3306/bysj" />
 			<property name="javax.persistence.jdbc.user" value="root" />
-			<property name="javax.persistence.jdbc.password" value="@Mysql8260892" />
+			<property name="javax.persistence.jdbc.password" value="mysqlroot" />
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
 			<!-- <property name="eclipselink.ddl-generation" value="create-tables"/> -->
 			<!-- <property name="eclipselink.ddl-generation" value="none" /> -->

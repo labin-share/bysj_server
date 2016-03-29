@@ -24,6 +24,11 @@ public class CustomerDTOMapper {
 		return customer;
 	}
 
+	public static void toExistEntity(Customer entity, CustomerDTO dto) {
+		entity.setName(dto.getName());
+		entity.setSignature(dto.getSignature());
+	}
+
 	public static CustomerDTO toDTO(Customer entity) {
 		CustomerDTO dto = new CustomerDTO();
 		dto.setId(entity.getId());

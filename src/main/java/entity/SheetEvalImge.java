@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "SHEET_EVAL_IMG")
@@ -15,8 +19,10 @@ public class SheetEvalImge {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ID", length = 4)
 	private int id;
-	@Column(name = "SHEET_ID")
-	private int sheetId;
+	@ManyToOne
+	@JoinColumn(name = "SHEET_ID", referencedColumnName = "ID")
+	@JsonIgnore
+	private Sheet sheetId;
 	@Column(name = "img")
 	private String img;
 
@@ -28,11 +34,11 @@ public class SheetEvalImge {
 		this.id = id;
 	}
 
-	public int getSheetId() {
+	public Sheet getSheetId() {
 		return sheetId;
 	}
 
-	public void setSheetId(int sheetId) {
+	public void setSheetId(Sheet sheetId) {
 		this.sheetId = sheetId;
 	}
 

@@ -14,7 +14,9 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.io.FileUtils;
@@ -52,6 +54,20 @@ public class ImgAssistant {
 		String newPath = saveImg(imgFile, catalog);
 		deleteOldImg(oldPath);
 		return newPath;
+	}
+
+	public static List<String> updateImgs(List<MultipartFile> imgFiles,
+			String catalog, List<String> oldPaths) throws IOException {
+		List<String> newPaths = new ArrayList<String>();
+		String newPath = null;
+		for (MultipartFile file : imgFiles) {
+			saveImg(file, catalog);
+			newPaths.add(newPath);
+		}
+		for (String path : oldPaths) {
+			deleteOldImg(path);
+		}
+		return newPaths;
 	}
 
 }

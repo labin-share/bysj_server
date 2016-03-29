@@ -26,8 +26,7 @@ public class MantainerController {
 	@RequestMapping("/getInfo/{id}")
 	public @ResponseBody String getInfo(@PathVariable("id") int id)
 			throws JsonProcessingException {
-		MantainerDTO mantainerDto = this.mantainerService.findById(id);
-		return this.mapper.writeValueAsString(mantainerDto);
+		return this.mantainerService.findById(id);
 	}
 
 //	//not test
