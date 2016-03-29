@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import constant.ComConstant;
 import constant.SheetConstant;
 import dao.SheetDao;
 import entity.Sheet;
@@ -19,7 +18,7 @@ public class ScheduleJob {
 
 	public void updateSheetEvaFunc() throws ParseException {
 		List<Sheet> sheetList = this.sheetDao.findByStateEva(Integer.toString(SheetConstant.SHEET_FINISHED), Boolean.toString(SheetConstant.ENABLE_EVA));
-		SimpleDateFormat format = new SimpleDateFormat(ComConstant.DATE_FORMAT);
+		SimpleDateFormat format = new SimpleDateFormat(TimeAssistant.BACKEND_TIME_FORMAT);
 		Date nowDate = new Date();
 	    Date endDate = null;
 		for(Sheet sheet : sheetList){

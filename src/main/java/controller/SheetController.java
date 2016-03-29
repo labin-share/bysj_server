@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,8 @@ public class SheetController {
 	@RequestMapping("/createNewSheet")
 	public @ResponseBody String createNewSheet(String dtoStr,
 			@RequestParam("imgfile") List<MultipartFile> imgfileList)
-			throws JsonParseException, JsonMappingException, IOException {
+			throws JsonParseException, JsonMappingException, IOException,
+			ParseException {
 		return this.sheetService.createNewSheet(dtoStr, imgfileList);
 	}
 
@@ -61,13 +62,13 @@ public class SheetController {
 
 	@RequestMapping("/getSheetSimpleInfo")
 	public @ResponseBody String getSheetSimpleInfo(String customerId,
-			String state) throws IOException {
+			String state) throws IOException, ParseException {
 		return this.sheetService.getSheetSimpleInfo(customerId, state);
 	}
 
 	@RequestMapping("getSheetDetailInfo")
 	public @ResponseBody String getSheetDetailInfo(int sheetId)
-			throws JsonProcessingException {
+			throws JsonProcessingException, ParseException {
 		return this.sheetService.getSheetDetailInfo(sheetId);
 	}
 

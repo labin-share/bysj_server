@@ -1,20 +1,21 @@
 package controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Calendar;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
-import org.springframework.boot.autoconfigure.web.ServerProperties.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,11 +26,11 @@ import org.springframework.web.multipart.MultipartFile;
 import service.TestJpaService;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import common.ImgAssistant;
-import constant.ImgConstant;
+import common.TimeAssistant;
 import dao.SheetDao;
 import dto.RegisterDTO;
 import entity.Sheet;
@@ -124,26 +125,45 @@ public class TestJPA {
 		service.updateRecord();
 		return "success";
 	}
-	
+
 	@RequestMapping("testSheet")
-	public @ResponseBody String testSheet(){
+	public @ResponseBody String testSheet() {
 		SheetDao dao = new SheetDao();
 		List<Sheet> sheet = dao.findAll();
 		return "";
 	}
-	
+
 	@RequestMapping("getSession")
-	public @ResponseBody String getSession(HttpServletRequest request, HttpServletResponse response){
+	public @ResponseBody String getSession(HttpServletRequest request,
+			HttpServletResponse response) {
 		HttpSession session = request.getSession(false);
 		return "";
 	}
-	
-	//not test
+
+	// not test
 	@RequestMapping("getImgList")
 	public @ResponseBody String getImgList(
 			@RequestParam("imgfile") List<MultipartFile> fileList,
 			HttpServletRequest request) throws IOException {
 		return "";
+	}
+
+	@RequestMapping("testMap")
+	public @ResponseBody String testMap() throws JsonProcessingException {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("a", 1);
+		map.put("b", "world");
+		return this.mapper.writeValueAsString(map);
+
+	}
+
+	@RequestMapping("testTimeFormat")
+	public @ResponseBody String testTimeFormat() throws ParseException {
+		DateFormat df1 = new SimpleDateFormat(TimeAssistant.FONT_TIME_FORMAT);
+		DateFormat df2 = new SimpleDateFormat(TimeAssistant.BACKEND_TIME_FORMAT);
+		Date date = df2.parse("20160822111111");
+		// Date date = df.parse(df.format(nowDate));
+		return df1.format(date).toString();
 	}
 
 }

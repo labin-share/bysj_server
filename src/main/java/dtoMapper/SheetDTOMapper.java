@@ -1,5 +1,8 @@
 package dtoMapper;
 
+import java.text.ParseException;
+
+import common.TimeAssistant;
 import dto.SheetCreateDTO;
 import dto.SheetDTO;
 import dto.SheetEvalDTO;
@@ -7,10 +10,10 @@ import entity.Sheet;
 
 public class SheetDTOMapper {
 
-	static public Sheet toNewSheet(SheetCreateDTO dto) {
+	static public Sheet toNewSheet(SheetCreateDTO dto) throws ParseException {
 		Sheet sheet = new Sheet();
 		sheet.setAddress(dto.getAddress());
-		sheet.setExpectiveTime(dto.getExpectiveTime());
+		sheet.setExpectiveTime(TimeAssistant.toBackendFormat(dto.getExpectiveTime()));
 		sheet.setMtnId(dto.getMtnerId());
 		sheet.setPhone(dto.getPhone());
 		sheet.setCustomerId(dto.getCustomerId());
@@ -18,40 +21,42 @@ public class SheetDTOMapper {
 		return sheet;
 	}
 
-	static public SheetEvalDTO toSheetsEvalDTO(Sheet entity) {
+	static public SheetEvalDTO toSheetsEvalDTO(Sheet entity) throws ParseException {
 		SheetEvalDTO dto = new SheetEvalDTO();
 		dto.setEvaluation(entity.getEvaluation());
 		dto.setType(entity.getType());
 		dto.setAchive(entity.getAchive());
 		dto.setAttitude(entity.getAttitude());
 		// dto.setEva(entity.isEnableEva());
-		dto.setEvaTime(entity.getEvaTime());
+		dto.setEvaTime(TimeAssistant.toFontFormat(entity.getEvaTime()));
 		dto.setSpeed(entity.getSpeed());
 		dto.setSheetImgList(entity.getSheetImgList());
 		return dto;
 	}
 
-	static public SheetDTO toSimpleInfo(Sheet entity) {
+	static public SheetDTO toSimpleInfo(Sheet entity) throws ParseException {
 		SheetDTO sheetDTO = new SheetDTO();
 		sheetDTO.setId(entity.getId());
 		sheetDTO.setAddress(entity.getAddress());
 		sheetDTO.setState(entity.getState());
 		sheetDTO.setType(entity.getType());
-		sheetDTO.setCreateDate(entity.getCreateDate());
-		sheetDTO.setEvaTime(entity.getEvaTime());
-		sheetDTO.setEndTime(entity.getEndTime());
+		sheetDTO.setCreateDate(TimeAssistant.toFontFormat(entity
+				.getCreateDate()));
+		sheetDTO.setEvaTime(TimeAssistant.toFontFormat(entity.getEvaTime()));
+		sheetDTO.setEndTime(TimeAssistant.toFontFormat(entity.getEndTime()));
 		return sheetDTO;
 	}
 
-	static public SheetDTO toDetailInfo(Sheet entity) {
+	static public SheetDTO toDetailInfo(Sheet entity) throws ParseException {
 		SheetDTO sheetDTO = new SheetDTO();
 		sheetDTO.setId(entity.getId());
 		sheetDTO.setAddress(entity.getAddress());
 		sheetDTO.setState(entity.getState());
 		sheetDTO.setType(entity.getType());
-		sheetDTO.setCreateDate(entity.getCreateDate());
-		sheetDTO.setEvaTime(entity.getEvaTime());
-		sheetDTO.setEndTime(entity.getEndTime());
+		sheetDTO.setCreateDate(TimeAssistant.toFontFormat(entity
+				.getCreateDate()));
+		sheetDTO.setEvaTime(TimeAssistant.toFontFormat(entity.getEvaTime()));
+		sheetDTO.setEndTime(TimeAssistant.toFontFormat(entity.getEndTime()));
 		sheetDTO.setSheetImgList(entity.getSheetImgList());
 		return sheetDTO;
 	}

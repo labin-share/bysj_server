@@ -22,7 +22,6 @@ import java.util.Random;
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import constant.ComConstant;
 import constant.ImgConstant;
 
 public class ImgAssistant {
@@ -30,7 +29,7 @@ public class ImgAssistant {
 	public static String saveImg(MultipartFile imgFile, String path)
 			throws IOException {
 		Date d = new Date();
-		DateFormat df = new SimpleDateFormat(ComConstant.FILE_NAME_DATE_FORMAT);
+		DateFormat df = new SimpleDateFormat(TimeAssistant.FILE_NAME_DATE_FORMAT);
 		String date = df.format(d);
 		Random random = new Random();
 		int randomNum;

@@ -9,6 +9,8 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 
+import common.TimeAssistant;
+
 import constant.ComConstant;
 
 @MappedSuperclass
@@ -39,7 +41,7 @@ public class BaseEntity {
 	@PrePersist
 	public void setDefaultDateTime() {
 		Date d = new Date();
-		DateFormat df = new SimpleDateFormat(ComConstant.DATE_FORMAT);
+		DateFormat df = new SimpleDateFormat(TimeAssistant.BACKEND_TIME_FORMAT);
 		this.createDate = df.format(d);
 		this.lastUpdateDate = df.format(d);
 	}
@@ -47,7 +49,7 @@ public class BaseEntity {
 	@PreUpdate
 	public void setUpdateDateTime() {
 		Date d = new Date();
-		DateFormat df = new SimpleDateFormat(ComConstant.DATE_FORMAT);
+		DateFormat df = new SimpleDateFormat(TimeAssistant.BACKEND_TIME_FORMAT);
 		this.lastUpdateDate = df.format(d);
 	}
 }

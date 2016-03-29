@@ -1,6 +1,7 @@
 package service;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +44,8 @@ public class SheetService extends BaseService {
 	ChargebackDao chargebackDao;
 
 	public String createNewSheet(String dtoStr, List<MultipartFile> imgfileList)
-			throws JsonParseException, JsonMappingException, IOException {
+			throws JsonParseException, JsonMappingException, IOException,
+			ParseException {
 		SheetCreateDTO sheetCreateDTO = super.getMapper().readValue(dtoStr,
 				SheetCreateDTO.class);
 		Sheet sheet = SheetDTOMapper.toNewSheet(sheetCreateDTO);
@@ -116,8 +118,8 @@ public class SheetService extends BaseService {
 		sheetStateList.add(newState);
 	}
 
-	private void saveChargebackImgs(Chargeback chargeback, List<MultipartFile> imgfileList)
-			throws IOException {
+	private void saveChargebackImgs(Chargeback chargeback,
+			List<MultipartFile> imgfileList) throws IOException {
 		String catalog = ImgConstant.ROOT + ImgConstant.TYPE_CHARGEBACK
 				+ chargeback.getId();
 		List<ChargebackImge> imgList = null;
@@ -130,7 +132,7 @@ public class SheetService extends BaseService {
 	}
 
 	public String getSheetSimpleInfo(String customerId, String state)
-			throws IOException {
+			throws IOException, ParseException {
 		List<String> stateList = super.getMapper().readValue(state,
 				new TypeReference<List<String>>() {
 				});
@@ -145,7 +147,7 @@ public class SheetService extends BaseService {
 	}
 
 	public String getSheetDetailInfo(int sheetId)
-			throws JsonProcessingException {
+			throws JsonProcessingException, ParseException {
 		Sheet sheet = this.sheetDao.findById(sheetId);
 		SheetDTO dto = SheetDTOMapper.toDetailInfo(sheet);
 		return super.buildRespJson(true, EMPTY, super.getMapper()
