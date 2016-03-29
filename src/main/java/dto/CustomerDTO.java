@@ -4,7 +4,7 @@ public class CustomerDTO {
 	private int id;
 	private String phone;
 	private String name;
-//	private String headPortrait;
+	private String headPortrait;
 	private String signature;
 
 	public int getId() {
@@ -31,13 +31,13 @@ public class CustomerDTO {
 		this.name = name;
 	}
 
-//	public String getHeadPortrait() {
-//		return headPortrait;
-//	}
-//
-//	public void setHeadPortrait(String headPortrait) {
-//		this.headPortrait = headPortrait;
-//	}
+	public String getHeadPortrait() {
+		return headPortrait;
+	}
+
+	public void setHeadPortrait(String headPortrait) {
+		this.headPortrait = headPortrait;
+	}
 
 	public String getSignature() {
 		return signature;

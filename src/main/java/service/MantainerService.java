@@ -1,6 +1,8 @@
 package service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,6 @@ import dao.MantainerDAO;
 import dto.LoginDTO;
 import dto.MantainerDTO;
 import dto.RegisterDTO;
-import dto.SimpleDTO;
 import dtoMapper.MantainerDTOMapper;
 import entity.Mantainer;
 
@@ -44,9 +45,10 @@ public class MantainerService {
 			resp.setMsg(LoginConstant.VERRIFY_ERRO);
 			return resp;
 		} else {
-			SimpleDTO simpleDTO = new SimpleDTO(MTNList.get(0).getId(), MTNList
-					.get(0).getName());
-			resp.setData(this.mapper.writeValueAsString(simpleDTO));
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put(MantainerConstant.ID, MTNList.get(0).getId());
+			map.put(MantainerConstant.NAME, MTNList.get(0).getName());
+			resp.setData(this.mapper.writeValueAsString(map));
 		}
 		return resp;
 	}

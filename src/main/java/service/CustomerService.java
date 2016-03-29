@@ -2,7 +2,9 @@ package service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,6 @@ import dto.CustomerDTO;
 import dto.LoginDTO;
 import dto.MantainerDTO;
 import dto.RegisterDTO;
-import dto.SimpleDTO;
 import dtoMapper.CustomerDTOMapper;
 import dtoMapper.MantainerDTOMapper;
 import entity.Customer;
@@ -51,9 +52,10 @@ public class CustomerService extends BaseService {
 			resp.setMsg(LoginConstant.VERRIFY_ERRO);
 			return resp;
 		} else {
-			SimpleDTO simpleDTO = new SimpleDTO(customerList.get(0).getId(),
-					customerList.get(0).getName());
-			resp.setData(this.mapper.writeValueAsString(simpleDTO));
+			Map<String,Object> map = new HashMap<String, Object>();
+			map.put(CustomerConstant.ID, customerList.get(0).getId());
+			map.put(CustomerConstant.NAME, customerList.get(0).getName());
+			resp.setData(this.mapper.writeValueAsString(map));
 		}
 		return resp;
 	}
@@ -82,7 +84,8 @@ public class CustomerService extends BaseService {
 
 	public String findById(int id) throws JsonProcessingException {
 		Customer customer = this.customerDao.findById(id);
-		return this.mapper.writeValueAsString(customer);
+		CustomerDTO customerDTO = CustomerDTOMapper.toDTO(customer);
+		return super.buildRespJson(true, EMPTY, super.getMapper().writeValueAsString(customerDTO));
 	}
 
 	// public String modifyPersonalInfo(String customerDtoStr, MultipartFile
