@@ -38,16 +38,18 @@ values(3,'2016','2016','冰箱');
 -- show columns from sheet;
 -- select * from sheet;
 -- delete from sheet where id>=1
-insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID)
-values(1,'冰箱','zhuhai','20160325121212.1111','10086',1,0,1);
-insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID)
-values(2,'洗衣机','shanghai','20160325121212.1111','13800138000',1,1,1);
-insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID)
-values(3,'电视','shenzheng','20160325121212.1111','1008611',1,2,1);
-insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID)
-values(4,'烤箱','lufeng','20160325121212.1111','1363122',1,0,2);
-insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID)
-values(5,'电视','shangwei','20160325121212.1111','1363122',2,0,2);
+insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID,EVALUATION,EVA_TIME,Attitude,MTN_SPEED,ACHIEVE)
+values(1,'冰箱','zhuhai','20160325121212','10086',1,0,1,'态度还不错，准时到达，最后把冰箱改造成了微波炉，技术真棒','20161008111111',1,2,3);
+insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID,EVALUATION,EVA_TIME,Attitude,MTN_SPEED,ACHIEVE)
+values(2,'洗衣机','shanghai','20160325121212','13800138000',1,1,1,'his skill so good ! i will come next time','20161008111111',2,4,5);
+insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID,EVALUATION,EVA_TIME,Attitude,MTN_SPEED,ACHIEVE)
+values(3,'电视','shenzheng','20160325121212','1008611',1,2,1,'一般般','20161008111111',1,0,3);
+insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID,EVALUATION,EVA_TIME,Attitude,MTN_SPEED,ACHIEVE)
+values(6,'电视','shenzheng','20160325121212','1008611',1,2,1,null,null,1,0,3);
+insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID,EVALUATION,EVA_TIME,Attitude,MTN_SPEED,ACHIEVE)
+values(4,'烤箱','lufeng','20160325121212','1363122',1,0,2,'技术还行，服务态度不好','20161008111111',2,2,2);
+insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID,EVALUATION,EVA_TIME,Attitude,MTN_SPEED,ACHIEVE)
+values(5,'电视','shangwei','20160325121212','1363122',2,0,2,'迟到了半个钟','20161008111111',1,1,1);
 
 -- create sheet_progress record
 -- show columns from sheet_progress
