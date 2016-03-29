@@ -39,6 +39,12 @@ public class SheetController {
 		return this.sheetService.getSheetsEvalsByMtnId(mtnId);
 	}
 
+	@RequestMapping("/getSheetEvalBySheetId/{sheetId}")
+	public @ResponseBody String getSheetEvalBySheetId(@PathVariable("sheetId")int sheetId)
+			throws Exception {
+		return this.sheetService.getSheetEvalBySheetId(sheetId);
+	}
+
 	// not test
 	@RequestMapping("/changeState")
 	public @ResponseBody String changeState(int id, int state) throws Exception {

@@ -1,6 +1,7 @@
 package constant;
 
 public class SheetConstant {
+	public static String EVA_TIME = "evaTime";
 	public static String IS_ENABLE_EVA = "isEnableEva";
 	public static String MTN_ID = "mtnId";
 	public static String SHEET_ID = "sheetId";

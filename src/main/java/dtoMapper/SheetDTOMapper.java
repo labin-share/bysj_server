@@ -28,7 +28,9 @@ public class SheetDTOMapper {
 		dto.setAchive(entity.getAchive());
 		dto.setAttitude(entity.getAttitude());
 		// dto.setEva(entity.isEnableEva());
-		dto.setEvaTime(TimeAssistant.toFontFormat(entity.getEvaTime()));
+		if(entity.getEvaTime()!=null){
+			dto.setEvaTime(TimeAssistant.toFontFormat(entity.getEvaTime()));
+		}
 		dto.setSpeed(entity.getSpeed());
 		dto.setSheetImgList(entity.getSheetImgList());
 		return dto;

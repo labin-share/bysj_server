@@ -78,6 +78,15 @@ public class SheetService extends BaseService {
 				.writeValueAsString(sheetEvalDTOList));
 	}
 
+	public String getSheetEvalBySheetId(int sheetId) throws Exception {
+		Sheet sheet = this.sheetDao.findById(sheetId);
+		SheetEvalDTO sheetEvalDTO = SheetDTOMapper.toSheetsEvalDTO(sheet);
+		List<SheetEvalDTO> sheetEvalDTOList = new ArrayList<SheetEvalDTO>();
+		sheetEvalDTOList.add(sheetEvalDTO);
+		return super.buildRespJson(true, EMPTY, super.getMapper()
+				.writeValueAsString(sheetEvalDTOList));
+	}
+
 	public String changeState(int id, int state) throws Exception {
 		ResponseInfo response = new ResponseInfo();
 		Sheet sheet = this.sheetDao.findById(id);
@@ -182,4 +191,5 @@ public class SheetService extends BaseService {
 		}
 		sheet.setSheetEvalImgList(newImgs);
 	}
+
 }
