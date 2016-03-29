@@ -31,7 +31,7 @@ public class BaseDao<T> {
 		criteriaQuery = criteriaBuilder.createQuery(cls);
 		root = criteriaQuery.from(cls);
 		TABLE_NAME = cls.getSimpleName();
-		this.cls = cls; // 获取子类的cls
+		this.cls = cls; // 锟斤拷取锟斤拷锟斤拷锟絚ls
 	}
 
 	public EntityManagerFactory getEmfactory() {
@@ -93,7 +93,7 @@ public class BaseDao<T> {
 
 	public void update(T t) throws Exception {
 		entitymanager.getTransaction().begin();
-		entitymanager.merge(t); // 如果是db中不存在的记录，merge的行为就像persist一样，添加新纪录。否则如果是存在的，则是更新db中的数据。
+		entitymanager.merge(t); // id涓嶄负绌猴紝鍒欐槸鏇存柊璁板綍銆俰d涓虹┖锛屽垯鏄柊璁板綍
 		entitymanager.getTransaction().commit();
 	}
 
@@ -102,7 +102,7 @@ public class BaseDao<T> {
 	}
 
 	public List<T> findAll() {
-		// 使用jpql语句，注意不是sql语句，否则可能会出错
+		// 杩欐槸jpql锛屼笉鏄痵ql
 		Query query = entitymanager.createQuery("SELECT t" + " FROM "
 				+ TABLE_NAME + " t");
 		return query.getResultList();

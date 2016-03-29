@@ -2,8 +2,6 @@ package controller;
 
 import java.io.IOException;
 
-
-
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -27,14 +25,16 @@ public class SheetController {
 
 	// not test
 	@RequestMapping("/createNewSheet")
-	public @ResponseBody String createNewSheet(String dtoStr, @RequestParam("imgfile") List<MultipartFile> imgfileList)
+	public @ResponseBody String createNewSheet(String dtoStr,
+			@RequestParam("imgfile") List<MultipartFile> imgfileList)
 			throws JsonParseException, JsonMappingException, IOException {
 		return this.sheetService.createNewSheet(dtoStr, imgfileList);
 	}
 
 	// not test
 	@RequestMapping("/getSheetsEvalsByMtnId/{mtnId}")
-	public @ResponseBody String getSheets(@PathVariable("mtnId")int mtnId) throws Exception {
+	public @ResponseBody String getSheets(@PathVariable("mtnId") int mtnId)
+			throws Exception {
 		return this.sheetService.getSheetsEvalsByMtnId(mtnId);
 	}
 
@@ -46,15 +46,17 @@ public class SheetController {
 
 	// not test
 	@RequestMapping("/getSheetProgress/{id}")
-	public @ResponseBody String getSheetProgress(@PathVariable int id) throws Exception {
+	public @ResponseBody String getSheetProgress(@PathVariable int id)
+			throws Exception {
 		return this.sheetService.getSheetProgress(id);
 	}
 
 	// not test
 	@RequestMapping("/chargeback")
-	public @ResponseBody String chargeback(String chargebackDtoStr)
+	public @ResponseBody String chargeback(String chargebackDtoStr,
+			@RequestParam("imgfile") List<MultipartFile> imgfileList)
 			throws Exception {
-		return this.sheetService.chargeback(chargebackDtoStr);
+		return this.sheetService.chargeback(chargebackDtoStr, imgfileList);
 	}
 
 	@RequestMapping("/getSheetSimpleInfo")
@@ -68,5 +70,5 @@ public class SheetController {
 			throws JsonProcessingException {
 		return this.sheetService.getSheetDetailInfo(sheetId);
 	}
-	
+
 }

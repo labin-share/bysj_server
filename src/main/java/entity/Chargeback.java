@@ -1,10 +1,16 @@
 package entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,6 +28,9 @@ public class Chargeback extends BaseEntity {
 	private String content;
 	@Column(name = "STATE")
 	private int state;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "chargebackId")
+	@JoinColumn(name = "ID", referencedColumnName = "CHARGEBACK_ID")
+	List<ChargebackImge> imgeList;
 
 	public int getId() {
 		return id;
@@ -61,6 +70,14 @@ public class Chargeback extends BaseEntity {
 
 	public void setState(int state) {
 		this.state = state;
+	}
+
+	public List<ChargebackImge> getImgeList() {
+		return imgeList;
+	}
+
+	public void setImgeList(List<ChargebackImge> imgeList) {
+		this.imgeList = imgeList;
 	}
 
 }

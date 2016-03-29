@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import common.ImgAssistant;
 import common.ResponseInfo;
-import constant.ComConstant;
 import constant.ImgConstant;
 import constant.SheetConstant;
 import dao.ChargebackDao;
@@ -26,6 +25,7 @@ import dto.SheetDTO;
 import dto.SheetEvalDTO;
 import dtoMapper.SheetDTOMapper;
 import entity.Chargeback;
+import entity.ChargebackImge;
 import entity.Sheet;
 import entity.SheetImge;
 import entity.SheetProgress;
@@ -89,26 +89,22 @@ public class SheetService extends BaseService {
 		return super.getMapper().writeValueAsString(sheetProgressList);
 	}
 
-	public String chargeback(String chargebackDtoStr) throws Exception {
+	public String chargeback(String chargebackDtoStr,
+			List<MultipartFile> imgfileList) throws Exception {
 		Chargeback chargeback = super.getMapper().readValue(chargebackDtoStr,
 				Chargeback.class);
-		ResponseInfo info = new ResponseInfo();
-		try {
-			Sheet sheet = this.sheetDao.findById(chargeback.getSheetId());
-			if (chargeback.getState() == SheetConstant.CHARGEBACK_SUCCESS) {
-				sheet.setState(SheetConstant.CHARGEBACK_SUCCESS);
-				addToSheetStateFollow(sheet, SheetConstant.CHARGEBACK_SUCCESS);
-			} else if (chargeback.getState() == SheetConstant.CHARGEBACK_REQUEST) {
-				sheet.setState(SheetConstant.CHARGEBACK_REQUEST);
-				addToSheetStateFollow(sheet, SheetConstant.CHARGEBACK_REQUEST);
-			}
-			this.sheetDao.persist(sheet);
-			this.chargebackDao.persist(chargeback);
-		} catch (Exception e) {
-			info.setMsg(ComConstant.SYS_ERRO);
-			info.setStatus(false);
+		Sheet sheet = this.sheetDao.findById(chargeback.getSheetId());
+		if (chargeback.getState() == SheetConstant.CHARGEBACK_SUCCESS) {
+			sheet.setState(SheetConstant.CHARGEBACK_SUCCESS);
+			this.addToSheetStateFollow(sheet, SheetConstant.CHARGEBACK_SUCCESS);
+		} else if (chargeback.getState() == SheetConstant.CHARGEBACK_REQUEST) {
+			sheet.setState(SheetConstant.CHARGEBACK_REQUEST);
+			this.addToSheetStateFollow(sheet, SheetConstant.CHARGEBACK_REQUEST);
 		}
-		return super.getMapper().writeValueAsString(info);
+		this.sheetDao.persist(sheet);
+		this.saveImgs(chargeback, imgfileList);
+		this.chargebackDao.persist(chargeback);
+		return super.buildRespJson(true, EMPTY, EMPTY);
 	}
 
 	private void addToSheetStateFollow(Sheet sheet, int state) {
@@ -117,6 +113,19 @@ public class SheetService extends BaseService {
 		newState.setSheetId(sheet);
 		newState.setState(state);
 		sheetStateList.add(newState);
+	}
+
+	private void saveImgs(Chargeback chargeback, List<MultipartFile> imgfileList)
+			throws IOException {
+		String catalog = ImgConstant.ROOT + ImgConstant.TYPE_CHARGEBACK
+				+ chargeback.getId();
+		List<ChargebackImge> imgList = null;
+		String newPath = null;
+		for (MultipartFile imgFile : imgfileList) {
+			newPath = ImgAssistant.updateImg(imgFile, catalog, null);
+			imgList.get(0).setImg(newPath);
+		}
+		chargeback.setImgeList(imgList);
 	}
 
 	public String getSheetSimpleInfo(String customerId, String state)

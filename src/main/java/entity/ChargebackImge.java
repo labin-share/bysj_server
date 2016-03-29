@@ -5,18 +5,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name = "SHEET_CHARGEBACK_IMG")
-public class SheetChargebackImge {
+@Table(name = "CHARGEBACK_IMG")
+public class ChargebackImge {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ID", length = 4)
 	private int id;
-	@Column(name = "SHEET_ID")
-	private int sheetId;
+	@ManyToOne
+	@JoinColumn(name = "CHARGEBACK_ID", referencedColumnName = "ID")
+	@JsonIgnore
+	private Chargeback chargebackId;
 	@Column(name = "img")
 	private String img;
 
@@ -28,12 +34,12 @@ public class SheetChargebackImge {
 		this.id = id;
 	}
 
-	public int getSheetId() {
-		return sheetId;
+	public Chargeback getSheetId() {
+		return chargebackId;
 	}
 
-	public void setSheetId(int sheetId) {
-		this.sheetId = sheetId;
+	public void setSheetId(Chargeback chargebackId) {
+		this.chargebackId = chargebackId;
 	}
 
 	public String getImg() {
