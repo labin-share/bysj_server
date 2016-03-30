@@ -7,6 +7,9 @@ import entity.SheetImge;
 public class SheetDTO {
 	private int id;
 	private String address;
+	private double longitude;
+	private double latitude;
+	private double distance;
 	private String phone;
 	private int state;
 	private String type;
@@ -14,6 +17,7 @@ public class SheetDTO {
 	private String evaluation;
 	private int Attitude;
 	private int speed;
+	private String expectiveTime;
 	private String createDate;
 	private String endTime;
 	private String evaTime;
@@ -37,6 +41,30 @@ public class SheetDTO {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public double getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(double latitude) {
+		this.latitude = latitude;
+	}
+
+	public double getDistance() {
+		return distance;
+	}
+
+	public void setDistance(double distance) {
+		this.distance = distance;
 	}
 
 	public String getPhone() {
@@ -93,6 +121,14 @@ public class SheetDTO {
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
+	}
+
+	public String getExpectiveTime() {
+		return expectiveTime;
+	}
+
+	public void setExpectiveTime(String expectiveTime) {
+		this.expectiveTime = expectiveTime;
 	}
 
 	public String getEndTime() {

@@ -41,4 +41,26 @@ public class SheetDao extends BaseDao<Sheet> {
 		return super.execute(builder);
 	}
 
+	public List<Sheet> findByMtnIdState(int mtnId, List<String> stateList) {
+		CriteriaBuilderPersonal builder = super.getCriteriaBuilderPersonal();
+		if (stateList != null) {
+			for (String state : stateList) {
+				builder.or(SheetConstant.STATE, state);
+			}
+		}
+		builder.and(SheetConstant.MTN_ID, mtnId);
+		return super.execute(builder);
+	}
+
+	public List<Sheet> findByTypeState(List<String> tags) {
+		CriteriaBuilderPersonal builder = super.getCriteriaBuilderPersonal();
+		if (tags != null) {
+			for (String tag : tags) {
+				builder.or(SheetConstant.TYPE, tag);
+			}
+		}
+		builder.and(SheetConstant.STATE, SheetConstant.SHEET_WAIT);
+		return super.execute(builder);
+	}
+
 }

@@ -9,8 +9,9 @@ public class SheetConstant {
 	public static int CHARGEBACK_SUCCESS = 7;
 	public static int CHARGEBACK_REQUEST = 6;
 	public static int SHEET_FINISHED = 4;
+	public static int SHEET_WAIT = 0;
 	public static boolean DISABLE_EVA = false;
 	public static boolean ENABLE_EVA = true;
 	public static String CUSTOMER_ID = "customerId";
-
+	public static String TYPE = "type";
 }

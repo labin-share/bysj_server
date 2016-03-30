@@ -29,22 +29,29 @@ public class MantainerController {
 		return this.mantainerService.findById(id);
 	}
 
-//	//not test
-//	@RequestMapping("modifyPersonalInfo")
-//	public @ResponseBody String modifyPersonalInfo(String mantainerDtoStr, @RequestParam("headPortrait") MultipartFile img)
-//			throws Exception {
-//		return this.mantainerService.modifyPersonalInfo(mantainerDtoStr, img);
-//	}
-	
+	// //not test
+	// @RequestMapping("modifyPersonalInfo")
+	// public @ResponseBody String modifyPersonalInfo(String mantainerDtoStr,
+	// @RequestParam("headPortrait") MultipartFile img)
+	// throws Exception {
+	// return this.mantainerService.modifyPersonalInfo(mantainerDtoStr, img);
+	// }
+
 	@RequestMapping("modifypersonalInfo")
 	public @ResponseBody String modifyPersonalInfo(String mantainerDtoStr)
 			throws Exception {
 		return this.mantainerService.modifyPersonalInfo(mantainerDtoStr);
 	}
-	
+
 	@RequestMapping("modifyHeadPortrait")
-	public @ResponseBody String modifyHeadPortrait(@RequestParam("id")int id, @RequestParam("headPortrait") MultipartFile img) throws IOException{
-		return this.mantainerService.modifyHeadPortrait(id,img);
+	public @ResponseBody String modifyHeadPortrait(@RequestParam("id") int id,
+			@RequestParam("headPortrait") MultipartFile img) throws IOException {
+		return this.mantainerService.modifyHeadPortrait(id, img);
 	}
 
+	@RequestMapping("getSheetByMtnIdDistance")
+	public @ResponseBody String getSheetByMtnIdDistance(int id, double distance)
+			throws Exception {
+		return this.mantainerService.getSheetByMtnIdDistance(id, distance);
+	}
 }

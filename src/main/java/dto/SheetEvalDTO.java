@@ -6,6 +6,7 @@ import entity.SheetImge;
 
 public class SheetEvalDTO {
 
+	private int id;
 	private String evaluation;
 	private String type;
 	private int Attitude;
@@ -14,6 +15,14 @@ public class SheetEvalDTO {
 	private boolean isEva;
 	private int achive;
 	private List<SheetImge> sheetImgList;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getEvaluation() {
 		return evaluation;

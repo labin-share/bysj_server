@@ -1,6 +1,8 @@
 package service;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,18 +21,26 @@ import constant.ImgConstant;
 import constant.LoginConstant;
 import constant.MantainerConstant;
 import constant.RegisterConstant;
+import controller.LngLatAssistant;
 import dao.MantainerDAO;
+import dao.SheetDao;
 import dto.LoginDTO;
 import dto.MantainerDTO;
 import dto.RegisterDTO;
+import dto.SheetDTO;
 import dtoMapper.MantainerDTOMapper;
+import dtoMapper.SheetDTOMapper;
+import entity.MantainType;
 import entity.Mantainer;
+import entity.Sheet;
 
 @Service
 public class MantainerService extends BaseService {
 
 	@Autowired
 	MantainerDAO mantainerDao;
+	@Autowired
+	SheetDao sheetDao;
 	ObjectMapper mapper = new ObjectMapper();
 
 	public String findById(int id) throws JsonProcessingException {
@@ -149,6 +159,32 @@ public class MantainerService extends BaseService {
 			resp.setMsg(ComConstant.SYS_ERRO);
 		}
 		return this.mapper.writeValueAsString(resp);
+	}
+
+	public String getSheetByMtnIdDistance(int id, double distance)
+			throws Exception {
+		Mantainer mantainer = this.mantainerDao.findById(id);
+		List<MantainType> mantainTypes = mantainer.getMantainTypeList();
+		List<String> tags = new ArrayList<String>();
+		for (MantainType type : mantainTypes) {
+			tags.add(type.getTag());
+		}
+		List<Sheet> sheets = this.sheetDao.findByTypeState(tags);
+		List<SheetDTO> sheetDTOs = new ArrayList<SheetDTO>();
+		SheetDTO sheetDTO = null;
+		double realDistance;
+		for (Sheet sheet : sheets) {
+			realDistance = LngLatAssistant.calculateDistance(
+					mantainer.getLatitude(), mantainer.getLongitude(),
+					sheet.getLantitude(), sheet.getLongitude());
+			if (Double.compare(realDistance, distance) <= 0) {
+				sheetDTO = SheetDTOMapper.toSimpleInfo(sheet);
+				sheetDTO.setDistance(realDistance);
+				sheetDTOs.add(sheetDTO);
+			}
+		}
+		return super.buildRespJson(true, EMPTY, super.getMapper()
+				.writeValueAsString(sheetDTOs));
 	}
 
 }

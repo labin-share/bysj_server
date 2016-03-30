@@ -31,6 +31,10 @@ public class Sheet extends BaseEntity {
 	// private Contaction contaction;
 	@Column(name = "ADDRESS", nullable = false)
 	private String address;
+	@Column(name = "LONGITUDE", nullable = true)
+	private double longitude;
+	@Column(name = "LATITUDE", nullable = true)
+	private double latitude;
 	@Column(name = "PHONE", nullable = false)
 	private String phone;
 	@Column(name = "EXPECTIVE_TIME", nullable = false)
@@ -101,6 +105,22 @@ public class Sheet extends BaseEntity {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public double getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(double longitude) {
+		this.longitude = longitude;
+	}
+
+	public double getLantitude() {
+		return latitude;
+	}
+
+	public void setLantitude(double latitude) {
+		this.latitude = latitude;
 	}
 
 	public String getPhone() {

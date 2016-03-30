@@ -154,6 +154,21 @@ public class SheetService extends BaseService {
 				.writeValueAsString(sheetDTOList));
 	}
 
+	public String getSheetSimpleInfoByMtnId(String mtnId, String states)
+			throws Exception {
+		List<String> stateList = super.getMapper().readValue(states,
+				new TypeReference<List<String>>() {
+				});
+		List<Sheet> sheetList = this.sheetDao.findByMtnIdState(
+				Integer.parseInt(mtnId), stateList);
+		List<SheetDTO> sheetDTOList = new ArrayList<SheetDTO>();
+		for (Sheet sheet : sheetList) {
+			sheetDTOList.add(SheetDTOMapper.toSimpleInfo(sheet));
+		}
+		return super.buildRespJson(true, super.EMPTY, super.getMapper()
+				.writeValueAsString(sheetDTOList));
+	}
+
 	public String getSheetDetailInfo(int sheetId)
 			throws JsonProcessingException, ParseException {
 		Sheet sheet = this.sheetDao.findById(sheetId);

@@ -27,6 +27,7 @@ public class SheetDTOMapper {
 	static public SheetEvalDTO toSheetsEvalDTO(Sheet entity)
 			throws ParseException {
 		SheetEvalDTO dto = new SheetEvalDTO();
+		dto.setId(entity.getId());
 		dto.setEvaluation(entity.getEvaluation());
 		dto.setType(entity.getType());
 		dto.setAchive(entity.getAchive());
@@ -48,6 +49,7 @@ public class SheetDTOMapper {
 		sheetDTO.setType(entity.getType());
 		sheetDTO.setCreateDate(TimeAssistant.toFontFormat(entity
 				.getCreateDate()));
+		sheetDTO.setExpectiveTime(entity.getExpectiveTime());
 		sheetDTO.setEvaTime(TimeAssistant.toFontFormat(entity.getEvaTime()));
 		sheetDTO.setEndTime(TimeAssistant.toFontFormat(entity.getEndTime()));
 		return sheetDTO;
