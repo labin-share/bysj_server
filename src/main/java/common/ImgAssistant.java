@@ -35,8 +35,8 @@ public class ImgAssistant {
 		int randomNum;
 		randomNum = (int) random.nextDouble() * ImgConstant.THIRD_DIGIT_LENGTH;
 		FileUtils.copyInputStreamToFile(imgFile.getInputStream(), new File(
-				path, "" + date + "" + randomNum));
-		return path + "" + date + "" + randomNum;
+				path, "" + date + "" + randomNum + ImgConstant.IMG_JPG_SUFFIXES));
+		return ImgConstant.WEB_URL_ROOT  + "" + date + "" + randomNum + ImgConstant.IMG_JPG_SUFFIXES;
 	}
 
 	public static void deleteOldImg(String path) {

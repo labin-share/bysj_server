@@ -2,12 +2,22 @@ package dto;
 
 public class SheetCreateDTO {
 
+	private int id;
 	private int customerId;
 	private int mtnId;
 	private String address;
 	private String phone;
 	private String expectiveTime;
 	private String type;
+
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getCustomerId() {
 		return customerId;

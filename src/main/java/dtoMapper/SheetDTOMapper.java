@@ -13,7 +13,10 @@ public class SheetDTOMapper {
 	static public Sheet toNewSheet(SheetCreateDTO dto) throws ParseException {
 		Sheet sheet = new Sheet();
 		sheet.setAddress(dto.getAddress());
-		sheet.setExpectiveTime(TimeAssistant.toBackendFormat(dto.getExpectiveTime()));
+		if (dto.getExpectiveTime() != null) {
+			sheet.setExpectiveTime(TimeAssistant.toBackendFormat(dto
+					.getExpectiveTime()));
+		}
 		sheet.setMtnId(dto.getMtnerId());
 		sheet.setPhone(dto.getPhone());
 		sheet.setCustomerId(dto.getCustomerId());
@@ -21,14 +24,15 @@ public class SheetDTOMapper {
 		return sheet;
 	}
 
-	static public SheetEvalDTO toSheetsEvalDTO(Sheet entity) throws ParseException {
+	static public SheetEvalDTO toSheetsEvalDTO(Sheet entity)
+			throws ParseException {
 		SheetEvalDTO dto = new SheetEvalDTO();
 		dto.setEvaluation(entity.getEvaluation());
 		dto.setType(entity.getType());
 		dto.setAchive(entity.getAchive());
 		dto.setAttitude(entity.getAttitude());
 		// dto.setEva(entity.isEnableEva());
-		if(entity.getEvaTime()!=null){
+		if (entity.getEvaTime() != null) {
 			dto.setEvaTime(TimeAssistant.toFontFormat(entity.getEvaTime()));
 		}
 		dto.setSpeed(entity.getSpeed());
@@ -57,8 +61,12 @@ public class SheetDTOMapper {
 		sheetDTO.setType(entity.getType());
 		sheetDTO.setCreateDate(TimeAssistant.toFontFormat(entity
 				.getCreateDate()));
-		sheetDTO.setEvaTime(TimeAssistant.toFontFormat(entity.getEvaTime()));
-		sheetDTO.setEndTime(TimeAssistant.toFontFormat(entity.getEndTime()));
+		if (entity.getEvaTime() != null) {
+			sheetDTO.setEvaTime(TimeAssistant.toFontFormat(entity.getEvaTime()));
+		}
+		if (entity.getEndTime() != null) {
+			sheetDTO.setEndTime(TimeAssistant.toFontFormat(entity.getEndTime()));
+		}
 		sheetDTO.setSheetImgList(entity.getSheetImgList());
 		return sheetDTO;
 	}

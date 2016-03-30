@@ -130,7 +130,7 @@ public class MantainerService extends BaseService {
 	public String modifyHeadPortrait(int id, MultipartFile img)
 			throws IOException {
 		Mantainer mantainer = this.mantainerDao.findById(id);
-		String catalogPath = ImgConstant.ROOT + ImgConstant.TYPE_HEAD + id;
+		String catalogPath = ImgConstant.PYSICS_ROOT + ImgConstant.WEB_URL_ROOT + ImgConstant.TYPE_HEAD + id;
 		String oldPath = mantainer.getHeadPortrait();
 		String newPath = ImgAssistant.updateImg(img, catalogPath, oldPath);
 		mantainer.setHeadPortrait(newPath);

@@ -31,7 +31,8 @@
 		annotation-driven HandlerMapping -->
 
 	<!-- 静态资源处理， css， js， imgs -->
-	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<!-- mapping 的值表示要访问location的url，只有符合mapping的形式才能访问-->
+	<mvc:resources mapping="/resources/**/*.jpg" location="/resources/" />
 
 	<!-- 配置ViewResolver。 可以用多个ViewResolver。 使用order属性排序。 InternalResourceViewResolver放在最后。 -->
 	<bean
@@ -80,9 +81,9 @@
 		<!-- run at 00:00 everyday-->
 		<task:scheduled ref="scheduleJob" method="updateSheetEvaFunc" cron="0 0 0 * * ?"/>   
 	</task:scheduled-tasks>  
-	
+	<!--
 	<bean id = "exceptionHandleAOP" class="common.ExceptionHandleAOP">
 	</bean>
-	<aop:aspectj-autoproxy/>  <!--开启spring 扫描使用@Aspect注解的类-->
+	<aop:aspectj-autoproxy/>-->  <!--开启spring 扫描使用@Aspect注解的类-->
 
 </beans>

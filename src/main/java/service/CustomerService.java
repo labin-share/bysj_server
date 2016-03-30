@@ -136,7 +136,7 @@ public class CustomerService extends BaseService {
 	public String modifyHeadPortrait(int id, MultipartFile img)
 			throws IOException {
 		Customer customer = this.customerDao.findById(id);
-		String catalogPath = ImgConstant.ROOT + ImgConstant.TYPE_HEAD + id;
+		String catalogPath = ImgConstant.PYSICS_ROOT + ImgConstant.WEB_URL_ROOT + ImgConstant.TYPE_HEAD + id;
 		String oldPath = customer.getHeadPortrait();
 		String newPath = ImgAssistant.updateImg(img, catalogPath, oldPath);
 		customer.setHeadPortrait(newPath);

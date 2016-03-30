@@ -40,8 +40,8 @@ public class SheetController {
 	}
 
 	@RequestMapping("/getSheetEvalBySheetId/{sheetId}")
-	public @ResponseBody String getSheetEvalBySheetId(@PathVariable("sheetId")int sheetId)
-			throws Exception {
+	public @ResponseBody String getSheetEvalBySheetId(
+			@PathVariable("sheetId") int sheetId) throws Exception {
 		return this.sheetService.getSheetEvalBySheetId(sheetId);
 	}
 
@@ -72,9 +72,10 @@ public class SheetController {
 		return this.sheetService.getSheetSimpleInfo(customerId, state);
 	}
 
-	@RequestMapping("getSheetDetailInfo")
-	public @ResponseBody String getSheetDetailInfo(int sheetId)
-			throws JsonProcessingException, ParseException {
+	@RequestMapping("getSheetDetailInfo/{id}")
+	public @ResponseBody String getSheetDetailInfo(
+			@PathVariable("id") int sheetId) throws JsonProcessingException,
+			ParseException {
 		return this.sheetService.getSheetDetailInfo(sheetId);
 	}
 

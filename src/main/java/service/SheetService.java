@@ -52,13 +52,14 @@ public class SheetService extends BaseService {
 		sheet = this.sheetDao.persist(sheet);
 		List<SheetImge> newPathList = new ArrayList<SheetImge>();
 		SheetImge sheetImge = null;
-		String catalog = ImgConstant.ROOT + ImgConstant.TYPE_SHEET
+		String catalog = ImgConstant.PYSICS_ROOT + ImgConstant.WEB_URL_ROOT + ImgConstant.TYPE_SHEET
 				+ sheet.getId();
 		String newPath = null;
 		for (MultipartFile imgeFile : imgfileList) {
 			newPath = ImgAssistant.updateImg(imgeFile, catalog, null);
 			sheetImge = new SheetImge();
 			sheetImge.setImg(newPath);
+			sheetImge.setSheetId(sheet);
 			newPathList.add(sheetImge);
 		}
 		sheet.setSheetImgList(newPathList);
@@ -129,7 +130,7 @@ public class SheetService extends BaseService {
 
 	private void saveChargebackImgs(Chargeback chargeback,
 			List<MultipartFile> imgfileList) throws IOException {
-		String catalog = ImgConstant.ROOT + ImgConstant.TYPE_CHARGEBACK
+		String catalog = ImgConstant.PYSICS_ROOT + ImgConstant.WEB_URL_ROOT + ImgConstant.TYPE_CHARGEBACK
 				+ chargeback.getId();
 		List<ChargebackImge> imgList = null;
 		String newPath = null;
@@ -175,7 +176,7 @@ public class SheetService extends BaseService {
 
 	private void saveEvalImgs(Sheet sheet, List<MultipartFile> imgFiles)
 			throws IOException {
-		String catalog = ImgConstant.ROOT + ImgConstant.TYPE_EVAL
+		String catalog = ImgConstant.PYSICS_ROOT + ImgConstant.WEB_URL_ROOT + ImgConstant.TYPE_EVAL
 				+ sheet.getId();
 		List<SheetEvalImge> oldImgs = sheet.getSheetEvalImgList();
 		List<SheetEvalImge> newImgs = new ArrayList<SheetEvalImge>();
