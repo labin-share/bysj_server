@@ -30,9 +30,9 @@ public class Customer extends BaseEntity {
 	private String headPortrait;
 	@Column(name = "SIGNATURE", nullable = true)
 	private String signature;
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "customerId")
-	@JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID")
-	private List<Contaction> contactinList;
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "customerId")
+//	@JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID")
+//	private List<Contaction> contactinList;
 
 	public int getId() {
 		return id;

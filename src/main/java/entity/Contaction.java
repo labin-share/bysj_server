@@ -19,10 +19,11 @@ public class Contaction extends BaseEntity{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ID",length = 4)
 	private int id;
-	@ManyToOne
-	@JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID")
-	@JsonIgnore
-	private Customer customerId;
+//	@ManyToOne
+//	@JoinColumn(name = "CUSTOMER_ID", referencedColumnName = "CUSTOMER_ID")
+//	@JsonIgnore
+	@Column(name = "CUSTOMER_ID")
+	private int customerId;
 	@Column(name = "DEF",nullable = true)
 	private boolean def;
 	@Column(name = "ADDRESS",nullable = false)
@@ -38,11 +39,11 @@ public class Contaction extends BaseEntity{
 		this.id = id;
 	}
 
-	public Customer getCustomerId() {
+	public int getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(Customer customerId) {
+	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
 

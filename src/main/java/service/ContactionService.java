@@ -16,7 +16,7 @@ import dtoMapper.ContactionDTOMapper;
 import entity.Contaction;
 
 @Service
-public class ContactionService {
+public class ContactionService extends BaseService {
 
 	@Autowired
 	ContactionDao contactionDao;
@@ -30,7 +30,8 @@ public class ContactionService {
 			contactionDTO = ContactionDTOMapper.toDTO(contaction);
 			contactionDTOList.add(contactionDTO);
 		}
-		return this.mapper.writeValueAsString(contactionDTOList);
+		return super.buildRespJson(true, EMPTY, super.getMapper()
+				.writeValueAsString(contactionDTOList));
 	}
 
 	// public String saveContactions(String contactionsStr)
