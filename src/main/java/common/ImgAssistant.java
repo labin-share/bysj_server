@@ -29,14 +29,19 @@ public class ImgAssistant {
 	public static String saveImg(MultipartFile imgFile, String path)
 			throws IOException {
 		Date d = new Date();
-		DateFormat df = new SimpleDateFormat(TimeAssistant.FILE_NAME_DATE_FORMAT);
+		DateFormat df = new SimpleDateFormat(
+				TimeAssistant.FILE_NAME_DATE_FORMAT);
 		String date = df.format(d);
 		Random random = new Random();
 		int randomNum;
 		randomNum = (int) random.nextDouble() * ImgConstant.THIRD_DIGIT_LENGTH;
-		FileUtils.copyInputStreamToFile(imgFile.getInputStream(), new File(
-				path, "" + date + "" + randomNum + ImgConstant.IMG_JPG_SUFFIXES));
-		return ImgConstant.WEB_URL_ROOT  + "" + date + "" + randomNum + ImgConstant.IMG_JPG_SUFFIXES;
+		FileUtils
+				.copyInputStreamToFile(imgFile.getInputStream(), new File(
+						ImgConstant.PYSICS_ROOT + ImgConstant.WEB_URL_ROOT
+								+ path, "" + date + "" + randomNum
+								+ ImgConstant.IMG_JPG_SUFFIXES));
+		return ImgConstant.WEB_URL_ROOT + path + "" + date + "" + randomNum
+				+ ImgConstant.IMG_JPG_SUFFIXES;
 	}
 
 	public static void deleteOldImg(String path) {
