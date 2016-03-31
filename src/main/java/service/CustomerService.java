@@ -14,13 +14,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import common.ImgAssistant;
+import common.LngLatAssistant;
 import common.ResponseInfo;
 import constant.ComConstant;
 import constant.CustomerConstant;
 import constant.ImgConstant;
 import constant.LoginConstant;
 import constant.RegisterConstant;
-import controller.LngLatAssistant;
 import dao.CustomerCollectionDao;
 import dao.CustomerDao;
 import dao.MantainerDAO;
@@ -145,17 +145,16 @@ public class CustomerService extends BaseService {
 		return super.buildRespJson(true, EMPTY, EMPTY);
 	}
 
-	public String changePsw(int id, String psw) throws JsonProcessingException {
-		ResponseInfo resp = new ResponseInfo();
+	public String changePsw(int id, String oldPsw, String newPsw)
+			throws JsonProcessingException {
 		Customer customer = this.customerDao.findById(id);
-		customer.setPsw(psw);
-		try {
-			this.customerDao.persist(customer);
-		} catch (Exception e) {
-			resp.setStatus(false);
-			resp.setMsg(ComConstant.SYS_ERRO);
+		if (!customer.getPsw().equals(oldPsw)) {
+			return super.buildRespJson(false, LoginConstant.VERRIFY_ERRO,
+					super.EMPTY);
 		}
-		return this.mapper.writeValueAsString(resp);
+		customer.setPsw(newPsw);
+		this.customerDao.persist(customer);
+		return super.buildRespJson(true, EMPTY, EMPTY);
 	}
 
 	public String collectMtn(int customerId, int mtnId)
@@ -180,8 +179,9 @@ public class CustomerService extends BaseService {
 		MantainerDTO mantainerDTO = null;
 		double realDistance;
 		for (Mantainer mantainer : mantainerList) {
-			realDistance = LngLatAssistant.calculateDistance(longitude, latitude,
-					mantainer.getLongitude(), mantainer.getLatitude());
+			realDistance = LngLatAssistant
+					.calculateDistance(longitude, latitude,
+							mantainer.getLongitude(), mantainer.getLatitude());
 			if (Double.compare(realDistance, distance) <= 0) {
 				mantainerDTO = MantainerDTOMapper.toMtnShowList(mantainer);
 				mantainerDTO.setDistance(realDistance);

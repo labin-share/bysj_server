@@ -1,7 +1,6 @@
 package service;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,13 +14,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import common.ImgAssistant;
+import common.LngLatAssistant;
 import common.ResponseInfo;
 import constant.ComConstant;
 import constant.ImgConstant;
 import constant.LoginConstant;
 import constant.MantainerConstant;
 import constant.RegisterConstant;
-import controller.LngLatAssistant;
 import dao.MantainerDAO;
 import dao.SheetDao;
 import dto.LoginDTO;
@@ -148,17 +147,16 @@ public class MantainerService extends BaseService {
 		return super.buildRespJson(true, super.EMPTY, super.EMPTY);
 	}
 
-	public String changePsw(int id, String psw) throws JsonProcessingException {
-		ResponseInfo resp = new ResponseInfo();
+	public String changePsw(int id, String oldPsw, String newPsw)
+			throws JsonProcessingException {
 		Mantainer mantainer = this.mantainerDao.findById(id);
-		mantainer.setPsw(psw);
-		try {
-			this.mantainerDao.persist(mantainer);
-		} catch (Exception e) {
-			resp.setStatus(false);
-			resp.setMsg(ComConstant.SYS_ERRO);
+		if (!mantainer.getPsw().equals(oldPsw)) {
+			return super.buildRespJson(false, LoginConstant.VERRIFY_ERRO,
+					super.EMPTY);
 		}
-		return this.mapper.writeValueAsString(resp);
+		mantainer.setPsw(newPsw);
+		this.mantainerDao.persist(mantainer);
+		return super.buildRespJson(true, EMPTY, EMPTY);
 	}
 
 	public String getSheetByMtnIdDistance(int id, double distance)

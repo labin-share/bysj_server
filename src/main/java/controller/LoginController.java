@@ -56,14 +56,16 @@ public class LoginController {
 
 	@RequestMapping("/changeMtnPsw")
 	public @ResponseBody String changeMtnPsw(@RequestParam("id") int id,
-			@RequestParam("psw") String psw) throws JsonProcessingException {
-		return this.mantainerService.changePsw(id, psw);
+			@RequestParam("psw") String newPsw,
+			@RequestParam("psw") String oldPsw) throws JsonProcessingException {
+		return this.mantainerService.changePsw(id, oldPsw, newPsw);
 	}
 
 	@RequestMapping("/changeCustomerPsw")
 	public @ResponseBody String changeCustomerPsw(@RequestParam("id") int id,
-			@RequestParam("psw") String psw) throws JsonProcessingException {
-		return this.customerService.changePsw(id, psw);
+			@RequestParam("psw") String newPsw,
+			@RequestParam("psw") String oldPsw) throws JsonProcessingException {
+		return this.customerService.changePsw(id, oldPsw, newPsw);
 	}
 
 	// test
