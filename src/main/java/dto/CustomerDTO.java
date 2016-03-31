@@ -6,6 +6,8 @@ public class CustomerDTO {
 	private String name;
 	private String headPortrait;
 	private String signature;
+	private String oldPsw;
+	private String newPsw;
 
 	public int getId() {
 		return id;
@@ -45,6 +47,22 @@ public class CustomerDTO {
 
 	public void setSignature(String signature) {
 		this.signature = signature;
+	}
+
+	public String getOldPsw() {
+		return oldPsw;
+	}
+
+	public void setOldPsw(String oldPsw) {
+		this.oldPsw = oldPsw;
+	}
+
+	public String getNewPsw() {
+		return newPsw;
+	}
+
+	public void setNewPsw(String newPsw) {
+		this.newPsw = newPsw;
 	}
 
 }
