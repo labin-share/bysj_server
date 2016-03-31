@@ -37,7 +37,7 @@ public class MantainerController {
 	// return this.mantainerService.modifyPersonalInfo(mantainerDtoStr, img);
 	// }
 
-	@RequestMapping("modifypersonalInfo")
+	@RequestMapping("modifyPersonalInfo")
 	public @ResponseBody String modifyPersonalInfo(String mantainerDtoStr)
 			throws Exception {
 		return this.mantainerService.modifyPersonalInfo(mantainerDtoStr);
