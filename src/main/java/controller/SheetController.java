@@ -68,8 +68,8 @@ public class SheetController {
 
 	@RequestMapping("/getSheetSimpleInfo")
 	public @ResponseBody String getSheetSimpleInfo(String customerId,
-			String state) throws IOException, ParseException {
-		return this.sheetService.getSheetSimpleInfo(customerId, state);
+			String states) throws IOException, ParseException {
+		return this.sheetService.getSheetSimpleInfo(customerId, states);
 	}
 	
 	@RequestMapping("getSheetSimpleInfoByMtnId")

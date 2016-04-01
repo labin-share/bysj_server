@@ -49,9 +49,12 @@ public class SheetDTOMapper {
 		sheetDTO.setType(entity.getType());
 		sheetDTO.setCreateDate(TimeAssistant.toFontFormat(entity
 				.getCreateDate()));
-		sheetDTO.setExpectiveTime(entity.getExpectiveTime());
+		sheetDTO.setExpectiveTime(TimeAssistant.toFontFormat(entity
+				.getExpectiveTime()));
 		sheetDTO.setEvaTime(TimeAssistant.toFontFormat(entity.getEvaTime()));
-		sheetDTO.setEndTime(TimeAssistant.toFontFormat(entity.getEndTime()));
+		if (entity.getEndTime() != null && !entity.getEndTime().equals("")) {
+			sheetDTO.setEndTime(TimeAssistant.toFontFormat(entity.getEndTime()));
+		}
 		return sheetDTO;
 	}
 
