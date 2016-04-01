@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 
 import common.ImgAssistant;
 import common.ResponseInfo;
+import common.TimeAssistant;
 import constant.ImgConstant;
 import constant.SheetConstant;
 import dao.ChargebackDao;
@@ -98,6 +99,10 @@ public class SheetService extends BaseService {
 	public String getSheetProgress(int id) throws Exception {
 		List<SheetProgress> sheetProgressList = this.sheetProgressDao
 				.findBySheetId(id);
+		for(SheetProgress sheetProgress: sheetProgressList){
+			String fontTime = TimeAssistant.toFontFormat(sheetProgress.getCreateDate());
+			sheetProgress.setCreateDate(fontTime);
+		}
 		return super.getMapper().writeValueAsString(sheetProgressList);
 	}
 
