@@ -62,9 +62,9 @@ public class CustomerController {
 	}
 
 	@RequestMapping("findMtnByCustomerId")
-	public @ResponseBody String findMtnByCustomerId(int customerId)
-			throws JsonProcessingException {
-		return this.customerService.findMtnByCustomerId(customerId);
+	public @ResponseBody String findMtnByCustomerId(int customerId,
+			double longitude, double latitude) throws JsonProcessingException {
+		return this.customerService.findMtnByCustomerId(customerId, longitude, latitude);
 	}
 
 }

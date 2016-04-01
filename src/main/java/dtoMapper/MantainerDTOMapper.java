@@ -19,11 +19,14 @@ public class MantainerDTOMapper {
 		return dto;
 	}
 
-	//deliver the mantaner info which collection by customer or filter by latitude and longitude
+	// deliver the mantaner info which collection by customer or filter by
+	// latitude and longitude
 	public static MantainerDTO toMtnShowList(Mantainer entity) {
 		MantainerDTO dto = new MantainerDTO();
+		dto.setId(entity.getId());
 		dto.setHeadPortrait(entity.getHeadPortrait());
 		dto.setName(entity.getName());
+		dto.setCredit(entity.getCredit());
 		dto.setEvaNum(entity.getEvaNum());
 		dto.setTradeNum(entity.getTradeNum());
 		dto.setMantainTypeList(entity.getMantainTypeList());
@@ -39,8 +42,8 @@ public class MantainerDTOMapper {
 		entity.setSignature(dto.getSignature());
 		return entity;
 	}
-	
-	public static void toExistEntity(Mantainer entity,MantainerDTO dto){
+
+	public static void toExistEntity(Mantainer entity, MantainerDTO dto) {
 		entity.setMantainTypeList(dto.getMantainTypeList());
 		entity.setName(dto.getName());
 		entity.setSignature(dto.getSignature());

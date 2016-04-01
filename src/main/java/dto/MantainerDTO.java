@@ -18,8 +18,7 @@ public class MantainerDTO implements Serializable {
 	private String signature;
 	private int evaNum;
 	private int tradeNum;
-	// private int evaNum;
-	// private int credit;
+	private int credit;
 	private List<MantainType> mantainTypeList;
 	private double distance;
 
@@ -71,14 +70,6 @@ public class MantainerDTO implements Serializable {
 		this.signature = signature;
 	}
 
-	// public int getEvaNum() {
-	// return evaNum;
-	// }
-	//
-	// public void setEvaNum(int evaNum) {
-	// this.evaNum = evaNum;
-	// }
-
 	public List<MantainType> getMantainTypeList() {
 		return mantainTypeList;
 	}
@@ -87,13 +78,13 @@ public class MantainerDTO implements Serializable {
 		this.mantainTypeList = mantainTypeList;
 	}
 
-	// public int getCredit() {
-	// return credit;
-	// }
-	//
-	// public void setCredit(int credit) {
-	// this.credit = credit;
-	// }
+	public int getCredit() {
+		return credit;
+	}
+
+	public void setCredit(int credit) {
+		this.credit = credit;
+	}
 
 	public double getDistance() {
 		return distance;

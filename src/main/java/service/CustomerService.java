@@ -192,8 +192,8 @@ public class CustomerService extends BaseService {
 				.writeValueAsString(usefulMantainerDTO));
 	}
 
-	public String findMtnByCustomerId(int customerId)
-			throws JsonProcessingException {
+	public String findMtnByCustomerId(int customerId, double longitude,
+			double latitude) throws JsonProcessingException {
 		List<CustomerCollection> customerCollectionList = this.customerCollectionDao
 				.findByCustomerId(customerId);
 		List<MantainerDTO> mantainerDTOList = new ArrayList<MantainerDTO>();
@@ -203,6 +203,10 @@ public class CustomerService extends BaseService {
 			mantainer = this.mtnDao.findById(customerCollection
 					.getMantainerId());
 			mantainerDTO = MantainerDTOMapper.toMtnShowList(mantainer);
+			double distance = LngLatAssistant
+					.calculateDistance(longitude, latitude,
+							mantainer.getLongitude(), mantainer.getLatitude());
+			mantainerDTO.setDistance(distance);
 			mantainerDTOList.add(mantainerDTO);
 		}
 		return super.buildRespJson(true, EMPTY, super.getMapper()

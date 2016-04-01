@@ -17,7 +17,7 @@ public class LngLatAssistant {
 				* Math.cos(radLat2)
 				* Math.pow(Math.sin(radLng1RadLng2 / 2), 2)));
 		s = s * EARTH_RADIUS;
-		s = Math.round(s * 10000) / 10000;
+//		s = Math.round(s * 10000) / 10000;
 		return s;
 	}
 
