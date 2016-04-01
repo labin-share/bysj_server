@@ -115,7 +115,7 @@ public class CustomerService extends BaseService {
 	public String modifyPersonalInfo(String customerDtoStr) throws Exception {
 		CustomerDTO customerDTO = this.mapper.readValue(customerDtoStr,
 				CustomerDTO.class);
-		if (!this.isDuplicateName(customerDTO.getName())) {
+		if (!this.isDuplicateName(customerDTO.getId(), customerDTO.getName())) {
 			Customer customer = this.customerDao.findById(customerDTO.getId());
 			CustomerDTOMapper.toExistEntity(customer, customerDTO);
 			this.customerDao.persist(customer);
@@ -126,9 +126,9 @@ public class CustomerService extends BaseService {
 		}
 	}
 
-	public boolean isDuplicateName(String name) {
+	public boolean isDuplicateName(int id, String name) {
 		List<Customer> customerList = this.customerDao.findByName(name);
-		if (customerList != null || !customerList.isEmpty()) {
+		if (!customerList.isEmpty() && customerList.get(0).getId() != id) {
 			return true;
 		}
 		return false;
