@@ -22,6 +22,13 @@ public class SheetDao extends BaseDao<Sheet> {
 		return super.execute(builder);
 	}
 
+	public List<Sheet> findChargebackByCustomer(int id) {
+		CriteriaBuilderPersonal builder = super.getCriteriaBuilderPersonal();
+		builder.and(SheetConstant.CUSTOMER_ID, id);
+		builder.and(SheetConstant.STATE, SheetConstant.CHARGEBACK_REQUEST);
+		return super.execute(builder);
+	}
+
 	public List<Sheet> findByStateEva(String state, String isEnableEva) {
 		CriteriaBuilderPersonal builder = super.getCriteriaBuilderPersonal();
 		builder.and(SheetConstant.STATE, state);

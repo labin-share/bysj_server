@@ -15,7 +15,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import common.ImgAssistant;
-import common.ResponseInfo;
 import common.TimeAssistant;
 import constant.ImgConstant;
 import constant.SheetConstant;
@@ -88,19 +87,25 @@ public class SheetService extends BaseService {
 				.writeValueAsString(sheetEvalDTOList));
 	}
 
-	public String changeState(int id, int state) throws Exception {
-		ResponseInfo response = new ResponseInfo();
+	public String changeStateToSuccessFail(int id, int state) throws Exception {
 		Sheet sheet = this.sheetDao.findById(id);
-		sheet.setState(state);
-		this.sheetDao.persist(sheet);
-		return super.getMapper().writeValueAsString(response);
+		if (sheet.getState() == SheetConstant.SHEET_FINISHED) {
+			if (state == SheetConstant.SHEET_SUCCESS
+					|| state == SheetConstant.SHEET_FAIL) {
+				sheet.setState(state);
+				this.sheetDao.persist(sheet);
+				this.addToSheetStateFollow(sheet, state);
+			}
+		}
+		return super.buildRespJson(true, EMPTY, EMPTY);
 	}
 
 	public String getSheetProgress(int id) throws Exception {
 		List<SheetProgress> sheetProgressList = this.sheetProgressDao
 				.findBySheetId(id);
-		for(SheetProgress sheetProgress: sheetProgressList){
-			String fontTime = TimeAssistant.toFontFormat(sheetProgress.getCreateDate());
+		for (SheetProgress sheetProgress : sheetProgressList) {
+			String fontTime = TimeAssistant.toFontFormat(sheetProgress
+					.getCreateDate());
 			sheetProgress.setCreateDate(fontTime);
 		}
 		return super.getMapper().writeValueAsString(sheetProgressList);
@@ -208,6 +213,34 @@ public class SheetService extends BaseService {
 			});
 		}
 		sheet.setSheetEvalImgList(newImgs);
+	}
+
+	public String getChargebackSimpleInfoByCustomerIdState(int id, String states)
+			throws JsonParseException, JsonMappingException, IOException {
+		List<String> stateList = super.getMapper().readValue(states,
+				new TypeReference<List<String>>() {
+				});
+		List<Sheet> chargebackSheet = this.sheetDao
+				.findChargebackByCustomer(id);
+		List<Chargeback> chargebackList = this.chargebackDao
+				.findByIdStateSheetId(chargebackSheet, stateList);
+		List<Sheet> usefulSheet = new ArrayList<Sheet>();
+		for (Chargeback chargeback : chargebackList) {
+			usefulSheet.add(this.sheetDao.findById(chargeback.getSheetId()));
+		}
+		List<SheetDTO> sheetDTO = SheetDTOMapper.toSimpleChargebackList(
+				usefulSheet, chargebackList);
+		return super.buildRespJson(true, EMPTY, super.getMapper()
+				.writeValueAsString(sheetDTO));
+	}
+
+	public String getChargebackDetailInfoByChargebackId(int id)
+			throws JsonProcessingException {
+		Chargeback chargeback = this.chargebackDao.findById(id);
+		Sheet sheet = this.sheetDao.findById(chargeback.getSheetId());
+		SheetDTO dto = SheetDTOMapper.toDetailChargeback(sheet, chargeback);
+		return super.buildRespJson(true, EMPTY, super.getMapper()
+				.writeValueAsString(dto));
 	}
 
 }

@@ -17,7 +17,7 @@ public class ScheduleJob {
 	SheetDao sheetDao;
 
 	public void updateSheetEvaFunc() throws ParseException {
-		List<Sheet> sheetList = this.sheetDao.findByStateEva(Integer.toString(SheetConstant.SHEET_FINISHED), Boolean.toString(SheetConstant.ENABLE_EVA));
+		List<Sheet> sheetList = this.sheetDao.findByStateEva(Integer.toString(SheetConstant.SHEET_SUCCESS), Boolean.toString(SheetConstant.ENABLE_EVA));
 		SimpleDateFormat format = new SimpleDateFormat(TimeAssistant.BACKEND_TIME_FORMAT);
 		Date nowDate = new Date();
 	    Date endDate = null;

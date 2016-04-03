@@ -46,9 +46,10 @@ public class SheetController {
 	}
 
 	// not test
-	@RequestMapping("/changeState")
-	public @ResponseBody String changeState(int id, int state) throws Exception {
-		return this.sheetService.changeState(id, state);
+	@RequestMapping("/changeStateToSuccessFail")
+	public @ResponseBody String changeStateToSuccessFail(int id, int state)
+			throws Exception {
+		return this.sheetService.changeStateToSuccessFail(id, state);
 	}
 
 	// not test
@@ -71,11 +72,11 @@ public class SheetController {
 			String states) throws IOException, ParseException {
 		return this.sheetService.getSheetSimpleInfo(customerId, states);
 	}
-	
+
 	@RequestMapping("getSheetSimpleInfoByMtnId")
 	public @ResponseBody String getSheetSimpleInfoByMtnId(String mtnId,
 			String states) throws Exception {
-		return this.sheetService.getSheetSimpleInfoByMtnId(mtnId,states);
+		return this.sheetService.getSheetSimpleInfoByMtnId(mtnId, states);
 	}
 
 	@RequestMapping("getSheetDetailInfo/{id}")
@@ -83,6 +84,19 @@ public class SheetController {
 			@PathVariable("id") int sheetId) throws JsonProcessingException,
 			ParseException {
 		return this.sheetService.getSheetDetailInfo(sheetId);
+	}
+
+	@RequestMapping("getChargebackSimpleInfoByCustomerIdState")
+	public @ResponseBody String getChargebackSimpleInfoByCustomerIdState(
+			int id, String states) throws Exception {
+		return this.sheetService.getChargebackSimpleInfoByCustomerIdState(id,
+				states);
+	}
+
+	@RequestMapping("getChargebackDetailInfoByChargebackId/{id}")
+	public @ResponseBody String getChargebackDetailInfoByChargebackId(
+			@PathVariable("id") int id) throws Exception {
+		return this.sheetService.getChargebackDetailInfoByChargebackId(id);
 	}
 
 	@RequestMapping("evaluate")
