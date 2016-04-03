@@ -79,6 +79,10 @@ insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_I
 values(4,'烤箱','lufeng','20160325121212','1363122',1,0,2,'技术还行，服务态度不好','20161008111111',2,2,2,'20160101111111','火麒麟进去，变成冰淇淋，肯定坏了');
 insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID,EVALUATION,EVA_TIME,Attitude,MTN_SPEED,ACHIEVE,CREATE_DATE,CONTENT)
 values(5,'电视','shangwei','20160325121212','1363122',2,0,2,'迟到了半个钟','20161008111111',1,1,1,'20160101111111','来吧，看不了了');
+insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID,CREATE_DATE,CONTENT)
+values(7,'电视','budalagong','20160402121212','13631225776',2,6,2,'20160402121212','来吧，看不了了');
+insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID,CREATE_DATE,CONTENT)
+values(8,'笔记本','budalagong','20160402121212','110',2,6,2,'20160402121212','来吧，换了内存就用不了了');
 
 -- create sheet_progress record
 -- show columns from sheet_progress
@@ -91,10 +95,21 @@ insert into sheet_progress(id,content,CREATE_DATE,SHEET_ID)
 values(3,'i have do third times','20160328081111',1);
 
 
+-- create chargeback record
+-- show columns from chargeback
+-- select * from chargeback
+-- delete from chargeback where id>=1
+insert into chargeback(id,reason,sheet_id,state,content,create_date,last_update_date)
+values(2,2,7,0,'可能是影响到其他的固件，导致新的问题','20160402111111','20160402111111');
+insert into chargeback(id,reason,sheet_id,state,content,create_date,last_update_date)
+values(3,2,7,1,'可能是影响到其他的固件，导致新的问题','20160403111111','20160403111111');
+insert into chargeback(id,reason,sheet_id,state,content,create_date,last_update_date)
+values(4,3,8,0,'本来只有一点问题，现在彻底报废了','20160402111111','20160402111111');
+insert into chargeback(id,reason,sheet_id,state,content,create_date,last_update_date)
+values(5,3,8,1,'本来只有一点问题，现在彻底报废了','20160403111111','20160403111111');
+insert into chargeback(id,reason,sheet_id,state,content,create_date,last_update_date)
+values(6,3,8,2,'本来只有一点问题，现在彻底报废了','20160404111111','20160404111111');
+
 
 -- set global general_log = on
-
-
-
-
 
