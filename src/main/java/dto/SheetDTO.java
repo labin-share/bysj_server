@@ -2,6 +2,7 @@ package dto;
 
 import java.util.List;
 
+import entity.ChargebackImge;
 import entity.SheetImge;
 
 public class SheetDTO {
@@ -26,6 +27,13 @@ public class SheetDTO {
 	// private List<SheetStateFollow> sheetStateList;
 	// private List<SheetProgress> sheetProgressList;
 	private List<SheetImge> SheetImgList;
+
+	private int chargebackId;
+	private int chargebackState;
+	private int chargebackReason;
+	private String chargebackContent;
+	private List<ChargebackImge> chargebackImgeList;
+	private String chargebackTime;
 
 	public int getId() {
 		return id;
@@ -194,6 +202,54 @@ public class SheetDTO {
 
 	public void setSheetImgList(List<SheetImge> sheetImgList) {
 		SheetImgList = sheetImgList;
+	}
+
+	public int getChargebackId() {
+		return chargebackId;
+	}
+
+	public void setChargebackId(int chargebackId) {
+		this.chargebackId = chargebackId;
+	}
+
+	public int getChargebackState() {
+		return chargebackState;
+	}
+
+	public void setChargebackState(int chargebackState) {
+		this.chargebackState = chargebackState;
+	}
+
+	public int getChargebackReason() {
+		return chargebackReason;
+	}
+
+	public void setChargebackReason(int chargebackReason) {
+		this.chargebackReason = chargebackReason;
+	}
+
+	public String getChargebackContent() {
+		return chargebackContent;
+	}
+
+	public void setChargebackContent(String chargebackContent) {
+		this.chargebackContent = chargebackContent;
+	}
+
+	public List<ChargebackImge> getChargebackImgeList() {
+		return chargebackImgeList;
+	}
+
+	public void setChargebackImgeList(List<ChargebackImge> chargebackImgeList) {
+		this.chargebackImgeList = chargebackImgeList;
+	}
+
+	public String getChargebackTime() {
+		return chargebackTime;
+	}
+
+	public void setChargebackTime(String chargebackTime) {
+		this.chargebackTime = chargebackTime;
 	}
 
 }

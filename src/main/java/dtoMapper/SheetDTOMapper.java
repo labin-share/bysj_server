@@ -1,11 +1,14 @@
 package dtoMapper;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import common.TimeAssistant;
 import dto.SheetCreateDTO;
 import dto.SheetDTO;
 import dto.SheetEvalDTO;
+import entity.Chargeback;
 import entity.Sheet;
 
 public class SheetDTOMapper {
@@ -81,6 +84,47 @@ public class SheetDTOMapper {
 		sheet.setAttitude(dto.getAttitude());
 		sheet.setEvaluation(dto.getEvaluation());
 		sheet.setSpeed(dto.getSpeed());
+	}
+
+	public static List<SheetDTO> toSimpleChargebackList(List<Sheet> sheets,
+			List<Chargeback> chargebackList) {
+		SheetDTO dto = null;
+		List<SheetDTO> dtos = new ArrayList<SheetDTO>();
+		for (Sheet sheet : sheets) {
+			dto = new SheetDTO();
+			dto.setAddress(sheet.getAddress());
+			dto.setContent(sheet.getContent());
+			dto.setExpectiveTime(sheet.getExpectiveTime());
+			dto.setId(sheet.getId());
+			dtos.add(dto);
+		}
+		int i = 0;
+		for (Chargeback chargeback : chargebackList) {
+			dto = dtos.get(i);
+			dto.setChargebackId(chargeback.getId());
+			dto.setChargebackState(chargeback.getState());
+			dto.setChargebackTime(chargeback.getCreateDate());
+			dtos.set(i, dto);
+			i++;
+		}
+		return dtos;
+	}
+
+	public static SheetDTO toDetailChargeback(Sheet sheet, Chargeback chargeback) {
+		SheetDTO dto = new SheetDTO();
+		dto.setAddress(sheet.getAddress());
+		dto.setContent(sheet.getContent());
+		dto.setExpectiveTime(sheet.getExpectiveTime());
+		dto.setId(sheet.getId());
+		dto.setPhone(sheet.getPhone());
+		dto.setSheetImgList(sheet.getSheetImgList());
+		dto.setChargebackContent(chargeback.getContent());
+		dto.setChargebackId(chargeback.getId());
+		dto.setChargebackImgeList(chargeback.getImgeList());
+		dto.setChargebackReason(chargeback.getReason());
+		dto.setChargebackState(chargeback.getState());
+		dto.setChargebackTime(chargeback.getCreateDate());
+		return dto;
 	}
 
 }
