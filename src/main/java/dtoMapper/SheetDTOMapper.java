@@ -50,14 +50,19 @@ public class SheetDTOMapper {
 		sheetDTO.setAddress(entity.getAddress());
 		sheetDTO.setState(entity.getState());
 		sheetDTO.setType(entity.getType());
+		sheetDTO.setContent(entity.getContent());
 		sheetDTO.setCreateDate(TimeAssistant.toFontFormat(entity
 				.getCreateDate()));
 		sheetDTO.setExpectiveTime(TimeAssistant.toFontFormat(entity
 				.getExpectiveTime()));
-		sheetDTO.setEvaTime(TimeAssistant.toFontFormat(entity.getEvaTime()));
+		if (entity.getEvaTime() != null && !entity.getEvaTime().equals("")) {
+			sheetDTO.setEvaTime(TimeAssistant.toFontFormat(entity.getEvaTime()));
+		}
 		if (entity.getEndTime() != null && !entity.getEndTime().equals("")) {
 			sheetDTO.setEndTime(TimeAssistant.toFontFormat(entity.getEndTime()));
 		}
+		sheetDTO.setLastStateTime(entity.getSheetStateList()
+				.get(entity.getSheetStateList().size() - 1).getCreateDate());
 		return sheetDTO;
 	}
 

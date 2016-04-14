@@ -11,7 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "SHEET")
@@ -63,6 +65,7 @@ public class Sheet extends BaseEntity {
 	private int achive;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "sheetId")
 	@JoinColumn(name = "ID", referencedColumnName = "SHEET_ID")
+	@OrderBy("state ASC")
 	private List<SheetStateFollow> sheetStateList;
 	// @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy =
 	// "sheetId")

@@ -160,6 +160,7 @@ public class SheetService extends BaseService {
 		for (Sheet sheet : sheetList) {
 			sheetDTOList.add(SheetDTOMapper.toSimpleInfo(sheet));
 		}
+		
 		return super.buildRespJson(true, super.EMPTY, super.getMapper()
 				.writeValueAsString(sheetDTOList));
 	}

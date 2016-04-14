@@ -35,6 +35,8 @@ public class SheetDTO {
 	private List<ChargebackImge> chargebackImgeList;
 	private String chargebackTime;
 
+	private String lastStateTime;
+
 	public int getId() {
 		return id;
 	}
@@ -250,6 +252,14 @@ public class SheetDTO {
 
 	public void setChargebackTime(String chargebackTime) {
 		this.chargebackTime = chargebackTime;
+	}
+
+	public String getLastStateTime() {
+		return lastStateTime;
+	}
+
+	public void setLastStateTime(String lastStateTime) {
+		this.lastStateTime = lastStateTime;
 	}
 
 }

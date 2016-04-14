@@ -74,7 +74,7 @@ values(2,'洗衣机','shanghai','20160325121212','13800138000',1,1,1,'his skill 
 insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID,EVALUATION,EVA_TIME,Attitude,MTN_SPEED,ACHIEVE,CREATE_DATE,CONTENT)
 values(3,'电视','shenzheng','20160325121212','1008611',1,2,1,'一般般','20161008111111',1,0,3,'20160101111111','罢工了');
 insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID,EVALUATION,EVA_TIME,Attitude,MTN_SPEED,ACHIEVE,CREATE_DATE,CONTENT)
-values(6,'电视','shenzheng','20160325121212','1008611',1,2,1,null,null,1,0,3,'20160101111111','看不了了，一直在播新闻联播，每个台都一样，咋回事');
+values(6,'电视','shenzheng','20160325121212','1008611',1,2,1,null,'20160101111111',1,0,3,'20160101111111','看不了了，一直在播新闻联播，每个台都一样，咋回事');
 insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID,EVALUATION,EVA_TIME,Attitude,MTN_SPEED,ACHIEVE,CREATE_DATE,CONTENT)
 values(4,'烤箱','lufeng','20160325121212','1363122',1,0,2,'技术还行，服务态度不好','20161008111111',2,2,2,'20160101111111','火麒麟进去，变成冰淇淋，肯定坏了');
 insert into sheet(id,type,address,EXPECTIVE_TIME,PHONE,CUSTOMER_ID,STATE,MTNER_ID,EVALUATION,EVA_TIME,Attitude,MTN_SPEED,ACHIEVE,CREATE_DATE,CONTENT)
@@ -93,6 +93,61 @@ insert into sheet_progress(id,content,CREATE_DATE,SHEET_ID)
 values(2,'just do it agian','20160328111011',1);
 insert into sheet_progress(id,content,CREATE_DATE,SHEET_ID)
 values(3,'i have do third times','20160328081111',1);
+
+
+-- create SHEET_STATE_FOLLOW record
+-- show columns from SHEET_STATE_FOLLOW
+-- select * from sheet_state_follow
+-- delete * from sheet_state_follow
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(1,0,1,'20161008111111','20160101111111');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(2,0,2,'20160101081111','20160101081111');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(3,1,2,'20160101111111','20160101111111');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(4,0,3,'20151228091111','20151228091111');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(5,1,3,'20151228111111','20151228111111');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(6,2,3,'20160101111111','20160101111111');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(7,0,4,'20160101111111','20160101111111');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(8,0,5,'20160101111111','20160101111111');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(9,0,6,'20160101081111','20160101081111');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(10,1,6,'20160101101111','20160101101111');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(11,2,6,'20160101111111','20160101111111');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(12,0,7,'20160328051212','20160328051212');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(13,1,7,'20160328071212','20160328071212');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(14,2,7,'20160328081212','20160328081212');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(15,3,7,'20160401081212','20160401081212');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(16,4,7,'20160401121212','20160401121212');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(17,5,7,'20160402101212','20160402101212');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(19,6,7,'20160402121212','20160402121212');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(20,0,8,'20160402021212','20160402021212');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(21,2,8,'20160402041212','20160402041212');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(22,3,8,'20160402061212','20160402061212');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(23,4,8,'20160402081212','20160402081212');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(24,5,8,'20160402101212','20160402101212');
+insert into sheet_state_follow(id,state,sheet_id,create_date,last_update_date)
+values(25,6,8,'20160402121212','20160402121212');
+
 
 
 -- create chargeback record
